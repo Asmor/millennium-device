@@ -1,0 +1,25 @@
+{
+  "name": "blades-assistant",
+  "version": "1.0.0",
+  "description": "Utility for helping play Millennium Blades",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:js && npm run build:html",
+    "build:html": "cp src/index.html build/index.html",
+    "build:js": "browserify --debug src/app.js -o build/js/bundle.js",
+    "build:watch": "npm run build:html-watch && npm run build:js-watch",
+    "build:html-watch": "npm run build:html",
+    "build:js-watch": "watchify src/app.js -o build/js/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ian Toltz",
+  "license": "ISC",
+  "dependencies": {
+    "flux": "^2.1.1",
+    "foundation": "^4.2.1-1",
+    "react": "^15.2.0"
+  },
+  "devDependencies": {
+    "react-dom": "^15.2.0"
+  }
+}

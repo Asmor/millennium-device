@@ -1,0 +1,39 @@
+Make choose sets page
+	Make store for sets
+	Make react component for individual set dropdown
+Render simple menu with buttons (setup, choose sets, score). Only choose sets works at the moment
+Make sets randomizable in bulk
+Make sets randomizable individually
+
+Plan:
+
+Game setup
+	Player Database
+		Add new players; text field, one per line
+		Delete added players
+		Select any number of players for game
+	Game players
+		Drag/drop to reorder
+		Randomize seating order
+		Select characters
+		Randomize characters (all/individual)
+		Select starting deck
+		Randomize starting deck (all/individual)
+	Reset scores
+	Reset players
+Randomizer
+	Sets
+		Select which sets you want; hierarchical checkboxes
+		Add custom sets
+		Delete custom sets (can also be disabled as normal)
+	Sets can be selected, randomized individually, locked (for global randomization), or have everything randomized
+	Save presets
+Score tracker
+	Enter collection size, victory points tallied automatically
+	Enter rank points, victory points tallied automatically
+Timer
+	Custom
+
+FLOW:
+
+Randomizer and timer can be used independently. Setup can be used independently, but score tracker requires setup?
