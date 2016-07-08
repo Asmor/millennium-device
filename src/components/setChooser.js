@@ -18,6 +18,7 @@ var SetChooser = React.createClass({
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
 	choicesChanged: function () {
+		console.log("Choices changed!");
 		this.forceUpdate();
 	},
 	randomize: function () {
@@ -33,6 +34,7 @@ var SetChooser = React.createClass({
 		window.randomize = this.randomize;
 	},
 	render: function () {
+		console.log("Rendering!");
 		var choiceStore = this.props.choiceStore;
 		var header = this.props.header;
 		var options = this.props.options;
