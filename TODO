@@ -1,6 +1,6 @@
 Make choose sets page
-	Make store for sets
-	Make react component for individual set dropdown
+	Ability to randomize all sets
+	Make not totally ugly
 Render simple menu with buttons (setup, choose sets, score). Only choose sets works at the moment
 Make sets randomizable in bulk
 Make sets randomizable individually
