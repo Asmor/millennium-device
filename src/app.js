@@ -1,50 +1,43 @@
+"use strict";
+
 var Dispatcher = require("flux/lib/Dispatcher");
 
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-var sets = require("./data/sets.json");
+var rawSets = require("./data/sets.json");
 
 var SetStore = require("./stores/setStore.js");
+var ChoiceStore = require("./stores/choiceStore.js");
 
-var SetDropdown = require("./components/setDropdown.js");
+var SetChooser = require("./components/setChooser.js");
 
-var store = new SetStore(sets);
+var bladeDispatcher = new Dispatcher();
 
-function n(count) {
-	var out = [];
-	for ( var i = 0; i < count; i++ ) {
-		out.push(i);
-	}
+var setsStore = new SetStore(rawSets);
+var choiceStores = {
+	Expansion: new ChoiceStore(5),
+	Premium: new ChoiceStore(4),
+	Master: new ChoiceStore(3),
+};
 
-	return out;
-}
+var setChoosers = {};
 
-var setTypes = [
-	{ type: "Expansion", count: 5 },
-	{ type: "Premium",   count: 4 },
-	{ type: "Master",    count: 3 },
-	{ type: "Bronze",    count: 2 },
-	{ type: "Silver",    count: 2 },
-	{ type: "Gold",      count: 1 },
-];
+Object.keys(choiceStores).forEach(function (type) {
+	var choiceStore = choiceStores[type];
 
-var dropdowns = setTypes.reduce(function (out, defs) {
-	out[defs.type] = n(defs.count).map(function (i) {
-		return React.createElement(SetDropdown, { sets: store.types[defs.type], key: defs.type + i });
+	choiceStore.registerDispatcher(bladeDispatcher);
+
+	setChoosers[type] = React.createElement(SetChooser, {
+		dispatcher: bladeDispatcher,
+		choiceStore: choiceStore,
+		options: setsStore.types[type],
+		header: type,
+		key: type,
 	});
+});
 
-	return out;
-}, {});
-
-var rootElement = React.createElement("div", {}, Object.keys(dropdowns).reduce(function (elements, type) {
-	// Add header
-	elements.push(React.createElement("h3", { key: type }, type));
-	// Add dropdowns
-	elements.splice(elements.length, 0, dropdowns[type]);
-
-	return elements;
-}, []));
+var rootElement = React.createElement("div", {}, Object.keys(setChoosers).map(key => setChoosers[key]));
 
 window.addEventListener("load", function () {
 	ReactDOM.render(rootElement, document.getElementById("content"));

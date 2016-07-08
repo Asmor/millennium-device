@@ -1,3 +1,5 @@
+"use strict";
+
 function SetStore(sets) {
 	var setStore = this;
 	this.blocks = {};

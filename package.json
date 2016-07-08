@@ -14,12 +14,15 @@
   },
   "author": "Ian Toltz",
   "license": "ISC",
+  "repository": "Asmor/blades-assistant",
   "dependencies": {
     "flux": "^2.1.1",
     "foundation": "^4.2.1-1",
     "react": "^15.2.0"
   },
   "devDependencies": {
+    "microevent-github": "^1.0.0",
+    "node-uuid": "^1.4.7",
     "react-dom": "^15.2.0"
   }
 }
