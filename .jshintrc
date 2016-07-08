@@ -1,0 +1,9 @@
+{
+	"browser": true,
+	"devel": true,
+	"globalstrict": true,
+	"undef": true,
+	"unused": true,
+	"predef": [ "module", "require" ],
+	"esnext": true
+}
