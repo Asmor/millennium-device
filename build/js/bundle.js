@@ -20882,7 +20882,6 @@ var SetChooser = React.createClass({
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i);
-			console.log(i, currentValue);
 			if ( currentValue ) {
 				currentOptions = complement.concat({ name: currentValue });
 			} else {
@@ -20928,7 +20927,9 @@ var SetDropdown = React.createClass({
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
 	},
 	handleChange: function (evt) {
-		var newValue = evt.target.value;
+		this.setValue(evt.target.value);
+	},
+	setValue: function (newValue) {
 		this.setState({ value: newValue });
 		this.props.dispatcher.dispatch({
 			action: "choice",
@@ -20936,6 +20937,12 @@ var SetDropdown = React.createClass({
 			index: this.props.index,
 			value: newValue,
 		});
+	},
+	randomize: function () {
+		var sets = this.props.sets;
+		// First entry is blank; we don't want that one
+		var index = Math.floor(Math.random() * (sets.length - 1)) + 1;
+		this.setValue( sets[index].name );
 	},
 	render: function () {
 		var theReplacer = /^The /i;
@@ -20955,7 +20962,10 @@ var SetDropdown = React.createClass({
 				.map(function (set) {
 					return React.createElement("option", { value: set.name, key: set.name }, set.name);
 				})
-			)
+			),
+			React.createElement("button", {
+				onClick: this.randomize,
+			}, "Randomize")
 		);
 	},
 });

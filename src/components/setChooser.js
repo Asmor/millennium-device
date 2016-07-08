@@ -31,7 +31,6 @@ var SetChooser = React.createClass({
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i);
-			console.log(i, currentValue);
 			if ( currentValue ) {
 				currentOptions = complement.concat({ name: currentValue });
 			} else {
