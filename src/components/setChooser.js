@@ -16,7 +16,7 @@ var SetChooser = React.createClass({
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
-	choicesChanged: function (what) {
+	choicesChanged: function () {
 		this.forceUpdate();
 	},
 	render: function () {
