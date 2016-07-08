@@ -19,6 +19,9 @@ var choiceStores = {
 	Expansion: new ChoiceStore(5),
 	Premium: new ChoiceStore(4),
 	Master: new ChoiceStore(3),
+	Bronze: new ChoiceStore(2),
+	Silver: new ChoiceStore(2),
+	Gold: new ChoiceStore(1),
 };
 
 var setChoosers = {};

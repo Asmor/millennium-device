@@ -6,21 +6,17 @@ var ChoiceStore = require("../stores/choiceStore.js");
 
 var SetDropdown = React.createClass({
 	displayName: "set-dropdown",
-	getInitialState: function () {
-		return { value: this.props.initialValue };
-	},
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		index: React.PropTypes.number.isRequired,
 		sets: React.PropTypes.array.isRequired,
-		initialValue: React.PropTypes.string,
+		value: React.PropTypes.string,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
 	},
 	handleChange: function (evt) {
 		this.setValue(evt.target.value);
 	},
 	setValue: function (newValue) {
-		this.setState({ value: newValue });
 		this.props.dispatcher.dispatch({
 			action: "choice",
 			id: this.props.choiceStore.id(),
@@ -39,7 +35,7 @@ var SetDropdown = React.createClass({
 
 		return React.createElement("div", { className: "set-dropdown" },
 			React.createElement("select", {
-					value: this.state.value,
+					value: this.props.value,
 					onChange: this.handleChange,
 				},
 				React.createElement("option", { value: ""}),
