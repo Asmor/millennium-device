@@ -20843,7 +20843,6 @@ var SetChooser = React.createClass({
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
 	choicesChanged: function () {
-		console.log("Choices changed!");
 		this.forceUpdate();
 	},
 	randomize: function () {
@@ -20859,7 +20858,6 @@ var SetChooser = React.createClass({
 		window.randomize = this.randomize;
 	},
 	render: function () {
-		console.log("Rendering!");
 		var choiceStore = this.props.choiceStore;
 		var header = this.props.header;
 		var options = this.props.options;
@@ -20971,6 +20969,9 @@ var SetsPage = React.createClass({
 		sets: React.PropTypes.array.isRequired,
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 	},
+	randomize: function () {
+		Object.keys(this.refs).forEach(type => this.refs[type].randomize() );
+	},
 	render: function () {
 		var dispatcher = this.props.dispatcher;
 		var SetStore = require("../stores/setStore.js");
@@ -21005,7 +21006,10 @@ var SetsPage = React.createClass({
 			});
 		});
 
-		return React.createElement("div", {}, Object.keys(setChoosers).map(key => setChoosers[key]));
+		return React.createElement("div", {},
+			React.createElement("button", { onClick: this.randomize }, "Randomize All"),
+			Object.keys(setChoosers).map(key => setChoosers[key])
+		);
 	},
 });
 
