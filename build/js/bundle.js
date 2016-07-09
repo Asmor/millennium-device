@@ -20841,33 +20841,31 @@ var SetChooser = React.createClass({
 		label: React.PropTypes.array,
 	},
 	getInitialState: function () {
-		var choiceStore = this.props.choiceStore;
-		var initialState = {};
-
-		for ( var i = 0; i < choiceStore.size(); i++ ) {
-			initialState["options" + i] = this.generateOptions(i);
-		}
-
-		return initialState;
+		return {
+			options: this.generateOptions()
+		};
 	},
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
-	choicesChanged: function (args) {
-		var { index } = args;
-		var stateUpdate = {};
-		stateUpdate["options" + index] = this.generateOptions(index);
-		this.setState(stateUpdate);
+	choicesChanged: function () {
+		this.setState({ options: this.generateOptions() });
 	},
-	generateOptions: function (index) {
+	generateOptions: function () {
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
+		var complement = choiceStore.complement(this.props.options);
+		var options = [];
+		var size = choiceStore.size();
+		var currentValue;
 
-		var options = choiceStore.complement(this.props.options);
-
-		var currentValue = choiceStore.get(index) || "";
-		if ( currentValue ) {
-			options.push({ name: currentValue });
+		for ( var i = 0; i < size; i++ ) {
+			currentValue = choiceStore.get(i);
+			if ( currentValue ) {
+				options[i] = complement.concat({ name: currentValue });
+			} else {
+				options[i] = complement;
+			}
 		}
 
 		return options;
@@ -20902,7 +20900,7 @@ var SetChooser = React.createClass({
 				index: i,
 				choiceStore: choiceStore,
 				value: currentValue,
-				sets: this.state["options" + i],
+				sets: this.state.options[i],
 				key: i,
 			};
 
