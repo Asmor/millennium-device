@@ -20913,7 +20913,15 @@ var SetChooser = React.createClass({
 
 		return React.createElement("div", { className: "set-chooser" },
 			React.createElement("h3", { key: header }, header,
-				React.createElement("button", { onClick: this.randomize }, "Randomize")
+				React.createElement(
+					"button",
+					{
+						className: "btn btn-default set-chooser--shuffle-button",
+						onClick: this.randomize,
+					},
+					React.createElement("span", { className: "glyphicon glyphicon-random" }),
+					" all " + header
+				)
 			),
 			dropdowns
 		);

@@ -17,6 +17,8 @@
   @media (min-width: 900px) {
     .set-chooser {
       width: 33.33333%; } }
+  .set-chooser .set-chooser--shuffle-button {
+    float: right; }
 
 .set-dropdown {
   margin: 20px 0; }
