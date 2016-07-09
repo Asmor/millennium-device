@@ -12,6 +12,7 @@ var SetDropdown = React.createClass({
 		sets: React.PropTypes.array.isRequired,
 		value: React.PropTypes.string,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
+		label: React.PropTypes.string,
 	},
 	handleChange: function (evt) {
 		this.setValue(evt.target.value);
@@ -33,10 +34,13 @@ var SetDropdown = React.createClass({
 	render: function () {
 		var theReplacer = /^The /i;
 
-		return React.createElement("div", { className: "set-dropdown" },
-			React.createElement("select", {
+		var contents = [
+			React.createElement(
+				"select",
+				{
 					value: this.props.value,
 					onChange: this.handleChange,
+					key: "select",
 				},
 				React.createElement("option", { value: ""}),
 				this.props.sets
@@ -51,8 +55,15 @@ var SetDropdown = React.createClass({
 			),
 			React.createElement("button", {
 				onClick: this.randomize,
-			}, "Randomize")
-		);
+				key: "button",
+			}, "Randomize"),
+		];
+
+		if ( this.props.label ) {
+			contents.unshift(this.props.label);
+		}
+
+		return React.createElement("div", { className: "set-dropdown" }, contents);
 	},
 });
 

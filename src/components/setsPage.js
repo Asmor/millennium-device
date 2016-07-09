@@ -28,6 +28,11 @@ var SetsPage = React.createClass({
 			Silver: new ChoiceStore(2),
 			Gold: new ChoiceStore(1),
 		};
+		var labels = {
+			Bronze: ["Fusion", "Prize support"],
+			Silver: ["Fusion", "Prize support"],
+			Gold: ["Fusion"],
+		};
 
 		var setChoosers = {};
 
@@ -43,6 +48,7 @@ var SetsPage = React.createClass({
 				header: type,
 				key: type,
 				ref: type,
+				labels: labels[type],
 			});
 		});
 

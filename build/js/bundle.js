@@ -20837,7 +20837,8 @@ var SetChooser = React.createClass({
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
 		options: React.PropTypes.array.isRequired,
-		header: React.PropTypes.string.isRequired
+		header: React.PropTypes.string.isRequired,
+		label: React.PropTypes.array,
 	},
 	getInitialState: function () {
 		var choiceStore = this.props.choiceStore;
@@ -20875,31 +20876,41 @@ var SetChooser = React.createClass({
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
 		var shuffled = shuffle(this.props.options.map(o => o.name));
-		var selected = shuffled.slice(0, count).sort();
+		var selected = shuffled.slice(0, count);
+
+		// If this category has labels, the order is important so don't sort
+		if ( !this.props.labels ) {
+			selected.sort();
+		}
 
 		selected.forEach(
 			(value, index) => this.props.dispatcher.dispatch({ action: "choice", id, index, value })
 		);
-
-		window.randomize = this.randomize;
 	},
 	render: function () {
-		var choiceStore = this.props.choiceStore;
-		var header = this.props.header;
+		var {choiceStore, header, labels} = this.props;
 		var dropdowns = [];
 		var size = choiceStore.size();
 		var currentValue;
+		var props;
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i) || "";
-			dropdowns.push(React.createElement(SetDropdown, {
+
+			props = {
 				dispatcher: this.props.dispatcher,
 				index: i,
 				choiceStore: choiceStore,
 				value: currentValue,
 				sets: this.state["options" + i],
 				key: i,
-			}));
+			};
+
+			if ( labels ) {
+				props.label = labels[i];
+			}
+
+			dropdowns.push(React.createElement(SetDropdown, props));
 		}
 
 		return React.createElement("div", { className: "set-chooser" },
@@ -20928,6 +20939,7 @@ var SetDropdown = React.createClass({
 		sets: React.PropTypes.array.isRequired,
 		value: React.PropTypes.string,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
+		label: React.PropTypes.string,
 	},
 	handleChange: function (evt) {
 		this.setValue(evt.target.value);
@@ -20949,10 +20961,13 @@ var SetDropdown = React.createClass({
 	render: function () {
 		var theReplacer = /^The /i;
 
-		return React.createElement("div", { className: "set-dropdown" },
-			React.createElement("select", {
+		var contents = [
+			React.createElement(
+				"select",
+				{
 					value: this.props.value,
 					onChange: this.handleChange,
+					key: "select",
 				},
 				React.createElement("option", { value: ""}),
 				this.props.sets
@@ -20967,8 +20982,15 @@ var SetDropdown = React.createClass({
 			),
 			React.createElement("button", {
 				onClick: this.randomize,
-			}, "Randomize")
-		);
+				key: "button",
+			}, "Randomize"),
+		];
+
+		if ( this.props.label ) {
+			contents.unshift(this.props.label);
+		}
+
+		return React.createElement("div", { className: "set-dropdown" }, contents);
 	},
 });
 
@@ -21005,6 +21027,11 @@ var SetsPage = React.createClass({
 			Silver: new ChoiceStore(2),
 			Gold: new ChoiceStore(1),
 		};
+		var labels = {
+			Bronze: ["Fusion", "Prize support"],
+			Silver: ["Fusion", "Prize support"],
+			Gold: ["Fusion"],
+		};
 
 		var setChoosers = {};
 
@@ -21020,6 +21047,7 @@ var SetsPage = React.createClass({
 				header: type,
 				key: type,
 				ref: type,
+				labels: labels[type],
 			});
 		});
 
