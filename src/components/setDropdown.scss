@@ -1,0 +1,10 @@
+.set-dropdown {
+	$shuffle-button-width: 40px;
+
+	margin: 20px 0;
+
+	.set-dropdown--select {
+		width: calc(100% - #{$shuffle-button-width});
+		display: inline-block;
+	}
+}

@@ -17,3 +17,9 @@
   @media (min-width: 900px) {
     .set-chooser {
       width: 33.33333%; } }
+
+.set-dropdown {
+  margin: 20px 0; }
+  .set-dropdown .set-dropdown--select {
+    width: calc(100% - 40px);
+    display: inline-block; }

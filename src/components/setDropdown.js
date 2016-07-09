@@ -38,6 +38,7 @@ var SetDropdown = React.createClass({
 			React.createElement(
 				"select",
 				{
+					className: "set-dropdown--select form-control",
 					value: this.props.value,
 					onChange: this.handleChange,
 					key: "select",
