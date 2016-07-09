@@ -3,9 +3,14 @@
   padding: 0;
   box-sizing: border-box; }
 
+body {
+  background: url("../images/parchment.jpg"); }
+
 .sets-page .sets-page--choosers {
   display: flex;
   flex-wrap: wrap; }
+.sets-page .sets-page--logo {
+  max-width: 100%; }
 .sets-page .sets-page--header {
   text-align: center; }
 .sets-page .sets-page--shuffle-button {

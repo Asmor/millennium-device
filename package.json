@@ -8,6 +8,7 @@
     "build:html": "cp src/index.html build/index.html",
     "build:js": "browserify --debug src/app.js -o build/js/bundle.js",
     "build:css": "sass src/style.scss:build/css/style.css",
+    "build:images": "cp src/images/* build/images",
     "build:watch": "npm run build:html-watch && npm run build:js-watch && npm run build:css-watch",
     "build:html-watch": "npm run build:html",
     "build:js-watch": "watchify src/app.js -o build/js/bundle.js",

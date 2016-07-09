@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+body {
+	background: url("../images/parchment.jpg");
+}
+
 @import "components/setsPage";
 @import "components/setChooser";
 @import "components/setDropdown";
