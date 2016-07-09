@@ -53,7 +53,16 @@ var SetsPage = React.createClass({
 		});
 
 		return React.createElement("div", { className: "sets-page" },
-			React.createElement("button", { onClick: this.randomize }, "Randomize All"),
+			React.createElement("div", { className: "sets-page--header" },
+				React.createElement(
+					"button",
+					{
+						className: "btn btn-primary sets-page--shuffle-button",
+						onClick: this.randomize,
+					},
+					"Randomize All"
+				)
+			),
 			React.createElement("div", { className: "sets-page--choosers" },
 				Object.keys(setChoosers).map(key => setChoosers[key])
 			)

@@ -6,6 +6,10 @@
 .sets-page .sets-page--choosers {
   display: flex;
   flex-wrap: wrap; }
+.sets-page .sets-page--header {
+  text-align: center; }
+.sets-page .sets-page--shuffle-button {
+  margin: 10px; }
 
 .set-chooser {
   max-width: 500px;
