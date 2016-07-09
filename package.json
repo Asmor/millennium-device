@@ -4,12 +4,14 @@
   "description": "Utility for helping play Millennium Blades",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:js && npm run build:html",
+    "build": "npm run build:js && npm run build:html && npm run build:css",
     "build:html": "cp src/index.html build/index.html",
     "build:js": "browserify --debug src/app.js -o build/js/bundle.js",
-    "build:watch": "npm run build:html-watch && npm run build:js-watch",
+    "build:css": "sass src/style.scss:build/css/style.css",
+    "build:watch": "npm run build:html-watch && npm run build:js-watch && npm run build:css-watch",
     "build:html-watch": "npm run build:html",
     "build:js-watch": "watchify src/app.js -o build/js/bundle.js",
+    "build:css-watch": "sass --watch src/style.scss:build/css/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ian Toltz",

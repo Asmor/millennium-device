@@ -52,9 +52,11 @@ var SetsPage = React.createClass({
 			});
 		});
 
-		return React.createElement("div", {},
+		return React.createElement("div", { className: "sets-page" },
 			React.createElement("button", { onClick: this.randomize }, "Randomize All"),
-			Object.keys(setChoosers).map(key => setChoosers[key])
+			React.createElement("div", { className: "sets-page--choosers" },
+				Object.keys(setChoosers).map(key => setChoosers[key])
+			)
 		);
 	},
 });

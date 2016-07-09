@@ -1,0 +1,12 @@
+.set-chooser {
+	$minimum-chooser-width: 300px;
+	max-width: 500px;
+	width: 100%;
+	padding: 10px;
+
+	@for $i from 2 through 3 {
+		@media ( min-width: $minimum-chooser-width * $i ) {
+			width: 100% / $i;
+		}
+	}
+}
