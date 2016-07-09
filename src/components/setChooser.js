@@ -55,8 +55,6 @@ var SetChooser = React.createClass({
 		selected.forEach(
 			(value, index) => this.props.dispatcher.dispatch({ action: "choice", id, index, value })
 		);
-
-		window.randomize = this.randomize;
 	},
 	render: function () {
 		var choiceStore = this.props.choiceStore;
