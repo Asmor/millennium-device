@@ -14,11 +14,37 @@ var SetChooser = React.createClass({
 		options: React.PropTypes.array.isRequired,
 		header: React.PropTypes.string.isRequired
 	},
+	getInitialState: function () {
+		var choiceStore = this.props.choiceStore;
+		var initialState = {};
+
+		for ( var i = 0; i < choiceStore.size(); i++ ) {
+			initialState["options" + i] = this.generateOptions(i);
+		}
+
+		return initialState;
+	},
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
-	choicesChanged: function () {
-		this.forceUpdate();
+	choicesChanged: function (args) {
+		var { index } = args;
+		var stateUpdate = {};
+		stateUpdate["options" + index] = this.generateOptions(index);
+		this.setState(stateUpdate);
+	},
+	generateOptions: function (index) {
+		// clone state stuff so so we don't mutate it
+		var choiceStore = this.props.choiceStore;
+
+		var options = choiceStore.complement(this.props.options);
+
+		var currentValue = choiceStore.get(index) || "";
+		if ( currentValue ) {
+			options.push({ name: currentValue });
+		}
+
+		return options;
 	},
 	randomize: function () {
 		var count = this.props.choiceStore.size();
@@ -35,27 +61,18 @@ var SetChooser = React.createClass({
 	render: function () {
 		var choiceStore = this.props.choiceStore;
 		var header = this.props.header;
-		var options = this.props.options;
-		var complement = choiceStore.complement(options);
 		var dropdowns = [];
 		var size = choiceStore.size();
-		var currentOptions;
 		var currentValue;
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i) || "";
-			if ( currentValue ) {
-				currentOptions = complement.concat({ name: currentValue });
-			} else {
-				currentOptions = complement;
-			}
-
 			dropdowns.push(React.createElement(SetDropdown, {
 				dispatcher: this.props.dispatcher,
 				index: i,
 				choiceStore: choiceStore,
 				value: currentValue,
-				sets: currentOptions,
+				sets: this.state["options" + i],
 				key: i,
 			}));
 		}
