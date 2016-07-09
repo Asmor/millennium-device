@@ -20979,9 +20979,10 @@ var SetDropdown = React.createClass({
 				})
 			),
 			React.createElement("button", {
+				className: "btn btn-default",
 				onClick: this.randomize,
 				key: "button",
-			}, "Randomize"),
+			}, React.createElement("span", { className: "glyphicon glyphicon-random" })),
 		];
 
 		if ( this.props.label ) {
