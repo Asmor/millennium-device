@@ -5,8 +5,10 @@ var Dispatcher = require("flux/lib/Dispatcher");
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-var SetsPage = require("./pages/setsPage.js");
 var RouteStore = require("./stores/routeStore.js");
+
+var Menu = require("./pages/menu.js");
+var SetsPage = require("./pages/setsPage.js");
 
 var Router = React.createClass({
 	displayName: "router",
@@ -23,20 +25,39 @@ var Router = React.createClass({
 	},
 	locationChanged: function (newLocation) {
 		this.setState({ location: newLocation });
-		console.log("Route changed to", newLocation);
 	},
 	render: function () {
-		return React.createElement(SetsPage, {
-			sets: this.props.sets,
-			dispatcher: this.props.dispatcher,
-		});
+		var page;
+		if ( this.state.location === "randomizer" ) {
+			page = React.createElement(SetsPage, {
+				sets: this.props.sets,
+				dispatcher: this.props.dispatcher,
+			});
+		} else {
+			page = React.createElement(Menu, {
+				dispatcher: this.props.dispatcher,
+			});
+		}
+
+		return React.createElement("div", { className: "page" },
+			React.createElement("img", {
+				className: "page--logo",
+				src: "images/mblogo.png",
+				onClick: () => this.props.dispatcher.dispatch({ action: "location-change", location: "main-menu" }),
+			}),
+			page
+		);
 	},
 });
 
+var dispatcher = new Dispatcher();
+var routeStore = new RouteStore();
+routeStore.registerDispatcher(dispatcher);
+
 var rootElement = React.createElement(Router, {
 	sets: require("./data/sets.json"),
-	dispatcher: new Dispatcher(),
-	routeStore: new RouteStore(),
+	dispatcher,
+	routeStore,
 });
 
 window.addEventListener("load", function () {

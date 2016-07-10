@@ -9,7 +9,7 @@ function RouteStore() {
 
 	self.registerDispatcher = function (dispatcher) {
 		dispatcher.register(function (payload) {
-			if ( payload.action !== "route" ) {
+			if ( payload.action !== "location-change" ) {
 				return;
 			}
 

@@ -8,6 +8,16 @@ body {
 	background: url("../images/parchment.jpg");
 }
 
+.page {
+	.page--logo {
+		max-width: 100%;
+		display: block;
+		margin: auto;
+		cursor: pointer;
+	}
+}
+
+@import "pages/menu";
 @import "pages/setsPage";
 @import "components/setChooser";
 @import "components/setDropdown";

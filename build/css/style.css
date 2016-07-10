@@ -6,11 +6,23 @@
 body {
   background: url("../images/parchment.jpg"); }
 
+.page .page--logo {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+  cursor: pointer; }
+
+.menu {
+  margin: auto;
+  max-width: 100%;
+  width: 510px;
+  padding: 20px; }
+  .menu .menu--button {
+    margin: 20px 0; }
+
 .sets-page .sets-page--choosers {
   display: flex;
   flex-wrap: wrap; }
-.sets-page .sets-page--logo {
-  max-width: 100%; }
 .sets-page .sets-page--header {
   text-align: center; }
 .sets-page .sets-page--shuffle-button {

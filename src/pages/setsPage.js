@@ -54,11 +54,6 @@ var SetsPage = React.createClass({
 
 		return React.createElement("div", { className: "sets-page" },
 			React.createElement("div", { className: "sets-page--header" },
-				React.createElement("img", {
-					className: "sets-page--logo",
-					src: "images/mblogo.png",
-				}),
-				React.createElement("br"),
 				React.createElement(
 					"button",
 					{
