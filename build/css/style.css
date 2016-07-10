@@ -20,12 +20,12 @@ body {
   .menu .menu--button {
     margin: 20px 0; }
 
-.sets-page .sets-page--choosers {
+.randomizer .randomizer--choosers {
   display: flex;
   flex-wrap: wrap; }
-.sets-page .sets-page--header {
+.randomizer .randomizer--header {
   text-align: center; }
-.sets-page .sets-page--shuffle-button {
+.randomizer .randomizer--shuffle-button {
   margin: 10px; }
 
 .set-chooser {

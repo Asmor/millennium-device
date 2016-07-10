@@ -3,8 +3,8 @@
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 
-var SetsPage = React.createClass({
-	displayName: "sets-page",
+var Randomizer = React.createClass({
+	displayName: "randomizer",
 	propTypes: {
 		sets: React.PropTypes.array.isRequired,
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
@@ -52,22 +52,22 @@ var SetsPage = React.createClass({
 			});
 		});
 
-		return React.createElement("div", { className: "sets-page" },
-			React.createElement("div", { className: "sets-page--header" },
+		return React.createElement("div", { className: "randomizer" },
+			React.createElement("div", { className: "randomizer--header" },
 				React.createElement(
 					"button",
 					{
-						className: "btn btn-primary sets-page--shuffle-button",
+						className: "btn btn-primary randomizer--shuffle-button",
 						onClick: this.randomize,
 					},
 					"Randomize All"
 				)
 			),
-			React.createElement("div", { className: "sets-page--choosers" },
+			React.createElement("div", { className: "randomizer--choosers" },
 				Object.keys(setChoosers).map(key => setChoosers[key])
 			)
 		);
 	},
 });
 
-module.exports = SetsPage;
+module.exports = Randomizer;

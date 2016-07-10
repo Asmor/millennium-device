@@ -20813,7 +20813,7 @@ var ReactDOM = require("react-dom");
 var RouteStore = require("./stores/routeStore.js");
 
 var Menu = require("./pages/menu.js");
-var SetsPage = require("./pages/setsPage.js");
+var Randomizer = require("./pages/randomizer.js");
 
 var Router = React.createClass({
 	displayName: "router",
@@ -20834,7 +20834,7 @@ var Router = React.createClass({
 	render: function () {
 		var page;
 		if ( this.state.location === "randomizer" ) {
-			page = React.createElement(SetsPage, {
+			page = React.createElement(Randomizer, {
 				sets: this.props.sets,
 				dispatcher: this.props.dispatcher,
 			});
@@ -20869,7 +20869,7 @@ window.addEventListener("load", function () {
 	ReactDOM.render(rootElement, document.getElementById("content"));
 });
 
-},{"./data/sets.json":176,"./pages/menu.js":177,"./pages/setsPage.js":178,"./stores/routeStore.js":180,"flux/lib/Dispatcher":2,"react":172,"react-dom":6}],174:[function(require,module,exports){
+},{"./data/sets.json":176,"./pages/menu.js":177,"./pages/randomizer.js":178,"./stores/routeStore.js":180,"flux/lib/Dispatcher":2,"react":172,"react-dom":6}],174:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -21177,8 +21177,8 @@ module.exports = Menu;
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 
-var SetsPage = React.createClass({
-	displayName: "sets-page",
+var Randomizer = React.createClass({
+	displayName: "randomizer",
 	propTypes: {
 		sets: React.PropTypes.array.isRequired,
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
@@ -21226,25 +21226,25 @@ var SetsPage = React.createClass({
 			});
 		});
 
-		return React.createElement("div", { className: "sets-page" },
-			React.createElement("div", { className: "sets-page--header" },
+		return React.createElement("div", { className: "randomizer" },
+			React.createElement("div", { className: "randomizer--header" },
 				React.createElement(
 					"button",
 					{
-						className: "btn btn-primary sets-page--shuffle-button",
+						className: "btn btn-primary randomizer--shuffle-button",
 						onClick: this.randomize,
 					},
 					"Randomize All"
 				)
 			),
-			React.createElement("div", { className: "sets-page--choosers" },
+			React.createElement("div", { className: "randomizer--choosers" },
 				Object.keys(setChoosers).map(key => setChoosers[key])
 			)
 		);
 	},
 });
 
-module.exports = SetsPage;
+module.exports = Randomizer;
 
 },{"../components/setChooser.js":174,"../stores/choiceStore.js":179,"../stores/setStore.js":181,"flux/lib/Dispatcher":2,"react":172}],179:[function(require,module,exports){
 "use strict";

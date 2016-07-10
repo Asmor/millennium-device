@@ -8,7 +8,7 @@ var ReactDOM = require("react-dom");
 var RouteStore = require("./stores/routeStore.js");
 
 var Menu = require("./pages/menu.js");
-var SetsPage = require("./pages/setsPage.js");
+var Randomizer = require("./pages/randomizer.js");
 
 var Router = React.createClass({
 	displayName: "router",
@@ -29,7 +29,7 @@ var Router = React.createClass({
 	render: function () {
 		var page;
 		if ( this.state.location === "randomizer" ) {
-			page = React.createElement(SetsPage, {
+			page = React.createElement(Randomizer, {
 				sets: this.props.sets,
 				dispatcher: this.props.dispatcher,
 			});

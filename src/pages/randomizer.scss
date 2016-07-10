@@ -1,0 +1,14 @@
+.randomizer {
+	.randomizer--choosers {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.randomizer--header {
+		text-align: center;
+	}
+
+	.randomizer--shuffle-button {
+		margin: 10px;
+	}
+}
