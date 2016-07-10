@@ -17,7 +17,7 @@ var SetsPage = React.createClass({
 		var SetStore = require("../stores/setStore.js");
 		var ChoiceStore = require("../stores/choiceStore.js");
 
-		var SetChooser = require("./setChooser.js");
+		var SetChooser = require("../components/setChooser.js");
 
 		var setsStore = new SetStore(this.props.sets);
 		var choiceStores = {

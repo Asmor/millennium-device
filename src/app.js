@@ -5,7 +5,7 @@ var Dispatcher = require("flux/lib/Dispatcher");
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-var SetsPage = require("./components/setsPage.js");
+var SetsPage = require("./pages/setsPage.js");
 var RouteStore = require("./stores/routeStore.js");
 
 var Router = React.createClass({
