@@ -6,16 +6,18 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 
 var RouteStore = require("./stores/routeStore.js");
+var SetStore = require("./stores/setStore.js");
 
 var Menu = require("./pages/menu.js");
 var Randomizer = require("./pages/randomizer.js");
+var SelectBlocks = require("./pages/selectBlocks.js");
 
 var Router = React.createClass({
 	displayName: "router",
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		routeStore: React.PropTypes.instanceOf(RouteStore).isRequired,
-		sets: React.PropTypes.array.isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
 		return { location: "main-menu" };
@@ -23,20 +25,33 @@ var Router = React.createClass({
 	componentDidMount: function () {
 		this.props.routeStore.bind("location-change", this.locationChanged);
 	},
+	componentWillUnmount: function () {
+		this.props.routeStore.unbind("location-change", this.locationChanged);
+	},
 	locationChanged: function (newLocation) {
 		this.setState({ location: newLocation });
 	},
 	render: function () {
 		var page;
-		if ( this.state.location === "randomizer" ) {
-			page = React.createElement(Randomizer, {
-				sets: this.props.sets,
-				dispatcher: this.props.dispatcher,
-			});
-		} else {
-			page = React.createElement(Menu, {
-				dispatcher: this.props.dispatcher,
-			});
+		var { dispatcher, setStore } = this.props;
+
+		switch ( this.state.location ) {
+			case "randomizer":
+				page = React.createElement(Randomizer, {
+					setStore: setStore,
+					dispatcher: dispatcher,
+				});
+				break;
+			case "select-blocks":
+				page = React.createElement(SelectBlocks, {
+					setStore: setStore,
+					dispatcher: dispatcher,
+				});
+				break;
+			default:
+				page = React.createElement(Menu, {
+					dispatcher: dispatcher,
+				});
 		}
 
 		return React.createElement("div", { className: "page" },
@@ -51,13 +66,17 @@ var Router = React.createClass({
 });
 
 var dispatcher = new Dispatcher();
+
 var routeStore = new RouteStore();
 routeStore.registerDispatcher(dispatcher);
 
+var setStore = new SetStore(require("./data/sets.json"));
+setStore.registerDispatcher(dispatcher);
+
 var rootElement = React.createElement(Router, {
-	sets: require("./data/sets.json"),
 	dispatcher,
 	routeStore,
+	setStore,
 });
 
 window.addEventListener("load", function () {

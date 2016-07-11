@@ -28,6 +28,16 @@ body {
 .randomizer .randomizer--shuffle-button {
   margin: 10px; }
 
+.select-blocks {
+  margin: auto;
+  max-width: 100%;
+  width: 510px;
+  padding: 20px; }
+  .select-blocks .select-blocks--button {
+    margin: 20px 0; }
+  .select-blocks .select-blocks--button-icon {
+    float: left; }
+
 .set-chooser {
   max-width: 500px;
   width: 100%;

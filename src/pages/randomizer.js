@@ -2,24 +2,22 @@
 
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
+var ChoiceStore = require("../stores/choiceStore.js");
+var SetStore = require("../stores/setStore.js");
+var SetChooser = require("../components/setChooser.js");
 
 var Randomizer = React.createClass({
 	displayName: "randomizer",
 	propTypes: {
-		sets: React.PropTypes.array.isRequired,
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	randomize: function () {
 		Object.keys(this.refs).forEach(type => this.refs[type].randomize() );
 	},
 	render: function () {
-		var dispatcher = this.props.dispatcher;
-		var SetStore = require("../stores/setStore.js");
-		var ChoiceStore = require("../stores/choiceStore.js");
+		var { dispatcher, setStore } = this.props;
 
-		var SetChooser = require("../components/setChooser.js");
-
-		var setsStore = new SetStore(this.props.sets);
 		var choiceStores = {
 			Expansion: new ChoiceStore(5),
 			Premium: new ChoiceStore(4),
@@ -44,7 +42,7 @@ var Randomizer = React.createClass({
 			setChoosers[type] = React.createElement(SetChooser, {
 				dispatcher: dispatcher,
 				choiceStore: choiceStore,
-				options: setsStore.types[type],
+				options: setStore.types[type],
 				header: type,
 				key: type,
 				ref: type,

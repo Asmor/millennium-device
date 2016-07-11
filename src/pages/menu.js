@@ -18,13 +18,12 @@ var Menu = React.createClass({
 				}),
 			}, "Randomizer"),
 			React.createElement("button", {
-				className: "btn btn-primary btn-block btn-lg disabled menu--button",
-				title: "Not yet implemented",
-				// onClick: () => this.props.dispatcher.dispatch({
-				// 	action: "location-change",
-				// 	location: "randomizer",
-				// }),
-			}, "Select sets"),
+				className: "btn btn-primary btn-block btn-lg menu--button",
+				onClick: () => this.props.dispatcher.dispatch({
+					action: "location-change",
+					location: "select-blocks",
+				}),
+			}, "Select blocks"),
 			React.createElement("button", {
 				className: "btn btn-primary btn-block btn-lg disabled menu--button",
 				title: "Not yet implemented",

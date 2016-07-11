@@ -23,6 +23,9 @@ var SetChooser = React.createClass({
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
 	},
+	componentWillUnmount: function () {
+		this.props.choiceStore.unbind("update", this.choicesChanged);
+	},
 	choicesChanged: function () {
 		this.setState({ options: this.generateOptions() });
 	},
