@@ -21212,7 +21212,6 @@ var Menu = React.createClass({
 				className: "btn btn-info btn-block btn-lg menu--button",
 				href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
 				target: "_blank",
-				
 			}, "Feedback & Updates")
 		);
 	},
