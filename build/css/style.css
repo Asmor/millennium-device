@@ -23,6 +23,10 @@ body {
   .menu .menu--button {
     margin: 20px 0; }
 
+.player-setup .player-setup--buttons {
+  margin: 20px 0;
+  text-align: center; }
+
 .randomizer .randomizer--choosers {
   display: flex;
   flex-wrap: wrap; }

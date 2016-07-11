@@ -6,9 +6,11 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 
 var RouteStore = require("./stores/routeStore.js");
+var PlayerStore = require("./stores/playerStore.js");
 var SetStore = require("./stores/setStore.js");
 
 var Menu = require("./pages/menu.js");
+var PlayerSetup = require("./pages/playerSetup.js");
 var Randomizer = require("./pages/randomizer.js");
 var SelectBlocks = require("./pages/selectBlocks.js");
 
@@ -17,6 +19,7 @@ var Router = React.createClass({
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		routeStore: React.PropTypes.instanceOf(RouteStore).isRequired,
+		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
 		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
@@ -36,25 +39,20 @@ var Router = React.createClass({
 	},
 	render: function () {
 		var page;
-		var { dispatcher, setStore } = this.props;
+		var { dispatcher, playerStore, setStore } = this.props;
 
 		switch ( this.state.location ) {
 			case "randomizer":
-				page = React.createElement(Randomizer, {
-					setStore: setStore,
-					dispatcher: dispatcher,
-				});
+				page = React.createElement(Randomizer, { dispatcher, setStore });
 				break;
 			case "select-blocks":
-				page = React.createElement(SelectBlocks, {
-					setStore: setStore,
-					dispatcher: dispatcher,
-				});
+				page = React.createElement(SelectBlocks, { dispatcher, setStore });
+				break;
+			case "player-setup":
+				page = React.createElement(PlayerSetup, { dispatcher, playerStore });
 				break;
 			default:
-				page = React.createElement(Menu, {
-					dispatcher: dispatcher,
-				});
+				page = React.createElement(Menu, { dispatcher });
 		}
 
 		return React.createElement("div", { className: "page" },
@@ -78,12 +76,13 @@ var Router = React.createClass({
 var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
-
 var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
+var playerStore = new PlayerStore(dispatcher);
 
 var rootElement = React.createElement(Router, {
 	dispatcher,
 	routeStore,
+	playerStore,
 	setStore,
 });
 

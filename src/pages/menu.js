@@ -25,12 +25,11 @@ var Menu = React.createClass({
 				}),
 			}, "Select blocks"),
 			React.createElement("button", {
-				className: "btn btn-primary btn-block btn-lg disabled menu--button",
-				title: "Not yet implemented",
-				// onClick: () => this.props.dispatcher.dispatch({
-				// 	action: "location-change",
-				// 	location: "randomizer",
-				// }),
+				className: "btn btn-primary btn-block btn-lg menu--button",
+				onClick: () => this.props.dispatcher.dispatch({
+					action: "location-change",
+					location: "player-setup",
+				}),
 			}, "Player setup"),
 			React.createElement("button", {
 				className: "btn btn-primary btn-block btn-lg disabled menu--button",

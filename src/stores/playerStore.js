@@ -34,7 +34,7 @@ function PlayerStore(dispatcher) {
 
 	this.players = [];
 
-	var loadedData = window.localStorage(storageKey);
+	var loadedData = window.localStorage[storageKey];
 	if ( loadedData ) {
 		try {
 			this.players = JSON.parse(loadedData);
@@ -78,6 +78,8 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 			case "set-player-count":
 				self.playerCount = payload.count;
 
+				self.populatePlayers();
+
 				self.trigger("player-count-change", self.playerCount);
 				break;
 
@@ -98,6 +100,8 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 				});
 				break;
 		}
+
+		window.localStorage[storageKey] = JSON.stringify(self.players);
 	});
 };
 
