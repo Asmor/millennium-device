@@ -1,6 +1,8 @@
 "use strict";
 
 var microevent = require("microevent-github");
+var storageKey = "mba:excluded-blocks";
+var separator = "|";
 
 function SetStore(sets) {
 	var self = this;
@@ -17,6 +19,16 @@ function SetStore(sets) {
 		type.push(set);
 	});
 
+	var excluded = window.localStorage[storageKey] || "";
+
+	excluded.split(separator).forEach(function (set) {
+		// Probably overkill, but we only need to toggle off things that are already on and this
+		// protects us from corrupted data adding erroneous blocks
+		if ( self.blocks[set] ) {
+			self.blocks[set] = false;
+		}
+	});
+
 	self.registerDispatcher = function (dispatcher) {
 		dispatcher.register(function (payload) {
 			if ( payload.action !== "toggle-block-state" ) {
@@ -28,6 +40,9 @@ function SetStore(sets) {
 			self.blocks[block] = state;
 
 			self.trigger("block-state-change", { block, state });
+			window.localStorage[storageKey] = Object.keys(self.blocks)
+				.filter( key => !self.blocks[key] )
+				.join(separator);
 		});
 	};
 }
