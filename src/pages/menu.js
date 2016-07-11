@@ -31,7 +31,7 @@ var Menu = React.createClass({
 				// 	action: "location-change",
 				// 	location: "randomizer",
 				// }),
-			}, "Score tracker"),
+			}, "Player setup"),
 			React.createElement("button", {
 				className: "btn btn-primary btn-block btn-lg disabled menu--button",
 				title: "Not yet implemented",
@@ -39,7 +39,7 @@ var Menu = React.createClass({
 				// 	action: "location-change",
 				// 	location: "randomizer",
 				// }),
-			}, "Player setup"),
+			}, "Score tracker"),
 			React.createElement("a", {
 				className: "btn btn-info btn-block btn-lg menu--button",
 				href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
