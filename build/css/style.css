@@ -13,8 +13,7 @@ body {
 .page .page--logo {
   max-width: 100%;
   display: block;
-  margin: auto;
-  cursor: pointer; }
+  margin: auto; }
 
 .menu {
   margin: auto;
