@@ -21207,7 +21207,17 @@ var Menu = React.createClass({
 				// 	action: "location-change",
 				// 	location: "randomizer",
 				// }),
-			}, "Player setup")
+			}, "Player setup"),
+			React.createElement(
+				"a",
+				{
+					className: "btn btn-info btn-block btn-lg menu--button",
+					href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
+					target: "_blank",
+					
+				},
+				React.createElement("span", {}, " Feedback & Updates")
+			)
 		);
 	},
 });
