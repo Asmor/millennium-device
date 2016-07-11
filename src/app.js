@@ -79,8 +79,7 @@ var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
 
-var setStore = new SetStore(require("./data/sets.json"));
-setStore.registerDispatcher(dispatcher);
+var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
 
 var rootElement = React.createElement(Router, {
 	dispatcher,

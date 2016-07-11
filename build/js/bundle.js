@@ -20884,8 +20884,7 @@ var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
 
-var setStore = new SetStore(require("./data/sets.json"));
-setStore.registerDispatcher(dispatcher);
+var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
 
 var rootElement = React.createElement(Router, {
 	dispatcher,
@@ -21459,7 +21458,8 @@ var microevent = require("microevent-github");
 var storageKey = "mba:excluded-blocks";
 var separator = "|";
 
-function SetStore(sets) {
+function SetStore(args) {
+	var { sets, dispatcher } = args;
 	var self = this;
 	self.byBlock = {};
 	self.blocks = {};
@@ -21484,23 +21484,27 @@ function SetStore(sets) {
 		}
 	});
 
-	self.registerDispatcher = function (dispatcher) {
-		dispatcher.register(function (payload) {
-			if ( payload.action !== "toggle-block-state" ) {
-				return;
-			}
-
-			var { block, state } = payload;
-
-			self.blocks[block] = state;
-
-			self.trigger("block-state-change", { block, state });
-			window.localStorage[storageKey] = Object.keys(self.blocks)
-				.filter( key => !self.blocks[key] )
-				.join(separator);
-		});
-	};
+	if ( dispatcher ) {
+		self.registerDispatcher(dispatcher);
+	}
 }
+SetStore.prototype.registerDispatcher = function (dispatcher) {
+	var self = this;
+	dispatcher.register(function (payload) {
+		if ( payload.action !== "toggle-block-state" ) {
+			return;
+		}
+
+		var { block, state } = payload;
+
+		self.blocks[block] = state;
+
+		self.trigger("block-state-change", { block, state });
+		window.localStorage[storageKey] = Object.keys(self.blocks)
+			.filter( key => !self.blocks[key] )
+			.join(separator);
+	});
+};
 
 microevent.mixin(SetStore);
 
