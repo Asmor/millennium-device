@@ -21208,16 +21208,12 @@ var Menu = React.createClass({
 				// 	location: "randomizer",
 				// }),
 			}, "Player setup"),
-			React.createElement(
-				"a",
-				{
-					className: "btn btn-info btn-block btn-lg menu--button",
-					href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
-					target: "_blank",
-					
-				},
-				React.createElement("span", {}, " Feedback & Updates")
-			)
+			React.createElement("a", {
+				className: "btn btn-info btn-block btn-lg menu--button",
+				href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
+				target: "_blank",
+				
+			}, "Feedback & Updates")
 		);
 	},
 });
