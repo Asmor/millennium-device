@@ -34,6 +34,40 @@ Score tracker
 Timer
 	Custom
 
-FLOW:
-
-Randomizer and timer can be used independently. Setup can be used independently, but score tracker requires setup?
+Scoring
+	Collection bonuses
+		2: 2
+		3: 4
+		4: 7
+		5: 9
+		6: 12
+		7: 16
+		8+: 21
+	Tournament scores
+		Pre-release
+			1st: 7
+			2nd: 5
+			3rd: 4
+			4th: 3
+			5th: 2
+		Round 1
+			1st: 21
+			2nd: 15
+			3rd: 12
+			4th: 9
+			5th: 6
+		Round 2
+			1st: 28
+			2nd: 20
+			3rd: 16
+			4th: 12
+			5th: 8
+		Final Round
+			1st: 42
+			2nd: 30
+			3rd: 24
+			4th: 18
+			5th: 12
+	Friendship cards
+	Money
+		1vp per $4, rounded down
