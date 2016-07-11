@@ -20834,6 +20834,9 @@ var Router = React.createClass({
 		this.props.routeStore.unbind("location-change", this.locationChanged);
 	},
 	locationChanged: function (newLocation) {
+		// Move back to top of page
+		window.scrollTo(0,0);
+
 		this.setState({ location: newLocation });
 	},
 	render: function () {
@@ -20860,10 +20863,17 @@ var Router = React.createClass({
 		}
 
 		return React.createElement("div", { className: "page" },
+			React.createElement(
+				"button",
+				{
+					className: "page--home-button btn btn-large",
+					onClick: () => this.props.dispatcher.dispatch({ action: "location-change", location: "main-menu" }),
+				},
+				React.createElement("span", { className: "glyphicon glyphicon-home" })
+			),
 			React.createElement("img", {
 				className: "page--logo",
 				src: "images/mblogo.png",
-				onClick: () => this.props.dispatcher.dispatch({ action: "location-change", location: "main-menu" }),
 			}),
 			page
 		);

@@ -9,6 +9,12 @@ body {
 }
 
 .page {
+	.page--home-button {
+		position: fixed;
+		top: 20px;
+		left: 20px;
+	}
+
 	.page--logo {
 		max-width: 100%;
 		display: block;
