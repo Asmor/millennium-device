@@ -40,8 +40,9 @@ var Randomizer = React.createClass({
 			choiceStore.registerDispatcher(dispatcher);
 
 			setChoosers[type] = React.createElement(SetChooser, {
-				dispatcher: dispatcher,
-				choiceStore: choiceStore,
+				dispatcher,
+				choiceStore,
+				setStore,
 				options: setStore.types[type],
 				header: type,
 				key: type,

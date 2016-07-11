@@ -20894,6 +20894,7 @@ window.addEventListener("load", function () {
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 var ChoiceStore = require("../stores/choiceStore.js");
+var SetStore = require("../stores/setStore.js");
 var SetDropdown = require("./setDropdown.js");
 var { shuffle } = require("../util.js");
 
@@ -20902,6 +20903,7 @@ var SetChooser = React.createClass({
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 		options: React.PropTypes.array.isRequired,
 		header: React.PropTypes.string.isRequired,
 		label: React.PropTypes.array,
@@ -20913,9 +20915,11 @@ var SetChooser = React.createClass({
 	},
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
+		this.props.setStore.bind("block-state-change", this.choicesChanged);
 	},
 	componentWillUnmount: function () {
 		this.props.choiceStore.unbind("update", this.choicesChanged);
+		this.props.setStore.unbind("block-state-change", this.choicesChanged);
 	},
 	choicesChanged: function () {
 		this.setState({ options: this.generateOptions() });
@@ -20923,7 +20927,8 @@ var SetChooser = React.createClass({
 	generateOptions: function () {
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
-		var complement = choiceStore.complement(this.props.options);
+		var complement = choiceStore.complement(this.props.options)
+			.filter(set => this.props.setStore.blocks[set.block]);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -20942,12 +20947,19 @@ var SetChooser = React.createClass({
 	randomize: function () {
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
-		var shuffled = shuffle(this.props.options.map(o => o.name));
-		var selected = shuffled.slice(0, count);
+		var sets = this.props.options
+			.filter(set => this.props.setStore.blocks[set.block])
+			.map(o => o.name);
+		var selected = shuffle(sets).slice(0, count);
 
 		// If this category has labels, the order is important so don't sort
 		if ( !this.props.labels ) {
 			selected.sort();
+		}
+
+		// If there aren't enough sets in the chosen blocks, pad out the extra choices with blanks
+		while ( selected.length < count ) {
+			selected.push(" ");
 		}
 
 		selected.forEach(
@@ -20999,7 +21011,7 @@ var SetChooser = React.createClass({
 
 module.exports = SetChooser;
 
-},{"../stores/choiceStore.js":180,"../util.js":183,"./setDropdown.js":175,"flux/lib/Dispatcher":2,"react":172}],175:[function(require,module,exports){
+},{"../stores/choiceStore.js":180,"../stores/setStore.js":182,"../util.js":183,"./setDropdown.js":175,"flux/lib/Dispatcher":2,"react":172}],175:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -21235,8 +21247,9 @@ var Randomizer = React.createClass({
 			choiceStore.registerDispatcher(dispatcher);
 
 			setChoosers[type] = React.createElement(SetChooser, {
-				dispatcher: dispatcher,
-				choiceStore: choiceStore,
+				dispatcher,
+				choiceStore,
+				setStore,
 				options: setStore.types[type],
 				header: type,
 				key: type,
@@ -21424,6 +21437,8 @@ module.exports = RouteStore;
 "use strict";
 
 var microevent = require("microevent-github");
+var storageKey = "mba:excluded-blocks";
+var separator = "|";
 
 function SetStore(sets) {
 	var self = this;
@@ -21440,6 +21455,16 @@ function SetStore(sets) {
 		type.push(set);
 	});
 
+	var excluded = window.localStorage[storageKey] || "";
+
+	excluded.split(separator).forEach(function (set) {
+		// Probably overkill, but we only need to toggle off things that are already on and this
+		// protects us from corrupted data adding erroneous blocks
+		if ( self.blocks[set] ) {
+			self.blocks[set] = false;
+		}
+	});
+
 	self.registerDispatcher = function (dispatcher) {
 		dispatcher.register(function (payload) {
 			if ( payload.action !== "toggle-block-state" ) {
@@ -21451,6 +21476,9 @@ function SetStore(sets) {
 			self.blocks[block] = state;
 
 			self.trigger("block-state-change", { block, state });
+			window.localStorage[storageKey] = Object.keys(self.blocks)
+				.filter( key => !self.blocks[key] )
+				.join(separator);
 		});
 	};
 }

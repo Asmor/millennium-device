@@ -3,6 +3,7 @@
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 var ChoiceStore = require("../stores/choiceStore.js");
+var SetStore = require("../stores/setStore.js");
 var SetDropdown = require("./setDropdown.js");
 var { shuffle } = require("../util.js");
 
@@ -11,6 +12,7 @@ var SetChooser = React.createClass({
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		choiceStore: React.PropTypes.instanceOf(ChoiceStore).isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 		options: React.PropTypes.array.isRequired,
 		header: React.PropTypes.string.isRequired,
 		label: React.PropTypes.array,
@@ -22,9 +24,11 @@ var SetChooser = React.createClass({
 	},
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
+		this.props.setStore.bind("block-state-change", this.choicesChanged);
 	},
 	componentWillUnmount: function () {
 		this.props.choiceStore.unbind("update", this.choicesChanged);
+		this.props.setStore.unbind("block-state-change", this.choicesChanged);
 	},
 	choicesChanged: function () {
 		this.setState({ options: this.generateOptions() });
@@ -32,7 +36,8 @@ var SetChooser = React.createClass({
 	generateOptions: function () {
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
-		var complement = choiceStore.complement(this.props.options);
+		var complement = choiceStore.complement(this.props.options)
+			.filter(set => this.props.setStore.blocks[set.block]);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -51,12 +56,19 @@ var SetChooser = React.createClass({
 	randomize: function () {
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
-		var shuffled = shuffle(this.props.options.map(o => o.name));
-		var selected = shuffled.slice(0, count);
+		var sets = this.props.options
+			.filter(set => this.props.setStore.blocks[set.block])
+			.map(o => o.name);
+		var selected = shuffle(sets).slice(0, count);
 
 		// If this category has labels, the order is important so don't sort
 		if ( !this.props.labels ) {
 			selected.sort();
+		}
+
+		// If there aren't enough sets in the chosen blocks, pad out the extra choices with blanks
+		while ( selected.length < count ) {
+			selected.push(" ");
 		}
 
 		selected.forEach(
