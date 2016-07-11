@@ -20882,8 +20882,7 @@ var Router = React.createClass({
 
 var dispatcher = new Dispatcher();
 
-var routeStore = new RouteStore();
-routeStore.registerDispatcher(dispatcher);
+var routeStore = new RouteStore(dispatcher);
 
 var setStore = new SetStore(require("./data/sets.json"));
 setStore.registerDispatcher(dispatcher);
@@ -21429,23 +21428,25 @@ module.exports = ChoiceStore;
 
 var microevent = require("microevent-github");
 
-function RouteStore() {
-	var self = this;
+function RouteStore(dispatcher) {
+	this.location = "main-menu";
 
-	self.location = "main-menu";
-
-	self.registerDispatcher = function (dispatcher) {
-		dispatcher.register(function (payload) {
-			if ( payload.action !== "location-change" ) {
-				return;
-			}
-
-			self.location = payload.location;
-
-			self.trigger("location-change", self.location);
-		});
-	};
+	if ( dispatcher ) {
+		this.registerDispatcher(dispatcher);
+	}
 }
+RouteStore.prototype.registerDispatcher = function (dispatcher) {
+	var self = this;
+	dispatcher.register(function (payload) {
+		if ( payload.action !== "location-change" ) {
+			return;
+		}
+
+		self.location = payload.location;
+
+		self.trigger("location-change", self.location);
+	});
+};
 
 microevent.mixin(RouteStore);
 

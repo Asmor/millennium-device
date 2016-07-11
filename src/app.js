@@ -77,8 +77,7 @@ var Router = React.createClass({
 
 var dispatcher = new Dispatcher();
 
-var routeStore = new RouteStore();
-routeStore.registerDispatcher(dispatcher);
+var routeStore = new RouteStore(dispatcher);
 
 var setStore = new SetStore(require("./data/sets.json"));
 setStore.registerDispatcher(dispatcher);
