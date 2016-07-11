@@ -21241,12 +21241,12 @@ var Randomizer = React.createClass({
 		var { dispatcher, setStore } = this.props;
 
 		var choiceStores = {
-			Expansion: new ChoiceStore(5),
-			Premium: new ChoiceStore(4),
-			Master: new ChoiceStore(3),
-			Bronze: new ChoiceStore(2),
-			Silver: new ChoiceStore(2),
-			Gold: new ChoiceStore(1),
+			Expansion: new ChoiceStore({ dispatcher, count: 5 }),
+			Premium: new ChoiceStore({ dispatcher, count: 4 }),
+			Master: new ChoiceStore({ dispatcher, count: 3 }),
+			Bronze: new ChoiceStore({ dispatcher, count: 2 }),
+			Silver: new ChoiceStore({ dispatcher, count: 2 }),
+			Gold: new ChoiceStore({ dispatcher, count: 1 }),
 		};
 		var labels = {
 			Bronze: ["Fusion", "Prize support"],
@@ -21258,8 +21258,6 @@ var Randomizer = React.createClass({
 
 		Object.keys(choiceStores).forEach(function (type) {
 			var choiceStore = choiceStores[type];
-
-			choiceStore.registerDispatcher(dispatcher);
 
 			setChoosers[type] = React.createElement(SetChooser, {
 				dispatcher,
@@ -21375,7 +21373,8 @@ module.exports = SelectBlocks;
 var uuid = require("node-uuid");
 var microevent = require("microevent-github");
 
-function ChoiceStore(count) {
+function ChoiceStore(args) {
+	var { dispatcher, count } = args;
 	var choices = new Array(count);
 	var id = uuid.v4();
 	var self = this;
@@ -21415,6 +21414,10 @@ function ChoiceStore(count) {
 			}
 		});
 	};
+
+	if ( dispatcher ) {
+		self.registerDispatcher(dispatcher);
+	}
 }
 
 microevent.mixin(ChoiceStore);

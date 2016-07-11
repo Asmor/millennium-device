@@ -3,7 +3,8 @@
 var uuid = require("node-uuid");
 var microevent = require("microevent-github");
 
-function ChoiceStore(count) {
+function ChoiceStore(args) {
+	var { dispatcher, count } = args;
 	var choices = new Array(count);
 	var id = uuid.v4();
 	var self = this;
@@ -43,6 +44,10 @@ function ChoiceStore(count) {
 			}
 		});
 	};
+
+	if ( dispatcher ) {
+		self.registerDispatcher(dispatcher);
+	}
 }
 
 microevent.mixin(ChoiceStore);
