@@ -3,6 +3,7 @@
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 var PlayerStore = require("../stores/playerStore.js");
+var SetStore = require("../stores/setStore.js");
 
 var PlayerControl = require("../components/PlayerControl.js");
 
@@ -11,9 +12,14 @@ var PlayerSetup = React.createClass({
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
-		return this.copyState();
+		var state = this.copyState();
+
+		state.options = this.generateOptions();
+
+		return state;
 	},
 	copyState: function () {
 		var { playerStore } = this.props;
@@ -29,11 +35,25 @@ var PlayerSetup = React.createClass({
 	componentWillUnmount: function () {
 		// TODO
 	},
+	generateOptions: function () {
+		var { playerStore, setStore } = this.props;
+		var options = {
+			Characters: [],
+			Starters: [],
+		};
+
+		for ( var i = 0; i < playerStore.playerCount; i++ ) {
+			options.Characters.push(setStore.getAllowed("Character").map(character => character.name));
+			options.Starters.push(setStore.getAllowed("Starter").map(character => character.name));
+		}
+
+		return options;
+	},
 	playerCountChanged: function (newCount) {
 		this.setState({ playerCount: newCount });
 	},
 	render: function () {
-		var { dispatcher, playerStore } = this.props;
+		var { dispatcher, playerStore, setStore } = this.props;
 		var { minPlayers, maxPlayers } = PlayerStore;
 		var countButtons = [];
 		var playerControls = [];
@@ -60,8 +80,14 @@ var PlayerSetup = React.createClass({
 			playerControls.push(React.createElement(PlayerControl, {
 				dispatcher,
 				playerStore,
+				setStore,
 				index: i,
 				key: i,
+				options: {
+					Character: this.state.options.Characters[i],
+					Starter: this.state.options.Starters[i],
+				},
+				values: { Character: "", Starter: "" },
 			}));
 		}
 

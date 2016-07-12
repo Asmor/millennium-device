@@ -20854,7 +20854,7 @@ var Router = React.createClass({
 				page = React.createElement(SelectBlocks, { dispatcher, setStore });
 				break;
 			case "player-setup":
-				page = React.createElement(PlayerSetup, { dispatcher, playerStore });
+				page = React.createElement(PlayerSetup, { dispatcher, playerStore, setStore });
 				break;
 			default:
 				page = React.createElement(Menu, { dispatcher });
@@ -20902,16 +20902,43 @@ var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 
 var PlayerDropdown = require("../components/PlayerDropdown.js");
+var PlayerStore = require("../stores/playerStore.js");
+var SetStore = require("../stores/setStore.js");
 
 var PlayerControl = React.createClass({
 	displayName: "player-control",
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher),
+		playerStore: React.PropTypes.instanceOf(PlayerStore),
+		setStore: React.PropTypes.instanceOf(SetStore),
+		index: React.PropTypes.number.isRequired,
+		options: React.PropTypes.object.isRequired,
+		values: React.PropTypes.object.isRequired,
 	},
 	// getInitialState: function () {},
 	componentDidUpdate: function () {},
 	componentWillUnmount: function () {},
 	render: function () {
+		var { dispatcher, index, options, values, playerStore, setStore } = this.props;
+
+		var dropdowns = ["Character", "Starter"].map(property => React.createElement(
+			"div",
+			{
+				className: "player-control--form-container",
+				key: property,
+			},
+			React.createElement("div", { className: "player-control--header" }, property),
+			React.createElement(PlayerDropdown, {
+				dispatcher,
+				index,
+				property,
+				playerStore,
+				setStore,
+				options: options[property],
+				value: values[property],
+			})
+		));
+
 		return React.createElement("div", { className: "player-control" },
 			React.createElement("div", { className: "player-control--controls" },
 				React.createElement("div", { className: "player-control--form-container" },
@@ -20920,14 +20947,7 @@ var PlayerControl = React.createClass({
 						className: "player-control--name-input form-control"
 					})
 				),
-				React.createElement("div", { className: "player-control--form-container" },
-					React.createElement("div", { className: "player-control--header" }, "Character"),
-					React.createElement(PlayerDropdown, {})
-				),
-				React.createElement("div", { className: "player-control--form-container" },
-					React.createElement("div", { className: "player-control--header" }, "Starter"),
-					React.createElement(PlayerDropdown, {})
-				)
+				dropdowns
 			)
 		);
 	},
@@ -20935,21 +20955,21 @@ var PlayerControl = React.createClass({
 
 module.exports = PlayerControl;
 
-},{"../components/PlayerDropdown.js":175,"flux/lib/Dispatcher":2,"react":172}],175:[function(require,module,exports){
+},{"../components/PlayerDropdown.js":175,"../stores/playerStore.js":184,"../stores/setStore.js":186,"flux/lib/Dispatcher":2,"react":172}],175:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
-var ChoiceStore = require("../stores/choiceStore.js");
+// var ChoiceStore = require("../stores/choiceStore.js");
 
 var PlayerDropdown = React.createClass({
 	displayName: "player-dropdown",
 	propTypes: {
-		// dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
-		// index: React.PropTypes.number.isRequired,
-		// sets: React.PropTypes.array.isRequired,
-		// property: React.PropTypes.string.isRequired,
-		// value: React.PropTypes.string,
+		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
+		index: React.PropTypes.number.isRequired,
+		options: React.PropTypes.array.isRequired,
+		property: React.PropTypes.string.isRequired,
+		value: React.PropTypes.string,
 	},
 	// handleChange: function (evt) {
 	// 	this.setValue(evt.target.value);
@@ -20976,21 +20996,20 @@ var PlayerDropdown = React.createClass({
 				"select",
 				{
 					className: "player-dropdown--select form-control",
-					// value: this.props.value,
+					value: this.props.value,
 					// onChange: this.handleChange,
 					key: "select",
 				},
 				React.createElement("option", { value: ""}),
-				// this.props.sets
-				// 	.sort(function (a, b) {
-				// 		var compA = a.name.replace(theReplacer, "").toLowerCase();
-				// 		var compB = b.name.replace(theReplacer, "").toLowerCase();
-				// 		return compA > compB ? 1 : -1;
-				// 	})
-				// 	.map(function (set) {
-				// 		return React.createElement("option", { value: set.name, key: set.name }, set.name);
-				// 	})
-				"" // TODO just for the comma above
+				this.props.options
+					.sort(function (a, b) {
+						var compA = a.replace(theReplacer, "").toLowerCase();
+						var compB = b.replace(theReplacer, "").toLowerCase();
+						return compA > compB ? 1 : -1;
+					})
+					.map(function (name) {
+						return React.createElement("option", { value: name, key: name }, name);
+					})
 			),
 			React.createElement("button", {
 				className: "btn btn-default",
@@ -21005,7 +21024,7 @@ var PlayerDropdown = React.createClass({
 
 module.exports = PlayerDropdown;
 
-},{"../stores/choiceStore.js":183,"flux/lib/Dispatcher":2,"react":172}],176:[function(require,module,exports){
+},{"flux/lib/Dispatcher":2,"react":172}],176:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -21331,6 +21350,7 @@ module.exports = Menu;
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 var PlayerStore = require("../stores/playerStore.js");
+var SetStore = require("../stores/setStore.js");
 
 var PlayerControl = require("../components/PlayerControl.js");
 
@@ -21339,9 +21359,14 @@ var PlayerSetup = React.createClass({
 	propTypes: {
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
+		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
-		return this.copyState();
+		var state = this.copyState();
+
+		state.options = this.generateOptions();
+
+		return state;
 	},
 	copyState: function () {
 		var { playerStore } = this.props;
@@ -21357,11 +21382,25 @@ var PlayerSetup = React.createClass({
 	componentWillUnmount: function () {
 		// TODO
 	},
+	generateOptions: function () {
+		var { playerStore, setStore } = this.props;
+		var options = {
+			Characters: [],
+			Starters: [],
+		};
+
+		for ( var i = 0; i < playerStore.playerCount; i++ ) {
+			options.Characters.push(setStore.getAllowed("Character").map(character => character.name));
+			options.Starters.push(setStore.getAllowed("Starter").map(character => character.name));
+		}
+
+		return options;
+	},
 	playerCountChanged: function (newCount) {
 		this.setState({ playerCount: newCount });
 	},
 	render: function () {
-		var { dispatcher, playerStore } = this.props;
+		var { dispatcher, playerStore, setStore } = this.props;
 		var { minPlayers, maxPlayers } = PlayerStore;
 		var countButtons = [];
 		var playerControls = [];
@@ -21388,8 +21427,14 @@ var PlayerSetup = React.createClass({
 			playerControls.push(React.createElement(PlayerControl, {
 				dispatcher,
 				playerStore,
+				setStore,
 				index: i,
 				key: i,
+				options: {
+					Character: this.state.options.Characters[i],
+					Starter: this.state.options.Starters[i],
+				},
+				values: { Character: "", Starter: "" },
 			}));
 		}
 
@@ -21404,7 +21449,7 @@ var PlayerSetup = React.createClass({
 
 module.exports = PlayerSetup;
 
-},{"../components/PlayerControl.js":174,"../stores/playerStore.js":184,"flux/lib/Dispatcher":2,"react":172}],181:[function(require,module,exports){
+},{"../components/PlayerControl.js":174,"../stores/playerStore.js":184,"../stores/setStore.js":186,"flux/lib/Dispatcher":2,"react":172}],181:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -21826,6 +21871,9 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 			.filter( key => !self.blocks[key] )
 			.join(separator);
 	});
+};
+SetStore.prototype.getAllowed = function (type) {
+	return this.types[type].filter( set => this.blocks[set.block] );
 };
 
 microevent.mixin(SetStore);

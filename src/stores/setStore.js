@@ -51,6 +51,9 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 			.join(separator);
 	});
 };
+SetStore.prototype.getAllowed = function (type) {
+	return this.types[type].filter( set => this.blocks[set.block] );
+};
 
 microevent.mixin(SetStore);
 

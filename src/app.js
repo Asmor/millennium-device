@@ -49,7 +49,7 @@ var Router = React.createClass({
 				page = React.createElement(SelectBlocks, { dispatcher, setStore });
 				break;
 			case "player-setup":
-				page = React.createElement(PlayerSetup, { dispatcher, playerStore });
+				page = React.createElement(PlayerSetup, { dispatcher, playerStore, setStore });
 				break;
 			default:
 				page = React.createElement(Menu, { dispatcher });
