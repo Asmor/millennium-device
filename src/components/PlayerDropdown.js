@@ -2,7 +2,7 @@
 
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
-// var ChoiceStore = require("../stores/choiceStore.js");
+var PlayerStore = require("../stores/PlayerStore.js");
 
 var PlayerDropdown = React.createClass({
 	displayName: "player-dropdown",
@@ -13,23 +13,26 @@ var PlayerDropdown = React.createClass({
 		property: React.PropTypes.string.isRequired,
 		value: React.PropTypes.string,
 	},
-	// handleChange: function (evt) {
-	// 	this.setValue(evt.target.value);
-	// },
-	// setValue: function (newValue) {
-	// 	this.props.dispatcher.dispatch({
-	// 		action: "choice",
-	// 		id: this.props.choiceStore.id(),
-	// 		index: this.props.index,
-	// 		value: newValue,
-	// 	});
-	// },
-	// randomize: function () {
-	// 	var sets = this.props.sets;
-	// 	// First entry is blank; we don't want that one
-	// 	var index = Math.floor(Math.random() * (sets.length - 1)) + 1;
-	// 	this.setValue( sets[index].name );
-	// },
+	handleChange: function (evt) {
+		this.setValue(evt.target.value);
+	},
+	setValue: function (newValue) {
+		var { index, property } = this.props;
+		var args = {
+			action: "set-player-info",
+			index,
+		};
+
+		args[property] = newValue;
+
+		this.props.dispatcher.dispatch(args);
+	},
+	randomize: function () {
+		// remove blank option
+		var options = this.props.options.filter(option => option);;
+		var index = Math.floor(Math.random() * (options.length));
+		this.setValue( options[index] );
+	},
 	render: function () {
 		var theReplacer = /^The /i;
 
@@ -39,7 +42,7 @@ var PlayerDropdown = React.createClass({
 				{
 					className: "player-dropdown--select form-control",
 					value: this.props.value,
-					// onChange: this.handleChange,
+					onChange: this.handleChange,
 					key: "select",
 				},
 				React.createElement("option", { value: ""}),
@@ -55,7 +58,7 @@ var PlayerDropdown = React.createClass({
 			),
 			React.createElement("button", {
 				className: "btn btn-default",
-				// onClick: this.randomize,
+				onClick: this.randomize,
 				key: "button",
 			}, React.createElement("span", { className: "glyphicon glyphicon-random" })),
 		];

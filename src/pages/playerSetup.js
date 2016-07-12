@@ -15,22 +15,25 @@ var PlayerSetup = React.createClass({
 		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
-		var state = this.copyState();
-
-		state.options = this.generateOptions();
-
-		return state;
+		return this.generateState();
 	},
-	copyState: function () {
+	generateState: function () {
 		var { playerStore } = this.props;
+
 		return {
 			playerCount: playerStore.playerCount,
-			players: JSON.parse(JSON.stringify(playerStore.players))
+			players: JSON.parse(JSON.stringify(playerStore.players)),
+			options: this.generateOptions(),
+			values: this.generateValues(),
 		};
+	},
+	updateState: function () {
+		this.setState(this.generateState());
 	},
 	componentDidMount: function () {
 		var { playerStore } = this.props;
-		playerStore.bind("player-count-change", this.playerCountChanged);
+		playerStore.bind("player-count-change", this.updateState);
+		playerStore.bind("player-info-change", this.updateState);
 	},
 	componentWillUnmount: function () {
 		// TODO
@@ -42,15 +45,30 @@ var PlayerSetup = React.createClass({
 			Starters: [],
 		};
 
+		var usedCharacters = playerStore.players.map(player => player.Character);
+		var usedStarters = playerStore.players.map(player => player.Starter);
+		var availableCharacters = setStore.getAllowed("Character")
+			.map(character => character.name)
+			.filter( character => usedCharacters.indexOf(character) === -1 );
+		var availableStarters = setStore.getAllowed("Starter")
+			.map(starter => starter.name)
+			.filter( starter => usedStarters.indexOf(starter) === -1 );
+
 		for ( var i = 0; i < playerStore.playerCount; i++ ) {
-			options.Characters.push(setStore.getAllowed("Character").map(character => character.name));
-			options.Starters.push(setStore.getAllowed("Starter").map(character => character.name));
+			let { Character, Starter } = playerStore.players[i];
+			options.Characters.push(availableCharacters.concat(Character));
+			options.Starters.push(availableStarters.concat(Starter));
 		}
 
 		return options;
 	},
-	playerCountChanged: function (newCount) {
-		this.setState({ playerCount: newCount });
+	generateValues: function () {
+		var { playerStore } = this.props;
+
+		return {
+			Characters: playerStore.players.map(player => player.Character),
+			Starters: playerStore.players.map(player => player.Starter),
+		};
 	},
 	render: function () {
 		var { dispatcher, playerStore, setStore } = this.props;
@@ -87,7 +105,11 @@ var PlayerSetup = React.createClass({
 					Character: this.state.options.Characters[i],
 					Starter: this.state.options.Starters[i],
 				},
-				values: { Character: "", Starter: "" },
+				values: {
+					Character: this.state.values.Characters[i],
+					Starter: this.state.values.Starters[i],
+				},
+				name: playerStore.players[i].name,
 			}));
 		}
 

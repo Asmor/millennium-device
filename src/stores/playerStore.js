@@ -6,8 +6,8 @@ var shuffle = require("../util.js").shuffle;
 // Store as JSON to easily make new instances of this structure
 var blankPlayerJson = JSON.stringify({
 	name: "",
-	starter: "",
-	character: "",
+	Starter: "",
+	Character: "",
 	scores: {
 		"Pre Release": {
 			tournament: { rp: 0, vp: 0 }
@@ -86,17 +86,20 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 			case "set-player-info":
 				player = self.players[payload.index];
 				// Only update the properties that are actually set
-				["name", "starter", "character"].forEach(function (key) {
+				["name", "Starter", "Character"].forEach(function (key) {
 					var val = payload[key];
 					if ( typeof val === "string" ) {
 						player[key] = payload[key];
 					}
 				});
 
+				console.log(payload);
+
 				self.trigger("player-info-change", {
+					index: payload.index,
 					name: player.name,
-					starter: player.starter,
-					character: player.character,
+					Starter: player.Starter,
+					Character: player.Character,
 				});
 				break;
 		}

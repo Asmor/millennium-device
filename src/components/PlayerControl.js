@@ -16,12 +16,32 @@ var PlayerControl = React.createClass({
 		index: React.PropTypes.number.isRequired,
 		options: React.PropTypes.object.isRequired,
 		values: React.PropTypes.object.isRequired,
+		name: React.PropTypes.string.isRequired,
 	},
 	// getInitialState: function () {},
 	componentDidUpdate: function () {},
 	componentWillUnmount: function () {},
+	handleChange: function (evt) {
+		this.setName(evt.target.value);
+	},
+	setName: function (newValue) {
+		var { index } = this.props;
+		this.props.dispatcher.dispatch({
+			action: "set-player-info",
+			name: newValue,
+			index,
+		});
+	},
 	render: function () {
-		var { dispatcher, index, options, values, playerStore, setStore } = this.props;
+		var {
+			dispatcher,
+			index,
+			name,
+			options,
+			playerStore,
+			setStore,
+			values,
+		} = this.props;
 
 		var dropdowns = ["Character", "Starter"].map(property => React.createElement(
 			"div",
@@ -46,7 +66,9 @@ var PlayerControl = React.createClass({
 				React.createElement("div", { className: "player-control--form-container" },
 					React.createElement("div", { className: "player-control--header" }, "Player"),
 					React.createElement("input", {
-						className: "player-control--name-input form-control"
+						className: "player-control--name-input form-control",
+						onChange: this.handleChange,
+						value: name,
 					})
 				),
 				dropdowns
