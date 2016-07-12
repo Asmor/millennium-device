@@ -36,11 +36,13 @@ var PlayerSetup = React.createClass({
 		var { playerStore } = this.props;
 		playerStore.bind("player-count-change", this.updateState);
 		playerStore.bind("player-info-change", this.updateState);
+		playerStore.bind("players-reset", this.updateState);
 	},
 	componentWillUnmount: function () {
 		var { playerStore } = this.props;
 		playerStore.unbind("player-count-change", this.updateState);
 		playerStore.unbind("player-info-change", this.updateState);
+		playerStore.unbind("players-reset", this.updateState);
 	},
 	generateOptions: function () {
 		var { playerStore, setStore } = this.props;
@@ -147,7 +149,7 @@ var PlayerSetup = React.createClass({
 					React.createElement("div", { className: "player-setup--count-buttons btn-group" },
 						React.createElement("button", {
 							className: "btn btn-default",
-							// onClick: this.randomize,
+							onClick: () => dispatcher.dispatch({ action: "shuffle-players" }),
 						}, React.createElement("span", { className: "glyphicon glyphicon-random" }), " Order"),
 						React.createElement("button", {
 							className: "btn btn-default",
@@ -160,9 +162,10 @@ var PlayerSetup = React.createClass({
 					)
 				),
 				React.createElement("div", { className: "player-setup--buttons" },
-					React.createElement("button", { className: "btn btn-danger" },
-						React.createElement("span", { className: "glyphicon glyphicon-trash" }), " Reset players"
-					)
+					React.createElement("button", {
+						className: "btn btn-danger",
+						onClick: () => dispatcher.dispatch({ action: "reset-players" }),
+					}, React.createElement("span", { className: "glyphicon glyphicon-trash" }), " Reset players")
 				)
 			),
 			React.createElement("div", { className: "player-setup--players" }, playerControls)

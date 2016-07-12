@@ -21407,11 +21407,13 @@ var PlayerSetup = React.createClass({
 		var { playerStore } = this.props;
 		playerStore.bind("player-count-change", this.updateState);
 		playerStore.bind("player-info-change", this.updateState);
+		playerStore.bind("players-reset", this.updateState);
 	},
 	componentWillUnmount: function () {
 		var { playerStore } = this.props;
 		playerStore.unbind("player-count-change", this.updateState);
 		playerStore.unbind("player-info-change", this.updateState);
+		playerStore.unbind("players-reset", this.updateState);
 	},
 	generateOptions: function () {
 		var { playerStore, setStore } = this.props;
@@ -21518,7 +21520,7 @@ var PlayerSetup = React.createClass({
 					React.createElement("div", { className: "player-setup--count-buttons btn-group" },
 						React.createElement("button", {
 							className: "btn btn-default",
-							// onClick: this.randomize,
+							onClick: () => dispatcher.dispatch({ action: "shuffle-players" }),
 						}, React.createElement("span", { className: "glyphicon glyphicon-random" }), " Order"),
 						React.createElement("button", {
 							className: "btn btn-default",
@@ -21531,9 +21533,10 @@ var PlayerSetup = React.createClass({
 					)
 				),
 				React.createElement("div", { className: "player-setup--buttons" },
-					React.createElement("button", { className: "btn btn-danger" },
-						React.createElement("span", { className: "glyphicon glyphicon-trash" }), " Reset players"
-					)
+					React.createElement("button", {
+						className: "btn btn-danger",
+						onClick: () => dispatcher.dispatch({ action: "reset-players" }),
+					}, React.createElement("span", { className: "glyphicon glyphicon-trash" }), " Reset players")
 				)
 			),
 			React.createElement("div", { className: "player-setup--players" }, playerControls)
@@ -21811,13 +21814,23 @@ PlayerStore.prototype.populatePlayers = function () {
 
 	// If we don't have enough
 	while ( players.length < count ) {
-		players.push(JSON.parse(blankPlayerJson));
+		let newPlayer = JSON.parse(blankPlayerJson);
+		newPlayer.name = "Player " + (players.length + 1);
+		players.push(newPlayer);
 	}
 
 	// If we have too many
 	while ( players.length > count ) {
 		players.pop();
 	}
+};
+PlayerStore.prototype.resetPlayers = function () {
+	this.players.length = 0;
+	this.populatePlayers();
+};
+PlayerStore.prototype.shufflePlayers = function () {
+	this.players = shuffle(this.players);
+	console.log(this.players.map(p => p.name));
 };
 PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;
@@ -21850,6 +21863,16 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 					Starter: player.Starter,
 					Character: player.Character,
 				});
+				break;
+			case "reset-players":
+				self.resetPlayers();
+
+				self.trigger("players-reset");
+				break;
+			case "shuffle-players":
+				self.shufflePlayers();
+
+				self.trigger("players-reset");
 				break;
 		}
 

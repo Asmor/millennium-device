@@ -60,13 +60,23 @@ PlayerStore.prototype.populatePlayers = function () {
 
 	// If we don't have enough
 	while ( players.length < count ) {
-		players.push(JSON.parse(blankPlayerJson));
+		let newPlayer = JSON.parse(blankPlayerJson);
+		newPlayer.name = "Player " + (players.length + 1);
+		players.push(newPlayer);
 	}
 
 	// If we have too many
 	while ( players.length > count ) {
 		players.pop();
 	}
+};
+PlayerStore.prototype.resetPlayers = function () {
+	this.players.length = 0;
+	this.populatePlayers();
+};
+PlayerStore.prototype.shufflePlayers = function () {
+	this.players = shuffle(this.players);
+	console.log(this.players.map(p => p.name));
 };
 PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;
@@ -99,6 +109,16 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 					Starter: player.Starter,
 					Character: player.Character,
 				});
+				break;
+			case "reset-players":
+				self.resetPlayers();
+
+				self.trigger("players-reset");
+				break;
+			case "shuffle-players":
+				self.shufflePlayers();
+
+				self.trigger("players-reset");
 				break;
 		}
 
