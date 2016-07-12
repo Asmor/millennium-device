@@ -23,7 +23,7 @@ var Router = React.createClass({
 		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 	},
 	getInitialState: function () {
-		return { location: "main-menu" };
+		return { location: this.props.routeStore.location };
 	},
 	componentDidMount: function () {
 		this.props.routeStore.bind("location-change", this.locationChanged);

@@ -2,8 +2,11 @@
 
 var microevent = require("microevent-github");
 
+var storageKey = "mba:route";
+
 function RouteStore(dispatcher) {
-	this.location = "main-menu";
+	this.location = window.localStorage[storageKey] || "main-menu";
+	console.log(this.location);
 
 	if ( dispatcher ) {
 		this.registerDispatcher(dispatcher);
@@ -17,6 +20,8 @@ RouteStore.prototype.registerDispatcher = function (dispatcher) {
 		}
 
 		self.location = payload.location;
+
+		window.localStorage[storageKey] = self.location;
 
 		self.trigger("location-change", self.location);
 	});
