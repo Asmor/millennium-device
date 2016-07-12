@@ -6,7 +6,6 @@ var storageKey = "mba:route";
 
 function RouteStore(dispatcher) {
 	this.location = window.localStorage[storageKey] || "main-menu";
-	console.log(this.location);
 
 	if ( dispatcher ) {
 		this.registerDispatcher(dispatcher);
