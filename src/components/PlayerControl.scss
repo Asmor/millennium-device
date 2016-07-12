@@ -1,0 +1,31 @@
+.player-control {
+	$form-width: 300px;
+
+	width: $form-width;
+	max-width: 100%;
+	margin: auto;
+	border-bottom: 3px dashed black;
+
+	@media ( min-width: $form-width * 3 ) {
+		width: $form-width * 3;
+		border-width: 0;
+	}
+
+	.player-control--controls {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		// align-items: flex-start;
+	}
+
+	.player-control--header {
+		font-weight: bold;
+	}
+
+	.player-control--form-container {
+		width: $form-width;
+		max-width: 100%;
+		padding: 10px;
+		// display: inline-block;
+	}
+}

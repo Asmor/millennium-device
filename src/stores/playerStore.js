@@ -30,7 +30,7 @@ var blankPlayerJson = JSON.stringify({
 var storageKey = "mba:players";
 
 function PlayerStore(dispatcher) {
-	this.playerCount = PlayerStore.maxPlayers;
+	this.playerCount = 5;
 
 	this.players = [];
 
@@ -122,7 +122,7 @@ PlayerStore.rounds = [
 	{ name: "Round 3", optional: true, default: false },
 ];
 PlayerStore.minPlayers = 2;
-PlayerStore.maxPlayers = 5;
+PlayerStore.maxPlayers = 6;
 
 microevent.mixin(PlayerStore);
 

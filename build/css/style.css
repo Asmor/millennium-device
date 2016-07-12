@@ -45,6 +45,30 @@ body {
   .select-blocks .select-blocks--button-icon {
     float: left; }
 
+.player-control {
+  width: 300px;
+  max-width: 100%;
+  margin: auto;
+  border-bottom: 3px dashed black; }
+  @media (min-width: 900px) {
+    .player-control {
+      width: 900px;
+      border-width: 0; } }
+  .player-control .player-control--controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; }
+  .player-control .player-control--header {
+    font-weight: bold; }
+  .player-control .player-control--form-container {
+    width: 300px;
+    max-width: 100%;
+    padding: 10px; }
+
+.player-dropdown .player-dropdown--select {
+  width: calc(100% - 40px);
+  display: inline-block; }
+
 .set-chooser {
   max-width: 500px;
   width: 100%;

@@ -1,0 +1,10 @@
+.player-dropdown {
+	$shuffle-button-width: 40px;
+
+	// margin: 20px 0;
+
+	.player-dropdown--select {
+		width: calc(100% - #{$shuffle-button-width});
+		display: inline-block;
+	}
+}

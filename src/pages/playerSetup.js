@@ -4,6 +4,8 @@ var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
 var PlayerStore = require("../stores/playerStore.js");
 
+var PlayerControl = require("../components/PlayerControl.js");
+
 var PlayerSetup = React.createClass({
 	displayName: "player-setup",
 	propTypes: {
@@ -34,13 +36,15 @@ var PlayerSetup = React.createClass({
 		var { dispatcher, playerStore } = this.props;
 		var { minPlayers, maxPlayers } = PlayerStore;
 		var countButtons = [];
+		var playerControls = [];
 		var buttonClasses;
+		var i;
 
-		for ( var i = minPlayers; i <= maxPlayers; i++ ) {
+		for ( i = minPlayers; i <= maxPlayers; i++ ) {
 			buttonClasses = [ "player-setup--count-button btn" ];
 
 			if ( i === playerStore.playerCount ) {
-				buttonClasses.push("btn-default disabled");
+				buttonClasses.push("btn-success");
 			} else {
 				buttonClasses.push("btn-default");
 			}
@@ -52,10 +56,20 @@ var PlayerSetup = React.createClass({
 			}, i));
 		}
 
+		for ( i = 0; i < playerStore.playerCount; i++ ) {
+			playerControls.push(React.createElement(PlayerControl, {
+				dispatcher,
+				playerStore,
+				index: i,
+				key: i,
+			}));
+		}
+
 		return React.createElement("div", { className: "player-setup" },
 			React.createElement("div", { className: "player-setup--buttons" },
 				React.createElement("div", { className: "player-setup--count-buttons btn-group" }, countButtons)
-			)
+			),
+			React.createElement("div", { className: "player-setup--players" }, playerControls)
 		);
 	},
 });
