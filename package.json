@@ -4,15 +4,14 @@
   "description": "Utility for helping play Millennium Blades",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:js && npm run build:html && npm run build:css",
-    "build:html": "cp src/index.html build/index.html",
-    "build:js": "browserify --debug src/app.js -o build/js/bundle.js",
+    "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:images && npm run build:minify",
     "build:css": "sass src/style.scss:build/css/style.css",
+    "build:html": "cp src/*.html build/",
     "build:images": "cp src/images/* build/images",
-    "build:watch": "npm run build:html-watch && npm run build:js-watch && npm run build:css-watch",
-    "build:html-watch": "npm run build:html",
-    "build:js-watch": "watchify src/app.js -o build/js/bundle.js",
-    "build:css-watch": "sass --watch src/style.scss:build/css/style.css",
+    "build:js": "browserify src/app.js -o build/js/bundle.js",
+    "build:minify": "node minify",
+    "watch:js": "watchify src/app.js -o build/js/bundle.js",
+    "watch:css": "sass --watch src/style.scss:build/css/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ian Toltz",
@@ -23,8 +22,12 @@
     "react": "^15.2.0"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
     "microevent-github": "^1.0.0",
     "node-uuid": "^1.4.7",
-    "react-dom": "^15.2.0"
+    "react-dom": "^15.2.0",
+    "uglifyify": "^3.0.2"
   }
 }
