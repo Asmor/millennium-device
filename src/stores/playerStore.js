@@ -93,8 +93,6 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 					}
 				});
 
-				console.log(payload);
-
 				self.trigger("player-info-change", {
 					index: payload.index,
 					name: player.name,

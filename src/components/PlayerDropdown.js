@@ -2,7 +2,6 @@
 
 var React = require("react");
 var Dispatcher = require("flux/lib/Dispatcher");
-var PlayerStore = require("../stores/PlayerStore.js");
 
 var PlayerDropdown = React.createClass({
 	displayName: "player-dropdown",
@@ -29,7 +28,7 @@ var PlayerDropdown = React.createClass({
 	},
 	randomize: function () {
 		// remove blank option
-		var options = this.props.options.filter(option => option);;
+		var options = this.props.options.filter(option => option);
 		var index = Math.floor(Math.random() * (options.length));
 		this.setValue( options[index] );
 	},

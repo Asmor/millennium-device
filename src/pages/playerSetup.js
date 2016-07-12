@@ -5,6 +5,8 @@ var Dispatcher = require("flux/lib/Dispatcher");
 var PlayerStore = require("../stores/playerStore.js");
 var SetStore = require("../stores/setStore.js");
 
+var shuffle = require("../util.js").shuffle;
+
 var PlayerControl = require("../components/PlayerControl.js");
 
 var PlayerSetup = React.createClass({
@@ -36,7 +38,9 @@ var PlayerSetup = React.createClass({
 		playerStore.bind("player-info-change", this.updateState);
 	},
 	componentWillUnmount: function () {
-		// TODO
+		var { playerStore } = this.props;
+		playerStore.unbind("player-count-change", this.updateState);
+		playerStore.unbind("player-info-change", this.updateState);
 	},
 	generateOptions: function () {
 		var { playerStore, setStore } = this.props;
@@ -69,6 +73,27 @@ var PlayerSetup = React.createClass({
 			Characters: playerStore.players.map(player => player.Character),
 			Starters: playerStore.players.map(player => player.Starter),
 		};
+	},
+	randomize: function (key) {
+		var self = this;
+		var { playerStore, setStore } = self.props;
+		var count = playerStore.playerCount;
+		var characters = setStore
+			.getAllowed(key)
+			.map(character => character.name);
+		var selected = shuffle(characters).slice(0, count);
+
+		// If there aren't enough sets in the chosen blocks, pad out the extra choices with blanks
+		while ( selected.length < count ) {
+			selected.push(" ");
+		}
+
+		selected.forEach(function (value, index) {
+			var args = { action: "set-player-info", index };
+			args[key] = value;
+			self.props.dispatcher.dispatch(args);
+		});
+
 	},
 	render: function () {
 		var { dispatcher, playerStore, setStore } = this.props;
@@ -114,8 +139,31 @@ var PlayerSetup = React.createClass({
 		}
 
 		return React.createElement("div", { className: "player-setup" },
-			React.createElement("div", { className: "player-setup--buttons" },
-				React.createElement("div", { className: "player-setup--count-buttons btn-group" }, countButtons)
+			React.createElement("div", { className: "player-setup--button-bar" },
+				React.createElement("div", { className: "player-setup--buttons" },
+					React.createElement("div", { className: "player-setup--count-buttons btn-group" }, countButtons)
+				),
+				React.createElement("div", { className: "player-setup--buttons" },
+					React.createElement("div", { className: "player-setup--count-buttons btn-group" },
+						React.createElement("button", {
+							className: "btn btn-default",
+							// onClick: this.randomize,
+						}, React.createElement("span", { className: "glyphicon glyphicon-random" }), " Order"),
+						React.createElement("button", {
+							className: "btn btn-default",
+							onClick: this.randomize.bind(this, "Character"),
+						}, React.createElement("span", { className: "glyphicon glyphicon-random" }), " Characters"),
+						React.createElement("button", {
+							className: "btn btn-default",
+							onClick: this.randomize.bind(this, "Starter"),
+						}, React.createElement("span", { className: "glyphicon glyphicon-random" }), " Starters")
+					)
+				),
+				React.createElement("div", { className: "player-setup--buttons" },
+					React.createElement("button", { className: "btn btn-danger" },
+						React.createElement("span", { className: "glyphicon glyphicon-trash" }), " Reset players"
+					)
+				)
 			),
 			React.createElement("div", { className: "player-setup--players" }, playerControls)
 		);

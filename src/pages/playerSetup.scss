@@ -1,6 +1,12 @@
 .player-setup {
+	.player-setup--button-bar {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
 	.player-setup--buttons {
-		margin: 20px 0;
+		margin: 20px 10px;
 		text-align: center;
 	}
 }
