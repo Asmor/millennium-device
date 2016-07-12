@@ -59,7 +59,7 @@ var Router = React.createClass({
 			React.createElement(
 				"button",
 				{
-					className: "page--home-button btn btn-large",
+					className: "page--home-button btn btn-default btn-large",
 					onClick: () => this.props.dispatcher.dispatch({ action: "location-change", location: "main-menu" }),
 				},
 				React.createElement("span", { className: "glyphicon glyphicon-home" })
