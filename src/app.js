@@ -8,6 +8,7 @@ var ReactDOM = require("react-dom");
 var RouteStore = require("./stores/routeStore.js");
 var PlayerStore = require("./stores/playerStore.js");
 var SetStore = require("./stores/setStore.js");
+var ChoiceStore = require("./stores/choiceStore.js");
 
 var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
@@ -21,6 +22,7 @@ var Router = React.createClass({
 		routeStore: React.PropTypes.instanceOf(RouteStore).isRequired,
 		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
 		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
+		choiceStores: React.PropTypes.object,
 	},
 	getInitialState: function () {
 		return { location: this.props.routeStore.location };
@@ -39,11 +41,11 @@ var Router = React.createClass({
 	},
 	render: function () {
 		var page;
-		var { dispatcher, playerStore, setStore } = this.props;
+		var { dispatcher, playerStore, setStore, choiceStores } = this.props;
 
 		switch ( this.state.location ) {
 			case "randomizer":
-				page = React.createElement(Randomizer, { dispatcher, setStore });
+				page = React.createElement(Randomizer, { dispatcher, setStore, choiceStores });
 				break;
 			case "select-blocks":
 				page = React.createElement(SelectBlocks, { dispatcher, setStore });
@@ -78,12 +80,22 @@ var dispatcher = new Dispatcher();
 var routeStore = new RouteStore(dispatcher);
 var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
 var playerStore = new PlayerStore(dispatcher);
+var choiceStores = {
+	Expansion: new ChoiceStore({ dispatcher, count: 5 }),
+	Premium: new ChoiceStore({ dispatcher, count: 4 }),
+	Master: new ChoiceStore({ dispatcher, count: 3 }),
+	Bronze: new ChoiceStore({ dispatcher, count: 2 }),
+	Silver: new ChoiceStore({ dispatcher, count: 2 }),
+	Gold: new ChoiceStore({ dispatcher, count: 1 }),
+};
+
 
 var rootElement = React.createElement(Router, {
 	dispatcher,
 	routeStore,
 	playerStore,
 	setStore,
+	choiceStores,
 });
 
 window.addEventListener("load", function () {
