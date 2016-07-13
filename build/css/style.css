@@ -57,6 +57,7 @@ body {
       transform: translateX(40%) rotate(-20deg);
       transform-origin: left; }
   .score-tracker .score-tracker--input {
+    text-align: center;
     width: 50px;
     -moz-appearance: textfield; }
     .score-tracker .score-tracker--input::-webkit-outer-spin-button, .score-tracker .score-tracker--input::-webkit-inner-spin-button {
