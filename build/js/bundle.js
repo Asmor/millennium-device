@@ -21722,9 +21722,9 @@ var ScoreTracker = React.createClass({
 		}));
 		this.props.playerStore.players.forEach(function (player, index) {
 			cells.push(React.createElement("td", {
-				className: "score-tracker--header-cell score-tracker--header-cell__name",
+				className: "score-tracker--header-cell",
 				key: index,
-			}, player.name));
+			}, React.createElement("span", { className: "score-tracker--player-name" }, player.name)));
 		});
 
 		return React.createElement("tr", {

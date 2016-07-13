@@ -1,5 +1,6 @@
 .score-tracker {
 	text-align: center;
+
 	.score-tracker--score-table {
 		display: inline-block;
 		margin: 20px;
@@ -14,16 +15,21 @@
 
 	.score-tracker--header-cell {
 		font-weight: bold;
+		position: relative;
 
 		&.score-tracker--header-cell__label {
 			text-align: right;
 			padding-right: 5px;
 		}
 
-		&.score-tracker--header-cell__name {
-			transform: translateX(40%) rotate(-20deg);
-			transform-origin: left;
-		}
+	}
+
+	.score-tracker--player-name {
+		position: absolute;
+		bottom: 0;
+		left: 40%;
+		transform: rotate(-20deg);
+		transform-origin: left;
 	}
 
 	.score-tracker--input {
