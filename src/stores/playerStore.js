@@ -86,7 +86,16 @@ PlayerStore.prototype.shufflePlayers = function () {
 PlayerStore.prototype.calculateScores = function () {
 	var players = this.players;
 	[ "Pre Release", "Round 1", "Round 2", "Round 3" ].forEach((round) => scoreTournament({ round, players }));
-	// [ "Pre Release" ].forEach((round) => scoreTournament({ round, players }));
+	[ "Round 1", "Round 2", "Round 3" ].forEach(function (round) {
+		players.forEach(function (player) {
+			var collection = player.scores[round].collection;
+			var size = Math.min(PlayerStore.maxCollectionSize, collection.size);
+
+			collection.vp = PlayerStore.collectionVP[size];
+		});
+	});
+
+	players.forEach(player => player.scores["Game End"].money.vp = Math.floor(player.scores["Game End"].money.amount / 4));
 };
 PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;

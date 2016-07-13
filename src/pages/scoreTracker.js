@@ -201,7 +201,7 @@ var ScoreTracker = React.createClass({
 		return this.generateDualRow({
 			index,
 			round,
-			name: "Money",
+			name: "$",
 			phase: "money",
 			suffix: "Money",
 		});
