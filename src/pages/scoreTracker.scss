@@ -1,0 +1,39 @@
+.score-tracker {
+	text-align: center;
+	.score-tracker--score-table {
+		display: inline-block;
+		margin: 20px;
+		border-collapse: none;
+	}
+
+	.score-tracker--row {
+		&.score-tracker--row__last-of-section {
+			border-bottom: 1px solid black;
+		}
+	}
+
+	.score-tracker--header-cell {
+		font-weight: bold;
+
+		&.score-tracker--header-cell__label {
+			text-align: right;
+			padding-right: 5px;
+		}
+
+		&.score-tracker--header-cell__name {
+			transform: translateX(40%) rotate(-20deg);
+			transform-origin: left;
+		}
+	}
+
+	.score-tracker--input {
+		width: 50px;
+
+		// Hide the arrows numeric input
+		-moz-appearance:textfield;
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+	}
+}

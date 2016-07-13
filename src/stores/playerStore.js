@@ -10,21 +10,26 @@ var blankPlayerJson = JSON.stringify({
 	Character: "",
 	scores: {
 		"Pre Release": {
-			tournament: { rp: 0, vp: 0 }
+			tournament: { rp: 0, vp: 0 },
 		},
 		"Round 1": {
 			collection: { size: 0, vp: 0 },
-			tournament: { rp: 0, vp: 0 }
+			tournament: { rp: 0, vp: 0 },
 		},
 		"Round 2": {
 			collection: { size: 0, vp: 0 },
-			tournament: { rp: 0, vp: 0 }
+			tournament: { rp: 0, vp: 0 },
 		},
 		"Round 3": {
 			collection: { size: 0, vp: 0 },
-			tournament: { rp: 0, vp: 0 }
+			tournament: { rp: 0, vp: 0 },
 		},
+		"Game End": {
+			money: { amount: 0, vp: 0 },
+			friendship: 0,
+		}
 	},
+	total: 0,
 });
 
 var storageKey = "mba:players";
@@ -78,6 +83,11 @@ PlayerStore.prototype.shufflePlayers = function () {
 	this.players = shuffle(this.players);
 	console.log(this.players.map(p => p.name));
 };
+PlayerStore.prototype.calculateScores = function () {
+	var players = this.players;
+	[ "Pre Release", "Round 1", "Round 2", "Round 3" ].forEach((round) => scoreTournament({ round, players }));
+	// [ "Pre Release" ].forEach((round) => scoreTournament({ round, players }));
+};
 PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;
 	dispatcher.register(function (payload) {
@@ -120,6 +130,28 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 
 				self.trigger("players-reset");
 				break;
+			case "set-score":
+				let { index, round, phase, value } = payload;
+				let playerRound = self.players[index].scores[round];
+
+				value = Number.parseInt(value) || 0;
+
+				if ( phase === "friendship" ) {
+					playerRound.friendship = value;
+				} else {
+					let property = {
+						tournament: "rp",
+						collection: "size",
+						money: "amount",
+					}[phase];
+
+					playerRound[phase][property] = value;
+				}
+
+				self.calculateScores();
+
+				self.trigger("score-set");
+				break;
 		}
 
 		window.localStorage[storageKey] = JSON.stringify(self.players);
@@ -146,5 +178,69 @@ PlayerStore.minPlayers = 2;
 PlayerStore.maxPlayers = 6;
 
 microevent.mixin(PlayerStore);
+
+function scoreTournament(args) {
+	var { round, players } = args;
+
+	var references = players.map(function (player) {
+		return { score: player.scores[round].tournament.rp, player };
+	}).sort((a, b) => b.score - a.score);
+
+	if ( references[0].score === 0 ) {
+		// Don't assign points if nobody has a score yet
+		players.forEach(player => player.scores[round].tournament.vp = 0);
+		return;
+	}
+
+	var awards = PlayerStore.tournamentVP[round].slice(0, references.length);
+
+	var lastScore = references[0].score;
+	var tieStart = 0;
+	var tieLength = 1;
+	var tieSum = 0;
+	var tiePer = 0;
+	var i, j;
+
+	for ( i = 1; i < references.length; i++ ) {
+		if ( references[i].score === lastScore ) {
+			// This score ties the previous score
+			tieLength++;
+		} else {
+			// The current score is lower than previous score, so check if we had a tie and if so adjust awards appropriately
+
+			// Ties are scored by adding the VP and splitting them, rounded down. So adjust the awards for all tied spaces
+			if ( tieLength > 1 ) {
+				tieSum = awards.slice(tieStart, tieStart + tieLength).reduce((total, next) => total + next, 0);
+				tiePer = Math.floor(tieSum / tieLength);
+				console.log({tieStart, tieLength, tieSum, tiePer, slice: awards.slice(tieStart, tieLength)});
+
+				for ( j = tieStart; j < tieStart + tieLength; j++ ) {
+					awards[j] = tiePer;
+				}
+			}
+
+			// Reset in case there's another tie
+			tieStart = i;
+			tieLength = 1;
+		}
+
+		lastScore = references[i].score;
+	}
+
+	// Need to check one more time in case last one was tied
+	if ( tieLength > 1 ) {
+		tieSum = awards.slice(tieStart, tieStart + tieLength).reduce((total, next) => total + next, 0);
+		tiePer = Math.floor(tieSum / tieLength);
+		console.log({tieStart, tieLength, tieSum, tiePer, slice: awards.slice(tieStart, tieLength)});
+
+		for ( j = tieStart; j < tieStart + tieLength; j++ ) {
+			awards[j] = tiePer;
+		}
+	}
+
+	for ( i = 0; i < references.length; i++ ) {
+		references[i].player.scores[round].tournament.vp = awards[i];
+	}
+}
 
 module.exports = PlayerStore;

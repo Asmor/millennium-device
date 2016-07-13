@@ -13,6 +13,7 @@ var ChoiceStore = require("./stores/choiceStore.js");
 var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
 var Randomizer = require("./pages/randomizer.js");
+var ScoreTracker = require("./pages/scoreTracker.js");
 var SelectBlocks = require("./pages/selectBlocks.js");
 
 var Router = React.createClass({
@@ -52,6 +53,9 @@ var Router = React.createClass({
 				break;
 			case "player-setup":
 				page = React.createElement(PlayerSetup, { dispatcher, playerStore, setStore });
+				break;
+			case "score-tracker":
+				page = React.createElement(ScoreTracker, { dispatcher, playerStore });
 				break;
 			default:
 				page = React.createElement(Menu, { dispatcher });
