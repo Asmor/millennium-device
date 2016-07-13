@@ -22205,7 +22205,7 @@ PlayerStore.rounds = [
 	{ name: "Round 3", optional: true, default: false },
 ];
 PlayerStore.minPlayers = 2;
-PlayerStore.maxPlayers = 6;
+PlayerStore.maxPlayers = 5;
 
 microevent.mixin(PlayerStore);
 
