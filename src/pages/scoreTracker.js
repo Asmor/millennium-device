@@ -296,7 +296,6 @@ var ScoreTracker = React.createClass({
 			.slice()
 			.sort(function (a, b) {
 				if ( a.total === b.total ) {
-					console.log("Tie!");
 					return (a.name > b.name ) ? 1 : -1;
 				}
 				return a - b;

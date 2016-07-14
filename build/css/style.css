@@ -59,7 +59,8 @@ body {
     bottom: 0;
     left: 40%;
     transform: rotate(-20deg);
-    transform-origin: left; }
+    transform-origin: left;
+    white-space: nowrap; }
   .score-tracker .score-tracker--input {
     text-align: center;
     width: 50px;

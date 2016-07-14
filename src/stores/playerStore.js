@@ -1,10 +1,13 @@
 "use strict";
 
+var PLAYER_VERSION = 1;
+
 var microevent = require("microevent-github");
 var shuffle = require("../util.js").shuffle;
 
 // Store as JSON to easily make new instances of this structure
 var blankPlayerJson = JSON.stringify({
+	version: PLAYER_VERSION,
 	name: "",
 	Starter: "",
 	Character: "",
@@ -42,8 +45,15 @@ function PlayerStore(dispatcher) {
 	var loadedData = window.localStorage[storageKey];
 	if ( loadedData ) {
 		try {
-			this.players = JSON.parse(loadedData);
-			this.playerCount = this.players.length;
+			let parsedData = JSON.parse(loadedData);
+
+			if ( parsedData[0].version !== PLAYER_VERSION ) {
+				// Saved players are of different version
+				this.initializePlayers();
+			} else {
+				this.players = JSON.parse(loadedData);
+				this.playerCount = this.players.length;
+			}
 		} catch (ex) {
 			this.initializePlayers();
 		}
