@@ -79,9 +79,33 @@ PlayerStore.prototype.resetPlayers = function () {
 	this.players.length = 0;
 	this.populatePlayers();
 };
+PlayerStore.prototype.resetScores = function () {
+	this.players.forEach(function (player) {
+		Object.keys(player.scores).forEach(function (name) {
+			var round = player.scores[name];
+			
+			Object.keys(round).forEach(function (phase) {
+				if ( typeof round[phase].rp === "number" ) {
+					// Tournament
+					round[phase].rp = 0;
+				} else if ( typeof round[phase].size === "number" ) {
+					// Collection
+					round[phase].size = 0;
+				} else if ( typeof round[phase].amount === "number" ) {
+					// Money
+					round[phase].amount = 0;
+				} else {
+					// Friendship
+					round[phase] = 0;
+				}
+			});
+		});
+	});
+
+	this.calculateScores();
+};
 PlayerStore.prototype.shufflePlayers = function () {
 	this.players = shuffle(this.players);
-	console.log(this.players.map(p => p.name));
 };
 PlayerStore.prototype.calculateScores = function () {
 	var players = this.players;
@@ -95,7 +119,23 @@ PlayerStore.prototype.calculateScores = function () {
 		});
 	});
 
-	players.forEach(player => player.scores["Game End"].money.vp = Math.floor(player.scores["Game End"].money.amount / 4));
+	players.forEach(function (player) {
+		player.scores["Game End"].money.vp = Math.floor(player.scores["Game End"].money.amount / 4);
+		
+		player.total = Object.keys(player.scores).reduce(function (sum, name) {
+			var round = player.scores[name];
+			return sum + Object.keys(round).reduce(function (sum, phase) {
+				var score = round[phase];
+
+				score = score || 0;
+				if ( typeof score === "number" ) {
+					return sum + score;
+				} else {
+					return sum + score.vp;
+				}
+			}, 0);
+		}, 0);
+	});
 };
 PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;
@@ -133,6 +173,11 @@ PlayerStore.prototype.registerDispatcher = function (dispatcher) {
 				self.resetPlayers();
 
 				self.trigger("players-reset");
+				break;
+			case "reset-scores":
+				self.resetScores();
+
+				self.trigger("score-reset");
 				break;
 			case "shuffle-players":
 				self.shufflePlayers();
@@ -221,7 +266,6 @@ function scoreTournament(args) {
 			if ( tieLength > 1 ) {
 				tieSum = awards.slice(tieStart, tieStart + tieLength).reduce((total, next) => total + next, 0);
 				tiePer = Math.floor(tieSum / tieLength);
-				console.log({tieStart, tieLength, tieSum, tiePer, slice: awards.slice(tieStart, tieLength)});
 
 				for ( j = tieStart; j < tieStart + tieLength; j++ ) {
 					awards[j] = tiePer;
@@ -240,7 +284,6 @@ function scoreTournament(args) {
 	if ( tieLength > 1 ) {
 		tieSum = awards.slice(tieStart, tieStart + tieLength).reduce((total, next) => total + next, 0);
 		tiePer = Math.floor(tieSum / tieLength);
-		console.log({tieStart, tieLength, tieSum, tiePer, slice: awards.slice(tieStart, tieLength)});
 
 		for ( j = tieStart; j < tieStart + tieLength; j++ ) {
 			awards[j] = tiePer;

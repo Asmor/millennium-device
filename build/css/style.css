@@ -66,6 +66,11 @@ body {
     -moz-appearance: textfield; }
     .score-tracker .score-tracker--input::-webkit-outer-spin-button, .score-tracker .score-tracker--input::-webkit-inner-spin-button {
       -webkit-appearance: none; }
+  .score-tracker .score-tracker--results {
+    font-weight: bold;
+    padding-bottom: 40px; }
+  .score-tracker .score-tracker--results-player:first-child {
+    font-size: 1.5em; }
 
 .select-blocks {
   margin: auto;

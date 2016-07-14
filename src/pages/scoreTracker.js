@@ -12,66 +12,29 @@ var ScoreTracker = React.createClass({
 		dispatcher: React.PropTypes.instanceOf(Dispatcher).isRequired,
 		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
 	},
-	// getInitialState: function () {
-	// 	return this.generateState();
-	// },
-	// generateState: function () {
-	// 	var { playerStore } = this.props;
-
-	// 	return {
-	// 		playerCount: playerStore.playerCount,
-	// 		players: JSON.parse(JSON.stringify(playerStore.players)),
-	// 		options: this.generateOptions(),
-	// 		values: this.generateValues(),
-	// 	};
-	// },
-	// updateState: function () {
-	// 	this.setState(this.generateState());
-	// },
-	// componentDidMount: function () {
-	// 	var { playerStore } = this.props;
-	// 	playerStore.bind("player-count-change", this.updateState);
-	// 	playerStore.bind("player-info-change", this.updateState);
-	// 	playerStore.bind("players-reset", this.updateState);
-	// },
-	// componentWillUnmount: function () {
-	// 	var { playerStore } = this.props;
-	// 	playerStore.unbind("player-count-change", this.updateState);
-	// 	playerStore.unbind("player-info-change", this.updateState);
-	// 	playerStore.unbind("players-reset", this.updateState);
-	// },
-	// generateOptions: function () {
-	// 	var { playerStore, setStore } = this.props;
-	// 	var options = {
-	// 		Characters: [],
-	// 		Starters: [],
-	// 	};
-
-	// 	var usedCharacters = playerStore.players.map(player => player.Character);
-	// 	var usedStarters = playerStore.players.map(player => player.Starter);
-	// 	var availableCharacters = setStore.getAllowed("Character")
-	// 		.map(character => character.name)
-	// 		.filter( character => usedCharacters.indexOf(character) === -1 );
-	// 	var availableStarters = setStore.getAllowed("Starter")
-	// 		.map(starter => starter.name)
-	// 		.filter( starter => usedStarters.indexOf(starter) === -1 );
-
-	// 	for ( var i = 0; i < playerStore.playerCount; i++ ) {
-	// 		let { Character, Starter } = playerStore.players[i];
-	// 		options.Characters.push(availableCharacters.concat(Character));
-	// 		options.Starters.push(availableStarters.concat(Starter));
-	// 	}
-
-	// 	return options;
-	// },
-	// generateValues: function () {
-	// 	var { playerStore } = this.props;
-
-	// 	return {
-	// 		Characters: playerStore.players.map(player => player.Character),
-	// 		Starters: playerStore.players.map(player => player.Starter),
-	// 	};
-	// },
+	getInitialState: function () {
+		return this.generateState();
+	},
+	generateState: function () {
+		return {};
+	},
+	updateState: function () {
+		this.setState(this.generateState());
+	},
+	componentDidMount: function () {
+		var { playerStore } = this.props;
+		playerStore.bind("players-reset", this.updateState);
+		playerStore.bind("score-reset", this.updateState);
+		playerStore.bind("players-reset", this.updateState);
+		playerStore.bind("score-set", this.updateState);
+	},
+	componentWillUnmount: function () {
+		var { playerStore } = this.props;
+		playerStore.unbind("players-reset", this.updateState);
+		playerStore.unbind("score-reset", this.updateState);
+		playerStore.unbind("players-reset", this.updateState);
+		playerStore.unbind("score-set", this.updateState);
+	},
 	handleChange: function (evt) {
 		var { dispatcher } = this.props;
 		var index = evt.target.getAttribute("data-index");
@@ -83,9 +46,6 @@ var ScoreTracker = React.createClass({
 			action: "set-score",
 			index, round, phase, value
 		});
-
-		// TODO: Figure out better way to update this
-		this.forceUpdate();
 	},
 	generateHeaderRow: function (index) {
 		var cells = [];
@@ -207,13 +167,90 @@ var ScoreTracker = React.createClass({
 		});
 	},
 	generateFriendshipRow: function (args) {
+		var self = this;
+		var { index, round } = args;
+		var { playerStore } = self.props;
+		var phase = "friendship";
 		var cells = [];
 
-		return React.createElement("tr", {}, cells);
+		cells.push(React.createElement("td", {
+			className: "score-tracker--header-cell score-tracker--header-cell__label",
+			key: "label",
+		}, "VP"));
+		playerStore.players.forEach(function (player, index) {
+			var value = player.scores[round][phase] || "";
+
+			cells.push(React.createElement(
+				"td",
+				{
+					className: "score-tracker--cell score-tracker--cell__input",
+					key: index,
+				},
+				React.createElement("input", {
+					className: "form-control score-tracker--input",
+					type: "number",
+					pattern: "\\d*",
+					value: value,
+					onChange: self.handleChange,
+					"data-index": index,
+					"data-round": round,
+					"data-phase": phase,
+				})
+			));
+		});
+
+		return [
+			React.createElement(
+				"tr",
+				{
+					key: index + "header",
+				},
+				React.createElement("td", {
+					className: "score-tracker--section-header",
+					colSpan: playerStore.playerCount + 1,
+				}, round + " Friendship")
+			),
+			React.createElement("tr", {
+				className: "score-tracker--row score-tracker--row__last-of-section",
+				key: index + "vp",
+			}, cells),
+		];
+	},
+	generateTotalRow: function (index) {
+		var self = this;
+		var { playerStore } = self.props;
+		var cells = [];
+
+		cells.push(React.createElement("td", {
+			key: "placeholder",
+		}));
+		this.props.playerStore.players.forEach(function (player, index) {
+			cells.push(React.createElement("td", {
+				className: "score-tracker--total-cell",
+				key: index,
+			}, player.total));
+		});
+
+		return [
+			React.createElement(
+				"tr",
+				{
+					key: index + "header",
+				},
+				React.createElement("td", {
+					className: "score-tracker--section-header",
+					colSpan: playerStore.playerCount + 1,
+				}, "Total Score")
+			),
+			React.createElement("tr", {
+				className: "score-tracker--row",
+				key: index + "total",
+			}, cells),
+		];
 	},
 	render: function () {
 		var self = this;
-		var { dispatcher } = this.props;
+		var { playerStore, dispatcher } = this.props;
 
 		var tableRows = [
 			{ round: "Header",      type: "header" },
@@ -225,7 +262,8 @@ var ScoreTracker = React.createClass({
 			{ round: "Round 3",     type: "collection" },
 			{ round: "Round 3",     type: "tournament" },
 			{ round: "Game End",    type: "money" },
-			// { round: "Game End",    type: "friendship" },
+			{ round: "Game End",    type: "friendship" },
+			{ round: "Total",       type: "total" },
 		].reduce(function (previousRows, def, index) {
 			var newRow;
 			var { round, type } = def;
@@ -246,15 +284,36 @@ var ScoreTracker = React.createClass({
 				case "friendship":
 					newRow = self.generateFriendshipRow({index, round});
 					break;
+				case "total":
+					newRow = self.generateTotalRow(index);
+					break;
 			}
 
 			return previousRows.concat(newRow);
 		}, []);
 
+		var totals = playerStore.players
+			.slice()
+			.sort(function (a, b) {
+				if ( a.total === b.total ) {
+					console.log("Tie!");
+					return (a.name > b.name ) ? 1 : -1;
+				}
+				return a - b;
+			})
+			.map((player, index) => React.createElement(
+				"div",
+				{ className: "score-tracker--results-player", key: index },
+				React.createElement("span", { className: "score-tracker--results-name" }, player.name + ": "),
+				React.createElement("span", { className: "score-tracker--results-total" }, player.total)
+			))
+		;
+
 		return React.createElement("div", { className: "score-tracker" },
 			React.createElement("table", { className: "score-tracker--score-table" },
 				React.createElement("tbody", { className: "score-tracker--score-table" }, tableRows)
-				),
+			),
+			React.createElement("div", { className: "score-tracker--results" }, totals ),
 			React.createElement("div", { className: "score-tracker--buttons" },
 				React.createElement("button", {
 					className: "btn btn-danger",

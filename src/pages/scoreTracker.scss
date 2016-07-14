@@ -43,4 +43,17 @@
 			-webkit-appearance: none;
 		}
 	}
+
+	.score-tracker--results {
+		font-weight: bold;
+		padding-bottom: 40px;
+	}
+
+	.score-tracker--results-player {
+		&:first-child {
+			font-size: 1.5em;
+		}
+	}
+	.score-tracker--results-name {}
+	.score-tracker--results-total {}
 }
