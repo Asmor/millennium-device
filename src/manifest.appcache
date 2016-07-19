@@ -1,0 +1,16 @@
+CACHE MANIFEST
+
+# DATE: 2016-07-19
+# VERSION: 3
+
+CACHE:
+index.html
+js/bundle.min.js
+css/style.css
+images/parchment.jpg
+images/mblogo.png
+//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2
+
+NETWORK:
+*
