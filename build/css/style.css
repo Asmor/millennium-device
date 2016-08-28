@@ -73,14 +73,14 @@ body {
   .score-tracker .score-tracker--results-player:first-child {
     font-size: 1.5em; }
 
-.select-blocks {
+.select-products {
   margin: auto;
   max-width: 100%;
   width: 510px;
   padding: 20px; }
-  .select-blocks .select-blocks--button {
+  .select-products .select-products--button {
     margin: 20px 0; }
-  .select-blocks .select-blocks--button-icon {
+  .select-products .select-products--button-icon {
     float: left; }
 
 .player-control {

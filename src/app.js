@@ -19,7 +19,7 @@ var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
 var Randomizer = require("./pages/randomizer.js");
 var ScoreTracker = require("./pages/scoreTracker.js");
-var SelectBlocks = require("./pages/selectBlocks.js");
+var SelectProducts = require("./pages/selectProducts.js");
 
 var Router = React.createClass({
 	displayName: "router",
@@ -53,8 +53,8 @@ var Router = React.createClass({
 			case "randomizer":
 				page = React.createElement(Randomizer, { dispatcher, setStore, choiceStores });
 				break;
-			case "select-blocks":
-				page = React.createElement(SelectBlocks, { dispatcher, setStore });
+			case "select-products":
+				page = React.createElement(SelectProducts, { dispatcher, setStore });
 				break;
 			case "player-setup":
 				page = React.createElement(PlayerSetup, { dispatcher, playerStore, setStore });

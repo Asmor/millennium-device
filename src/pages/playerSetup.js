@@ -85,7 +85,7 @@ var PlayerSetup = React.createClass({
 			.map(character => character.name);
 		var selected = shuffle(characters).slice(0, count);
 
-		// If there aren't enough sets in the chosen blocks, pad out the extra choices with blanks
+		// If there aren't enough sets in the chosen products, pad out the extra choices with blanks
 		while ( selected.length < count ) {
 			selected.push(" ");
 		}

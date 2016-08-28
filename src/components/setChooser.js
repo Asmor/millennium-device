@@ -24,11 +24,11 @@ var SetChooser = React.createClass({
 	},
 	componentDidMount: function () {
 		this.props.choiceStore.bind("update", this.choicesChanged);
-		this.props.setStore.bind("block-state-change", this.choicesChanged);
+		this.props.setStore.bind("product-state-change", this.choicesChanged);
 	},
 	componentWillUnmount: function () {
 		this.props.choiceStore.unbind("update", this.choicesChanged);
-		this.props.setStore.unbind("block-state-change", this.choicesChanged);
+		this.props.setStore.unbind("product-state-change", this.choicesChanged);
 	},
 	choicesChanged: function () {
 		this.setState({ options: this.generateOptions() });
@@ -37,7 +37,7 @@ var SetChooser = React.createClass({
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
 		var complement = choiceStore.complement(this.props.options)
-			.filter(set => this.props.setStore.blocks[set.block]);
+			.filter(set => this.props.setStore.blocks[set.product]);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -57,7 +57,7 @@ var SetChooser = React.createClass({
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
 		var sets = this.props.options
-			.filter(set => this.props.setStore.blocks[set.block])
+			.filter(set => this.props.setStore.blocks[set.product])
 			.map(o => o.name);
 		var selected = shuffle(sets).slice(0, count);
 

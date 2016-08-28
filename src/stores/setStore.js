@@ -1,22 +1,22 @@
 "use strict";
 
 var microevent = require("microevent-github");
-var storageKey = "mba:excluded-blocks";
+var storageKey = "mba:excluded-products";
 var separator = "|";
 
 function SetStore(args) {
 	var { sets, dispatcher } = args;
 	var self = this;
 	self.byBlock = {};
-	self.blocks = {};
+	self.products = {};
 	self.types = {};
 
 	sets.forEach(function (set) {
-		self.blocks[set.block] = true;
-		var block = self.byBlock[set.block] = self.byBlock[set.block] || [];
+		self.products[set.product] = true;
+		var product = self.byBlock[set.product] = self.byBlock[set.product] || [];
 		var type = self.types[set.type] = self.types[set.type] || [];
 
-		block.push(set);
+		product.push(set);
 		type.push(set);
 	});
 
@@ -24,9 +24,9 @@ function SetStore(args) {
 
 	excluded.split(separator).forEach(function (set) {
 		// Probably overkill, but we only need to toggle off things that are already on and this
-		// protects us from corrupted data adding erroneous blocks
-		if ( self.blocks[set] ) {
-			self.blocks[set] = false;
+		// protects us from corrupted data adding erroneous products
+		if ( self.products[set] ) {
+			self.products[set] = false;
 		}
 	});
 
@@ -37,22 +37,22 @@ function SetStore(args) {
 SetStore.prototype.registerDispatcher = function (dispatcher) {
 	var self = this;
 	dispatcher.register(function (payload) {
-		if ( payload.action !== "toggle-block-state" ) {
+		if ( payload.action !== "toggle-product-state" ) {
 			return;
 		}
 
-		var { block, state } = payload;
+		var { product, state } = payload;
 
-		self.blocks[block] = state;
+		self.products[product] = state;
 
-		self.trigger("block-state-change", { block, state });
-		window.localStorage[storageKey] = Object.keys(self.blocks)
-			.filter( key => !self.blocks[key] )
+		self.trigger("product-state-change", { product, state });
+		window.localStorage[storageKey] = Object.keys(self.products)
+			.filter( key => !self.products[key] )
 			.join(separator);
 	});
 };
 SetStore.prototype.getAllowed = function (type) {
-	return this.types[type].filter( set => this.blocks[set.block] );
+	return this.types[type].filter( set => this.products[set.product] );
 };
 
 microevent.mixin(SetStore);
