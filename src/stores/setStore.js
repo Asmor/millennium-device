@@ -7,13 +7,13 @@ var separator = "|";
 function SetStore(args) {
 	var { sets, dispatcher } = args;
 	var self = this;
-	self.byBlock = {};
+	self.byProduct = {};
 	self.products = {};
 	self.types = {};
 
 	sets.forEach(function (set) {
 		self.products[set.product] = true;
-		var product = self.byBlock[set.product] = self.byBlock[set.product] || [];
+		var product = self.byProduct[set.product] = self.byProduct[set.product] || [];
 		var type = self.types[set.type] = self.types[set.type] || [];
 
 		product.push(set);

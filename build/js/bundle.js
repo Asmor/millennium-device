@@ -41812,7 +41812,7 @@ var SetChooser = React.createClass({
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
 		var complement = choiceStore.complement(this.props.options)
-			.filter(set => this.props.setStore.blocks[set.product]);
+			.filter(set => this.props.setStore.products[set.product]);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -41832,7 +41832,7 @@ var SetChooser = React.createClass({
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
 		var sets = this.props.options
-			.filter(set => this.props.setStore.blocks[set.product])
+			.filter(set => this.props.setStore.products[set.product])
 			.map(o => o.name);
 		var selected = shuffle(sets).slice(0, count);
 
@@ -41841,7 +41841,7 @@ var SetChooser = React.createClass({
 			selected.sort();
 		}
 
-		// If there aren't enough sets in the chosen blocks, pad out the extra choices with blanks
+		// If there aren't enough sets in the chosen products, pad out the extra choices with blanks
 		while ( selected.length < count ) {
 			selected.push(" ");
 		}
@@ -43146,13 +43146,13 @@ var separator = "|";
 function SetStore(args) {
 	var { sets, dispatcher } = args;
 	var self = this;
-	self.byBlock = {};
+	self.byProduct = {};
 	self.products = {};
 	self.types = {};
 
 	sets.forEach(function (set) {
 		self.products[set.product] = true;
-		var product = self.byBlock[set.product] = self.byBlock[set.product] || [];
+		var product = self.byProduct[set.product] = self.byProduct[set.product] || [];
 		var type = self.types[set.type] = self.types[set.type] || [];
 
 		product.push(set);
