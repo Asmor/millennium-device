@@ -42082,7 +42082,7 @@ var Menu = React.createClass({
 			}, "Score tracker"),
 			React.createElement("a", {
 				className: "btn btn-info btn-block btn-lg menu--button",
-				href: "https://boardgamegeek.com/blogpost/55856/blades-assistant",
+				href: "https://boardgamegeek.com/blogpost/55856",
 				target: "_blank",
 			}, "Feedback & Updates")
 		);
