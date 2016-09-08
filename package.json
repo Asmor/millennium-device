@@ -4,9 +4,10 @@
   "description": "Utility for helping play Millennium Blades",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:images && npm run build:minify && npm run build:manifest",
+    "build": "npm run build:js && npm run build:html && npm run build:css && npm run build:images && npm run build:minify && npm run build:manifest && npm run build:3p",
     "build:css": "sass src/style.scss:build/css/style.css",
     "build:html": "cp src/*.html build/",
+    "build:3p": "cp -R src/3rd-party build/",
     "build:manifest": "node updateManifest",
     "build:images": "cp src/images/* build/images",
     "build:js": "browserify src/app.js -o build/js/bundle.js",

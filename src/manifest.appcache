@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 # DATE: 2016-09-08
-# VERSION: 9
+# VERSION: 12
 
 CACHE:
 index.html
@@ -15,8 +15,8 @@ images/set-master.png
 images/promo-bronze.png
 images/promo-silver.png
 images/promo-gold.png
-//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
-//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2
+3rd-party/css/bootstrap.min.css
+3rd-party/fonts/glyphicons-halflings-regular.woff2
 
 NETWORK:
 *
