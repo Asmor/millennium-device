@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
-# DATE: 2016-08-28
-# VERSION: 7
+# DATE: 2016-09-08
+# VERSION: 8
 
 CACHE:
 index.html
@@ -9,6 +9,12 @@ js/bundle.min.js
 css/style.css
 images/parchment.jpg
 images/mblogo.png
+images/set-expansion.png
+images/set-premium.png
+images/set-master.png
+images/promo-bronze.png
+images/promo-silver.png
+images/promo-gold.png
 //maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
 //maxcdn.bootstrapcdn.com/bootstrap/3.3.6/fonts/glyphicons-halflings-regular.woff2
 

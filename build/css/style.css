@@ -119,6 +119,32 @@ body {
       width: 33.33333%; } }
   .set-chooser .set-chooser--shuffle-button {
     float: right; }
+  .set-chooser .set-chooser--header {
+    position: relative;
+    padding-left: 50px; }
+    .set-chooser .set-chooser--header::before {
+      display: block;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      bottom: -10px;
+      left: 0;
+      content: "";
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center; }
+    .set-chooser .set-chooser--header.set-chooser--header__expansion::before {
+      background-image: url("../images/set-expansion.png"); }
+    .set-chooser .set-chooser--header.set-chooser--header__premium::before {
+      background-image: url("../images/set-premium.png"); }
+    .set-chooser .set-chooser--header.set-chooser--header__master::before {
+      background-image: url("../images/set-master.png"); }
+    .set-chooser .set-chooser--header.set-chooser--header__bronze::before {
+      background-image: url("../images/promo-bronze.png"); }
+    .set-chooser .set-chooser--header.set-chooser--header__silver::before {
+      background-image: url("../images/promo-silver.png"); }
+    .set-chooser .set-chooser--header.set-chooser--header__gold::before {
+      background-image: url("../images/promo-gold.png"); }
 
 .set-dropdown {
   margin: 20px 0; }

@@ -41856,6 +41856,8 @@ var SetChooser = React.createClass({
 		var size = choiceStore.size();
 		var currentValue;
 		var props;
+		var headerClass = "set-chooser--header set-chooser--header__" + header.toLowerCase();
+		console.log(headerClass);
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i) || "";
@@ -41877,7 +41879,7 @@ var SetChooser = React.createClass({
 		}
 
 		return React.createElement("div", { className: "set-chooser" },
-			React.createElement("h3", { key: header }, header,
+			React.createElement("h3", { className: headerClass, key: header }, header,
 				React.createElement(
 					"button",
 					{
