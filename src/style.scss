@@ -22,6 +22,8 @@ body {
 	}
 }
 
+@import "mixins";
+
 @import "pages/menu";
 @import "pages/playerSetup";
 @import "pages/randomizer";

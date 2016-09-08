@@ -19,6 +19,20 @@
 		padding-left: 50px;
 
 		&::before {
+			content: "";
+
+			position: absolute;
+			top: -5px;
+			bottom: -5px;
+			left: 20px;
+			width: 200px;
+			z-index: -1;
+
+			box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
+			border-radius: 5px;
+		}
+
+		&::after {
 			display: block;
 			position: absolute;
 			width: 50px;
@@ -30,23 +44,53 @@
 			background-repeat: no-repeat;
 			background-position: center;
 		}
-		&.set-chooser--header__expansion::before {
-			background-image: url("../images/set-expansion.png");
+		&.set-chooser--header__expansion {
+			&::before {
+				@include linear-gradient(#618D69, #A0AF96);
+			}
+			&::after {
+				background-image: url("../images/set-expansion.png");
+			}
 		}
-		&.set-chooser--header__premium::before {
-			background-image: url("../images/set-premium.png");
+		&.set-chooser--header__premium {
+			&::before {
+				@include linear-gradient(#90A2AC, #C0D1E4);
+			}
+			&::after {
+				background-image: url("../images/set-premium.png");
+			}
 		}
-		&.set-chooser--header__master::before {
-			background-image: url("../images/set-master.png");
+		&.set-chooser--header__master {
+			&::before {
+				@include linear-gradient(#DCC2A9, #E8D3C6);
+			}
+			&::after {
+				background-image: url("../images/set-master.png");
+			}
 		}
-		&.set-chooser--header__bronze::before {
-			background-image: url("../images/promo-bronze.png");
+		&.set-chooser--header__bronze {
+			&::before {
+				@include linear-gradient(#C3AA79, #DFDAC9);
+			}
+			&::after {
+				background-image: url("../images/promo-bronze.png");
+			}
 		}
-		&.set-chooser--header__silver::before {
-			background-image: url("../images/promo-silver.png");
+		&.set-chooser--header__silver {
+			&::before {
+				@include linear-gradient(#8A8588, #C4C4B8);
+			}
+			&::after {
+				background-image: url("../images/promo-silver.png");
+			}
 		}
-		&.set-chooser--header__gold::before {
-			background-image: url("../images/promo-gold.png");
+		&.set-chooser--header__gold {
+			&::before {
+				@include linear-gradient(#8D9143, #DCD47A);
+			}
+			&::after {
+				background-image: url("../images/promo-gold.png");
+			}
 		}
 	}
 }
