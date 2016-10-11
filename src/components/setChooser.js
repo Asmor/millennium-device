@@ -82,7 +82,6 @@ var SetChooser = React.createClass({
 		var currentValue;
 		var props;
 		var headerClass = "set-chooser--header set-chooser--header__" + header.toLowerCase();
-		console.log(headerClass);
 
 		for ( var i = 0; i < size; i++ ) {
 			currentValue = choiceStore.get(i) || "";
