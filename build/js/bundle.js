@@ -41972,13 +41972,13 @@ module.exports = SetDropdown;
 
 },{"../stores/choiceStore.js":317,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
 module.exports=[
-	{ "pid": "core",  "order": 1, "image": "", "name": "Millennium Blades" },
-	{ "pid": "exp1",  "order": 2, "image": "", "name": "Set Rotation" },
-	{ "pid": "mini1", "order": 3, "image": "", "name": "Mini-Expansion 1: Crossover" },
-	{ "pid": "mini2", "order": 4, "image": "", "name": "Mini-Expansion 2: Sponsors" },
-	{ "pid": "mini3", "order": 5, "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
-	{ "pid": "mini4", "order": 6, "image": "", "name": "Mini-Expansion 4: Final Bosses" },
-	{ "pid": "mini5", "order": 7, "image": "", "name": "Mini-Expansion 5: Futures" }
+	{ "pid": "core",  "order": 1, "image": "images/products/core.png",  "name": "Millennium Blades" },
+	{ "pid": "exp1",  "order": 2, "image": "images/products/exp1.png",  "name": "Set Rotation" },
+	{ "pid": "mini1", "order": 3, "image": "images/products/mini1.png", "name": "Mini-Expansion 1: Crossover" },
+	{ "pid": "mini2", "order": 4, "image": "images/products/mini2.png", "name": "Mini-Expansion 2: Sponsors" },
+	{ "pid": "mini3", "order": 5, "image": "images/products/mini3.png", "name": "Mini-Expansion 3: Fusion Chaos" },
+	{ "pid": "mini4", "order": 6, "image": "images/products/mini4.png", "name": "Mini-Expansion 4: Final Bosses" },
+	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" }
 ]
 
 },{}],311:[function(require,module,exports){
@@ -42764,15 +42764,12 @@ var SelectProducts = React.createClass({
 	render: function () {
 		var self = this;
 		var buttons = self.state.products.map(function (product) {
-			var classes = [ "select-products--button btn btn-block btn-lg" ];
-			var iconClasses = ["select-products--button-icon glyphicon"];
+			var classes = [ "select-products--button" ];
 
 			if ( product.active ) {
-				classes.push("btn-success");
-				iconClasses.push("glyphicon-ok");
+				classes.push("select-products--button__active");
 			} else {
-				classes.push("btn-danger");
-				iconClasses.push("glyphicon-remove");
+				classes.push("select-products--button__inactive");
 			}
 
 			return React.createElement(
@@ -42786,8 +42783,7 @@ var SelectProducts = React.createClass({
 					}),
 					key: product.name
 				},
-				React.createElement("span", { className: iconClasses.join(" ") }),
-				" " + product.name
+				React.createElement("img", { src: product.image })
 			);
 		});
 

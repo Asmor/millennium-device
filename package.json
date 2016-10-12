@@ -9,7 +9,7 @@
     "build:html": "cp src/*.html build/",
     "build:3p": "cp -R src/3rd-party build/",
     "build:manifest": "node updateManifest",
-    "build:images": "cp src/images/* build/images",
+    "build:images": "cp -r src/images/* build/images",
     "build:js": "browserify src/app.js -o build/js/bundle.js",
     "build:minify": "node minify",
     "watch:js": "watchify src/app.js -o build/js/bundle.js",

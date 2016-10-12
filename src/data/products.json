@@ -1,9 +1,9 @@
 [
-	{ "pid": "core",  "order": 1, "image": "", "name": "Millennium Blades" },
-	{ "pid": "exp1",  "order": 2, "image": "", "name": "Set Rotation" },
-	{ "pid": "mini1", "order": 3, "image": "", "name": "Mini-Expansion 1: Crossover" },
-	{ "pid": "mini2", "order": 4, "image": "", "name": "Mini-Expansion 2: Sponsors" },
-	{ "pid": "mini3", "order": 5, "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
-	{ "pid": "mini4", "order": 6, "image": "", "name": "Mini-Expansion 4: Final Bosses" },
-	{ "pid": "mini5", "order": 7, "image": "", "name": "Mini-Expansion 5: Futures" }
+	{ "pid": "core",  "order": 1, "image": "images/products/core.png",  "name": "Millennium Blades" },
+	{ "pid": "exp1",  "order": 2, "image": "images/products/exp1.png",  "name": "Set Rotation" },
+	{ "pid": "mini1", "order": 3, "image": "images/products/mini1.png", "name": "Mini-Expansion 1: Crossover" },
+	{ "pid": "mini2", "order": 4, "image": "images/products/mini2.png", "name": "Mini-Expansion 2: Sponsors" },
+	{ "pid": "mini3", "order": 5, "image": "images/products/mini3.png", "name": "Mini-Expansion 3: Fusion Chaos" },
+	{ "pid": "mini4", "order": 6, "image": "images/products/mini4.png", "name": "Mini-Expansion 4: Final Bosses" },
+	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" }
 ]

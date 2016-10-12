@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 # DATE: 2016-10-12
-# VERSION: 15
+# VERSION: 18
 
 CACHE:
 index.html
@@ -15,6 +15,13 @@ images/set-master.png
 images/promo-bronze.png
 images/promo-silver.png
 images/promo-gold.png
+images/products/core.png
+images/products/exp1.png
+images/products/mini1.png
+images/products/mini2.png
+images/products/mini3.png
+images/products/mini4.png
+images/products/mini5.png
 3rd-party/css/bootstrap.min.css
 3rd-party/fonts/glyphicons-halflings-regular.woff2
 

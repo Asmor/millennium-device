@@ -39,15 +39,12 @@ var SelectProducts = React.createClass({
 	render: function () {
 		var self = this;
 		var buttons = self.state.products.map(function (product) {
-			var classes = [ "select-products--button btn btn-block btn-lg" ];
-			var iconClasses = ["select-products--button-icon glyphicon"];
+			var classes = [ "select-products--button" ];
 
 			if ( product.active ) {
-				classes.push("btn-success");
-				iconClasses.push("glyphicon-ok");
+				classes.push("select-products--button__active");
 			} else {
-				classes.push("btn-danger");
-				iconClasses.push("glyphicon-remove");
+				classes.push("select-products--button__inactive");
 			}
 
 			return React.createElement(
@@ -61,8 +58,7 @@ var SelectProducts = React.createClass({
 					}),
 					key: product.name
 				},
-				React.createElement("span", { className: iconClasses.join(" ") }),
-				" " + product.name
+				React.createElement("img", { src: product.image })
 			);
 		});
 

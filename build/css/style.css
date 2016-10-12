@@ -9,7 +9,8 @@ body {
 .page .page--home-button {
   position: fixed;
   top: 20px;
-  left: 20px; }
+  left: 20px;
+  z-index: 100; }
 .page .page--logo {
   max-width: 100%;
   display: block;
@@ -76,10 +77,20 @@ body {
 .select-products {
   margin: auto;
   max-width: 100%;
-  width: 510px;
-  padding: 20px; }
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
   .select-products .select-products--button {
-    margin: 20px 0; }
+    border: 0;
+    background: transparent;
+    margin: 10px;
+    position: relative; }
+    .select-products .select-products--button > img {
+      width: 400px;
+      max-width: calc(100% - 20px); }
+    .select-products .select-products--button.select-products--button__inactive {
+      opacity: 0.5; }
   .select-products .select-products--button-icon {
     float: left; }
 

@@ -1,11 +1,28 @@
 .select-products {
 	margin: auto;
 	max-width: 100%;
-	width: 510px;
+	// width: 510px;
 	padding: 20px;
 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
 	.select-products--button {
-		margin: 20px 0;
+		$margin: 10px;
+		border: 0;
+		background: transparent;
+		margin: $margin;
+		position: relative;
+
+		> img {
+			width: 400px;
+			max-width: calc(100% - #{$margin * 2});
+		}
+
+		&.select-products--button__inactive {
+			opacity: 0.5;
+		}
 	}
 
 	.select-products--button-icon {
