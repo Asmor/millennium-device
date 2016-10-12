@@ -13,7 +13,7 @@ var SelectProducts = React.createClass({
 	getInitialState: function () {
 		var products = Object.keys(this.props.setStore.products)
 			.map(key => this.props.setStore.products[key])
-			.sort((a, b) => a.Name > b.name ? 1 : -1);
+			.sort((a, b) => a.order - b.order);
 
 		return { products };
 	},

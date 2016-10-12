@@ -41972,13 +41972,13 @@ module.exports = SetDropdown;
 
 },{"../stores/choiceStore.js":317,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
 module.exports=[
-	{ "pid": "core",  "image": "", "name": "Millennium Blades" },
-	{ "pid": "exp1",  "image": "", "name": "Set Rotation" },
-	{ "pid": "mini1", "image": "", "name": "Mini-Expansion 1: Crossover" },
-	{ "pid": "mini2", "image": "", "name": "Mini-Expansion 2: Sponsors" },
-	{ "pid": "mini3", "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
-	{ "pid": "mini4", "image": "", "name": "Mini-Expansion 4: Final Bosses" },
-	{ "pid": "mini5", "image": "", "name": "Mini-Expansion 5: Futures" }
+	{ "pid": "core",  "order": 1, "image": "", "name": "Millennium Blades" },
+	{ "pid": "exp1",  "order": 2, "image": "", "name": "Set Rotation" },
+	{ "pid": "mini1", "order": 3, "image": "", "name": "Mini-Expansion 1: Crossover" },
+	{ "pid": "mini2", "order": 4, "image": "", "name": "Mini-Expansion 2: Sponsors" },
+	{ "pid": "mini3", "order": 5, "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
+	{ "pid": "mini4", "order": 6, "image": "", "name": "Mini-Expansion 4: Final Bosses" },
+	{ "pid": "mini5", "order": 7, "image": "", "name": "Mini-Expansion 5: Futures" }
 ]
 
 },{}],311:[function(require,module,exports){
@@ -42738,7 +42738,7 @@ var SelectProducts = React.createClass({
 	getInitialState: function () {
 		var products = Object.keys(this.props.setStore.products)
 			.map(key => this.props.setStore.products[key])
-			.sort((a, b) => a.Name > b.name ? 1 : -1);
+			.sort((a, b) => a.order - b.order);
 
 		return { products };
 	},
