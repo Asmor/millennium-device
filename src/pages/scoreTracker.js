@@ -298,7 +298,7 @@ var ScoreTracker = React.createClass({
 				if ( a.total === b.total ) {
 					return (a.name > b.name ) ? 1 : -1;
 				}
-				return a - b;
+				return b.total - a.total;
 			})
 			.map((player, index) => React.createElement(
 				"div",
