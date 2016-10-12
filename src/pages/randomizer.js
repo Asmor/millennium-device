@@ -27,7 +27,6 @@ var Randomizer = React.createClass({
 		var setChoosers = {};
 
 		Object.keys(choiceStores).forEach(function (type) {
-
 			setChoosers[type] = React.createElement(SetChooser, {
 				dispatcher,
 				choiceStore: choiceStores[type],

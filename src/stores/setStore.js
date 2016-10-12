@@ -5,28 +5,31 @@ var storageKey = "mba:excluded-products";
 var separator = "|";
 
 function SetStore(args) {
-	var { sets, dispatcher } = args;
+	var { sets, dispatcher, products } = args;
 	var self = this;
 	self.byProduct = {};
 	self.products = {};
 	self.types = {};
 
+	products.forEach(function (product) {
+		self.products[product.pid] = product;
+		product.active = true;
+		product.sets = [];
+	});
+
 	sets.forEach(function (set) {
-		self.products[set.product] = true;
-		var product = self.byProduct[set.product] = self.byProduct[set.product] || [];
+		var product = self.products[set.pid];
 		var type = self.types[set.type] = self.types[set.type] || [];
 
-		product.push(set);
+		product.sets.push(set);
 		type.push(set);
 	});
 
 	var excluded = window.localStorage[storageKey] || "";
 
-	excluded.split(separator).forEach(function (set) {
-		// Probably overkill, but we only need to toggle off things that are already on and this
-		// protects us from corrupted data adding erroneous products
-		if ( self.products[set] ) {
-			self.products[set] = false;
+	excluded.split(separator).forEach(function (pid) {
+		if ( self.products[pid] ) {
+			self.products[pid].active = false;
 		}
 	});
 
@@ -41,18 +44,18 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 			return;
 		}
 
-		var { product, state } = payload;
+		var { pid, state } = payload;
 
-		self.products[product] = state;
+		self.products[pid].active = state;
 
-		self.trigger("product-state-change", { product, state });
+		self.trigger("product-state-change", { pid, state });
 		window.localStorage[storageKey] = Object.keys(self.products)
-			.filter( key => !self.products[key] )
+			.filter( key => !self.products[key].active )
 			.join(separator);
 	});
 };
 SetStore.prototype.getAllowed = function (type) {
-	return this.types[type].filter( set => this.products[set.product] );
+	return this.types[type].filter( set => this.products[set.pid].active );
 };
 
 microevent.mixin(SetStore);

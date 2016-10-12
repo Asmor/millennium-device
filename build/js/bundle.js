@@ -41595,7 +41595,7 @@ var Router = React.createClass({
 var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
-var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
+var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json"), products: require("./data/products.json") });
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
 	Expansion: new ChoiceStore({ dispatcher, count: 5 }),
@@ -41619,7 +41619,7 @@ window.addEventListener("load", function () {
 	ReactDOM.render(rootElement, document.getElementById("content"));
 });
 
-},{"./data/sets.json":310,"./pages/menu.js":311,"./pages/playerSetup.js":312,"./pages/randomizer.js":313,"./pages/scoreTracker.js":314,"./pages/selectProducts.js":315,"./stores/choiceStore.js":316,"./stores/playerStore.js":317,"./stores/routeStore.js":318,"./stores/setStore.js":319,"flux/lib/Dispatcher":84,"react":281,"react-dom":115}],306:[function(require,module,exports){
+},{"./data/products.json":310,"./data/sets.json":311,"./pages/menu.js":312,"./pages/playerSetup.js":313,"./pages/randomizer.js":314,"./pages/scoreTracker.js":315,"./pages/selectProducts.js":316,"./stores/choiceStore.js":317,"./stores/playerStore.js":318,"./stores/routeStore.js":319,"./stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281,"react-dom":115}],306:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41701,7 +41701,7 @@ var PlayerControl = React.createClass({
 
 module.exports = PlayerControl;
 
-},{"../components/PlayerDropdown.js":307,"../stores/playerStore.js":317,"../stores/setStore.js":319,"flux/lib/Dispatcher":84,"react":281}],307:[function(require,module,exports){
+},{"../components/PlayerDropdown.js":307,"../stores/playerStore.js":318,"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],307:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41812,7 +41812,7 @@ var SetChooser = React.createClass({
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
 		var complement = choiceStore.complement(this.props.options)
-			.filter(set => this.props.setStore.products[set.product]);
+			.filter(set => this.props.setStore.products[set.pid].active);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -41832,7 +41832,7 @@ var SetChooser = React.createClass({
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
 		var sets = this.props.options
-			.filter(set => this.props.setStore.products[set.product])
+			.filter(set => this.props.setStore.products[set.pid].active)
 			.map(o => o.name);
 		var selected = shuffle(sets).slice(0, count);
 
@@ -41896,7 +41896,7 @@ var SetChooser = React.createClass({
 
 module.exports = SetChooser;
 
-},{"../stores/choiceStore.js":316,"../stores/setStore.js":319,"../util.js":320,"./setDropdown.js":309,"flux/lib/Dispatcher":84,"react":281}],309:[function(require,module,exports){
+},{"../stores/choiceStore.js":317,"../stores/setStore.js":320,"../util.js":321,"./setDropdown.js":309,"flux/lib/Dispatcher":84,"react":281}],309:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41970,128 +41970,139 @@ var SetDropdown = React.createClass({
 
 module.exports = SetDropdown;
 
-},{"../stores/choiceStore.js":316,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
-module.exports= [
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "1001 Nights" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Anvilicious Arrangements" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Black Flags, Black Waters" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Fists of Steel" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Gno-Mans Land" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Lightning Bug" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Obari As Hell: Strike A Pose" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Rubber Ducky Maid Crusaders R" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Samurai Mowdown" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Sunset Striders" },
-	{ "product": "Millennium Blades",              "type": "Expansion", "name": "Super Plumber Bros." },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "AD 2400" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Cards From the Crypt" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Cards Magica" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Clockwork Empire" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Legend of Tanananah" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Mouse Card" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Pandora’s Box Opened" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Under Lords of Metropolitan" },
-	{ "product": "Millennium Blades",              "type": "Premium",   "name": "Xeno X-Over" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "006 Plus One" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Fantasy Finale MCLXVH-2" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Galactic Caboose" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Hell to Pay" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "M.N.M." },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Millennium Masters" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Symphony of Destruction" },
-	{ "product": "Millennium Blades",              "type": "Master",    "name": "Vex: Cards of Hate" },
-	{ "product": "Millennium Blades",              "type": "Bronze",    "name": "Elemental Blades" },
-	{ "product": "Millennium Blades",              "type": "Bronze",    "name": "Leave it to Backers" },
-	{ "product": "Millennium Blades",              "type": "Bronze",    "name": "Legend of Final Badass" },
-	{ "product": "Millennium Blades",              "type": "Bronze",    "name": "The Backer Bunch" },
-	{ "product": "Millennium Blades",              "type": "Silver",    "name": "Backer Meets World" },
-	{ "product": "Millennium Blades",              "type": "Silver",    "name": "Princess’ Blade" },
-	{ "product": "Millennium Blades",              "type": "Silver",    "name": "Sealed Vaults" },
-	{ "product": "Millennium Blades",              "type": "Gold",      "name": "Backers in Charge" },
-	{ "product": "Millennium Blades",              "type": "Gold",      "name": "Elemental Dragon Lords" },
-	{ "product": "Millennium Blades",              "type": "Gold",      "name": "Millennium Accessories" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Cardine Kolleckta" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Deques Applenti" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Fulton Suitcase" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Morrey Caardman" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Power Creep" },
-	{ "product": "Millennium Blades",              "type": "Character", "name": "Shur Wen Na" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Bluelake Village" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Brownwall City" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Chateau Helbane" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Greendew Bazaar" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Redhill Mercenaries" },
-	{ "product": "Millennium Blades",              "type": "Starter",   "name": "Saints of Whiteholme" },
-	{ "product": "Set Rotation",                   "type": "Expansion", "name": "Fast" },
-	{ "product": "Set Rotation",                   "type": "Expansion", "name": "Quantum Jump" },
-	{ "product": "Set Rotation",                   "type": "Expansion", "name": "Saved by the 90's" },
-	{ "product": "Set Rotation",                   "type": "Expansion", "name": "The Thousand Pixel Cabinet" },
-	{ "product": "Set Rotation",                   "type": "Expansion", "name": "Uuurgh!" },
-	{ "product": "Set Rotation",                   "type": "Premium",   "name": "Deus Rex Machina" },
-	{ "product": "Set Rotation",                   "type": "Premium",   "name": "Developmental Issues" },
-	{ "product": "Set Rotation",                   "type": "Premium",   "name": "Game of Rings" },
-	{ "product": "Set Rotation",                   "type": "Premium",   "name": "Shonen Leap" },
-	{ "product": "Set Rotation",                   "type": "Master",    "name": "Penny Dreadful" },
-	{ "product": "Set Rotation",                   "type": "Master",    "name": "The Ultimate Steel Cook" },
-	{ "product": "Set Rotation",                   "type": "Master",    "name": "Ultimate Kaiju Throwdown" },
-	{ "product": "Set Rotation",                   "type": "Bronze",    "name": "Argent: Supporters" },
-	{ "product": "Set Rotation",                   "type": "Bronze",    "name": "Backers in the House" },
-	{ "product": "Set Rotation",                   "type": "Bronze",    "name": "BattleCON: War of Indines" },
-	{ "product": "Set Rotation",                   "type": "Bronze",    "name": "Halloween Spooktacular" },
-	{ "product": "Set Rotation",                   "type": "Bronze",    "name": "World of Earthcraft" },
-	{ "product": "Set Rotation",                   "type": "Silver",    "name": "Argent: Voters" },
-	{ "product": "Set Rotation",                   "type": "Silver",    "name": "Backers in the Middle" },
-	{ "product": "Set Rotation",                   "type": "Silver",    "name": "BattleCON: Devastation of Indines" },
-	{ "product": "Set Rotation",                   "type": "Silver",    "name": "Wandering Warriors" },
-	{ "product": "Set Rotation",                   "type": "Gold",      "name": "Argent: Candidates" },
-	{ "product": "Set Rotation",                   "type": "Gold",      "name": "BattleCON: Fate of Indines" },
-	{ "product": "Set Rotation",                   "type": "Gold",      "name": "Everbody Loves Backers" },
-	{ "product": "Set Rotation",                   "type": "Character", "name": "Cardinal Baanz" },
-	{ "product": "Set Rotation",                   "type": "Character", "name": "Friendly Alien Lettstrade" },
-	{ "product": "Set Rotation",                   "type": "Character", "name": "Pritchard Leftfield" },
-	{ "product": "Set Rotation",                   "type": "Character", "name": "The Card Shark" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "Animal Farm" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "Future Perfect" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "Gods and Myths" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "Megalopolis" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "The Academy" },
-	{ "product": "Set Rotation",                   "type": "Starter",   "name": "The Great War" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Bronze",    "name": "7-Card Slugfest" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Bronze",    "name": "Anansi and the Box of Stories" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Bronze",    "name": "Sellswords" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Silver",    "name": "Grimoire Shuffle" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Silver",    "name": "Master Plan" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Silver",    "name": "Power Play" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Silver",    "name": "Variant Souls" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Gold",      "name": "Commedia Del Arte" },
-	{ "product": "Mini-Expansion 1: Crossover",    "type": "Gold",      "name": "Mystic Empyrean" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Bronze",    "name": "Frame Wars: Pilots" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Bronze",    "name": "Heroes Wanted" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Silver",    "name": "Frame Wars: Frames" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Silver",    "name": "Neuroshima Hex! 3.0" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Silver",    "name": "Red Horizon" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Gold",      "name": "Mage Wars" },
-	{ "product": "Mini-Expansion 2: Sponsors",     "type": "Gold",      "name": "Terrene Odssey" },
-	{ "product": "Mini-Expansion 3: Fusion Chaos", "type": "Bronze",    "name": "Master Fusion Gems" },
-	{ "product": "Mini-Expansion 3: Fusion Chaos", "type": "Silver",    "name": "Elemental Gem Power" },
-	{ "product": "Mini-Expansion 3: Fusion Chaos", "type": "Character", "name": "Raritti Sikhar" },
-	{ "product": "Mini-Expansion 3: Fusion Chaos", "type": "Character", "name": "Shafille DuCarte" },
-	{ "product": "Mini-Expansion 4: Final Bosses", "type": "Master",    "name": "Eldritch Entertainment Group" },
-	{ "product": "Mini-Expansion 4: Final Bosses", "type": "Master",    "name": "Return of the Druid Kings" },
-	{ "product": "Mini-Expansion 4: Final Bosses", "type": "Master",    "name": "TCG-lluminati" },
-	{ "product": "Mini-Expansion 4: Final Bosses", "type": "Master",    "name": "They Game from Space" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Bronze",    "name": "Esper X Humans" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Bronze",    "name": "Professor Treasure's Secret Sky Castle" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Bronze",    "name": "Seventh Cross: Heroes" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Silver",    "name": "Ballistic Reign" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Silver",    "name": "Esper X Espers" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Silver",    "name": "Seventh Cross: Villains" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Gold",      "name": "BattleCON: Trials of Indines" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Gold",      "name": "Sellswords Olympus" },
-	{ "product": "Mini-Expansion 5: Futures",      "type": "Gold",      "name": "Tomb Trader" }
+},{"../stores/choiceStore.js":317,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
+module.exports=[
+	{ "pid": "core",  "image": "", "name": "Millennium Blades" },
+	{ "pid": "exp1",  "image": "", "name": "Set Rotation" },
+	{ "pid": "mini1", "image": "", "name": "Mini-Expansion 1: Crossover" },
+	{ "pid": "mini2", "image": "", "name": "Mini-Expansion 2: Sponsors" },
+	{ "pid": "mini3", "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
+	{ "pid": "mini4", "image": "", "name": "Mini-Expansion 4: Final Bosses" },
+	{ "pid": "mini5", "image": "", "name": "Mini-Expansion 5: Futures" }
 ]
 
 },{}],311:[function(require,module,exports){
+module.exports= [
+	{ "pid": "core",  "type": "Expansion", "name": "1001 Nights" },
+	{ "pid": "core",  "type": "Expansion", "name": "Anvilicious Arrangements" },
+	{ "pid": "core",  "type": "Expansion", "name": "Black Flags, Black Waters" },
+	{ "pid": "core",  "type": "Expansion", "name": "Fists of Steel" },
+	{ "pid": "core",  "type": "Expansion", "name": "Gno-Mans Land" },
+	{ "pid": "core",  "type": "Expansion", "name": "Lightning Bug" },
+	{ "pid": "core",  "type": "Expansion", "name": "Obari As Hell: Strike A Pose" },
+	{ "pid": "core",  "type": "Expansion", "name": "Rubber Ducky Maid Crusaders R" },
+	{ "pid": "core",  "type": "Expansion", "name": "Samurai Mowdown" },
+	{ "pid": "core",  "type": "Expansion", "name": "Sunset Striders" },
+	{ "pid": "core",  "type": "Expansion", "name": "Super Plumber Bros." },
+	{ "pid": "core",  "type": "Premium",   "name": "AD 2400" },
+	{ "pid": "core",  "type": "Premium",   "name": "Cards From the Crypt" },
+	{ "pid": "core",  "type": "Premium",   "name": "Cards Magica" },
+	{ "pid": "core",  "type": "Premium",   "name": "Clockwork Empire" },
+	{ "pid": "core",  "type": "Premium",   "name": "Legend of Tanananah" },
+	{ "pid": "core",  "type": "Premium",   "name": "Mouse Card" },
+	{ "pid": "core",  "type": "Premium",   "name": "Pandora’s Box Opened" },
+	{ "pid": "core",  "type": "Premium",   "name": "Under Lords of Metropolitan" },
+	{ "pid": "core",  "type": "Premium",   "name": "Xeno X-Over" },
+	{ "pid": "core",  "type": "Master",    "name": "006 Plus One" },
+	{ "pid": "core",  "type": "Master",    "name": "Fantasy Finale MCLXVH-2" },
+	{ "pid": "core",  "type": "Master",    "name": "Galactic Caboose" },
+	{ "pid": "core",  "type": "Master",    "name": "Hell to Pay" },
+	{ "pid": "core",  "type": "Master",    "name": "M.N.M." },
+	{ "pid": "core",  "type": "Master",    "name": "Millennium Masters" },
+	{ "pid": "core",  "type": "Master",    "name": "Symphony of Destruction" },
+	{ "pid": "core",  "type": "Master",    "name": "Vex: Cards of Hate" },
+	{ "pid": "core",  "type": "Bronze",    "name": "Elemental Blades" },
+	{ "pid": "core",  "type": "Bronze",    "name": "Leave it to Backers" },
+	{ "pid": "core",  "type": "Bronze",    "name": "Legend of Final Badass" },
+	{ "pid": "core",  "type": "Bronze",    "name": "The Backer Bunch" },
+	{ "pid": "core",  "type": "Silver",    "name": "Backer Meets World" },
+	{ "pid": "core",  "type": "Silver",    "name": "Princess’ Blade" },
+	{ "pid": "core",  "type": "Silver",    "name": "Sealed Vaults" },
+	{ "pid": "core",  "type": "Gold",      "name": "Backers in Charge" },
+	{ "pid": "core",  "type": "Gold",      "name": "Elemental Dragon Lords" },
+	{ "pid": "core",  "type": "Gold",      "name": "Millennium Accessories" },
+	{ "pid": "core",  "type": "Character", "name": "Cardine Kolleckta" },
+	{ "pid": "core",  "type": "Character", "name": "Deques Applenti" },
+	{ "pid": "core",  "type": "Character", "name": "Fulton Suitcase" },
+	{ "pid": "core",  "type": "Character", "name": "Morrey Caardman" },
+	{ "pid": "core",  "type": "Character", "name": "Power Creep" },
+	{ "pid": "core",  "type": "Character", "name": "Shur Wen Na" },
+	{ "pid": "core",  "type": "Starter",   "name": "Bluelake Village" },
+	{ "pid": "core",  "type": "Starter",   "name": "Brownwall City" },
+	{ "pid": "core",  "type": "Starter",   "name": "Chateau Helbane" },
+	{ "pid": "core",  "type": "Starter",   "name": "Greendew Bazaar" },
+	{ "pid": "core",  "type": "Starter",   "name": "Redhill Mercenaries" },
+	{ "pid": "core",  "type": "Starter",   "name": "Saints of Whiteholme" },
+	{ "pid": "exp1",  "type": "Expansion", "name": "Fast" },
+	{ "pid": "exp1",  "type": "Expansion", "name": "Quantum Jump" },
+	{ "pid": "exp1",  "type": "Expansion", "name": "Saved by the 90's" },
+	{ "pid": "exp1",  "type": "Expansion", "name": "The Thousand Pixel Cabinet" },
+	{ "pid": "exp1",  "type": "Expansion", "name": "Uuurgh!" },
+	{ "pid": "exp1",  "type": "Premium",   "name": "Deus Rex Machina" },
+	{ "pid": "exp1",  "type": "Premium",   "name": "Developmental Issues" },
+	{ "pid": "exp1",  "type": "Premium",   "name": "Game of Rings" },
+	{ "pid": "exp1",  "type": "Premium",   "name": "Shonen Leap" },
+	{ "pid": "exp1",  "type": "Master",    "name": "Penny Dreadful" },
+	{ "pid": "exp1",  "type": "Master",    "name": "The Ultimate Steel Cook" },
+	{ "pid": "exp1",  "type": "Master",    "name": "Ultimate Kaiju Throwdown" },
+	{ "pid": "exp1",  "type": "Bronze",    "name": "Argent: Supporters" },
+	{ "pid": "exp1",  "type": "Bronze",    "name": "Backers in the House" },
+	{ "pid": "exp1",  "type": "Bronze",    "name": "BattleCON: War of Indines" },
+	{ "pid": "exp1",  "type": "Bronze",    "name": "Halloween Spooktacular" },
+	{ "pid": "exp1",  "type": "Bronze",    "name": "World of Earthcraft" },
+	{ "pid": "exp1",  "type": "Silver",    "name": "Argent: Voters" },
+	{ "pid": "exp1",  "type": "Silver",    "name": "Backers in the Middle" },
+	{ "pid": "exp1",  "type": "Silver",    "name": "BattleCON: Devastation of Indines" },
+	{ "pid": "exp1",  "type": "Silver",    "name": "Wandering Warriors" },
+	{ "pid": "exp1",  "type": "Gold",      "name": "Argent: Candidates" },
+	{ "pid": "exp1",  "type": "Gold",      "name": "BattleCON: Fate of Indines" },
+	{ "pid": "exp1",  "type": "Gold",      "name": "Everbody Loves Backers" },
+	{ "pid": "exp1",  "type": "Character", "name": "Cardinal Baanz" },
+	{ "pid": "exp1",  "type": "Character", "name": "Friendly Alien Lettstrade" },
+	{ "pid": "exp1",  "type": "Character", "name": "Pritchard Leftfield" },
+	{ "pid": "exp1",  "type": "Character", "name": "The Card Shark" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "Animal Farm" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "Future Perfect" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "Gods and Myths" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "Megalopolis" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "The Academy" },
+	{ "pid": "exp1",  "type": "Starter",   "name": "The Great War" },
+	{ "pid": "mini1", "type": "Bronze",    "name": "7-Card Slugfest" },
+	{ "pid": "mini1", "type": "Bronze",    "name": "Anansi and the Box of Stories" },
+	{ "pid": "mini1", "type": "Bronze",    "name": "Sellswords" },
+	{ "pid": "mini1", "type": "Silver",    "name": "Grimoire Shuffle" },
+	{ "pid": "mini1", "type": "Silver",    "name": "Master Plan" },
+	{ "pid": "mini1", "type": "Silver",    "name": "Power Play" },
+	{ "pid": "mini1", "type": "Silver",    "name": "Variant Souls" },
+	{ "pid": "mini1", "type": "Gold",      "name": "Commedia Del Arte" },
+	{ "pid": "mini1", "type": "Gold",      "name": "Mystic Empyrean" },
+	{ "pid": "mini2", "type": "Bronze",    "name": "Frame Wars: Pilots" },
+	{ "pid": "mini2", "type": "Bronze",    "name": "Heroes Wanted" },
+	{ "pid": "mini2", "type": "Silver",    "name": "Frame Wars: Frames" },
+	{ "pid": "mini2", "type": "Silver",    "name": "Neuroshima Hex! 3.0" },
+	{ "pid": "mini2", "type": "Silver",    "name": "Red Horizon" },
+	{ "pid": "mini2", "type": "Gold",      "name": "Mage Wars" },
+	{ "pid": "mini2", "type": "Gold",      "name": "Terrene Odssey" },
+	{ "pid": "mini3", "type": "Bronze",    "name": "Master Fusion Gems" },
+	{ "pid": "mini3", "type": "Silver",    "name": "Elemental Gem Power" },
+	{ "pid": "mini3", "type": "Character", "name": "Raritti Sikhar" },
+	{ "pid": "mini3", "type": "Character", "name": "Shafille DuCarte" },
+	{ "pid": "mini4", "type": "Master",    "name": "Eldritch Entertainment Group" },
+	{ "pid": "mini4", "type": "Master",    "name": "Return of the Druid Kings" },
+	{ "pid": "mini4", "type": "Master",    "name": "TCG-lluminati" },
+	{ "pid": "mini4", "type": "Master",    "name": "They Game from Space" },
+	{ "pid": "mini5", "type": "Bronze",    "name": "Esper X Humans" },
+	{ "pid": "mini5", "type": "Bronze",    "name": "Professor Treasure's Secret Sky Castle" },
+	{ "pid": "mini5", "type": "Bronze",    "name": "Seventh Cross: Heroes" },
+	{ "pid": "mini5", "type": "Silver",    "name": "Ballistic Reign" },
+	{ "pid": "mini5", "type": "Silver",    "name": "Esper X Espers" },
+	{ "pid": "mini5", "type": "Silver",    "name": "Seventh Cross: Villains" },
+	{ "pid": "mini5", "type": "Gold",      "name": "BattleCON: Trials of Indines" },
+	{ "pid": "mini5", "type": "Gold",      "name": "Sellswords Olympus" },
+	{ "pid": "mini5", "type": "Gold",      "name": "Tomb Trader" }
+]
+
+},{}],312:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42143,7 +42154,7 @@ var Menu = React.createClass({
 
 module.exports = Menu;
 
-},{"flux/lib/Dispatcher":84,"react":281}],312:[function(require,module,exports){
+},{"flux/lib/Dispatcher":84,"react":281}],313:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42321,7 +42332,7 @@ var PlayerSetup = React.createClass({
 
 module.exports = PlayerSetup;
 
-},{"../components/PlayerControl.js":306,"../stores/playerStore.js":317,"../stores/setStore.js":319,"../util.js":320,"flux/lib/Dispatcher":84,"react":281}],313:[function(require,module,exports){
+},{"../components/PlayerControl.js":306,"../stores/playerStore.js":318,"../stores/setStore.js":320,"../util.js":321,"flux/lib/Dispatcher":84,"react":281}],314:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42351,7 +42362,6 @@ var Randomizer = React.createClass({
 		var setChoosers = {};
 
 		Object.keys(choiceStores).forEach(function (type) {
-
 			setChoosers[type] = React.createElement(SetChooser, {
 				dispatcher,
 				choiceStore: choiceStores[type],
@@ -42384,7 +42394,7 @@ var Randomizer = React.createClass({
 
 module.exports = Randomizer;
 
-},{"../components/setChooser.js":308,"../stores/setStore.js":319,"flux/lib/Dispatcher":84,"react":281}],314:[function(require,module,exports){
+},{"../components/setChooser.js":308,"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],315:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42712,7 +42722,7 @@ var ScoreTracker = React.createClass({
 
 module.exports = ScoreTracker;
 
-},{"../components/PlayerControl.js":306,"../stores/playerStore.js":317,"flux/lib/Dispatcher":84,"react":281}],315:[function(require,module,exports){
+},{"../components/PlayerControl.js":306,"../stores/playerStore.js":318,"flux/lib/Dispatcher":84,"react":281}],316:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42726,10 +42736,9 @@ var SelectProducts = React.createClass({
 		setStore: React.PropTypes.instanceOf(SetStore),
 	},
 	getInitialState: function () {
-		var self = this;
 		var products = Object.keys(this.props.setStore.products)
-			.sort()
-			.map( function (product) { return { name: product, active: self.props.setStore.products[product] }; } );
+			.map(key => this.props.setStore.products[key])
+			.sort((a, b) => a.Name > b.name ? 1 : -1);
 
 		return { products };
 	},
@@ -42744,7 +42753,7 @@ var SelectProducts = React.createClass({
 		var products = JSON.parse(JSON.stringify( this.state.products ));
 
 		products.some(function (product) {
-			if ( product.name === args.product ) {
+			if ( product.pid === args.pid ) {
 				product.active = args.state;
 				return true;
 			}
@@ -42772,7 +42781,7 @@ var SelectProducts = React.createClass({
 					className: classes.join(" "),
 					onClick: () => self.props.dispatcher.dispatch({
 						action: "toggle-product-state",
-						product: product.name,
+						pid: product.pid,
 						state: !product.active,
 					}),
 					key: product.name
@@ -42788,7 +42797,7 @@ var SelectProducts = React.createClass({
 
 module.exports = SelectProducts;
 
-},{"../stores/setStore.js":319,"flux/lib/Dispatcher":84,"react":281}],316:[function(require,module,exports){
+},{"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],317:[function(require,module,exports){
 "use strict";
 
 var uuid = require("node-uuid");
@@ -42845,7 +42854,7 @@ microevent.mixin(ChoiceStore);
 
 module.exports = ChoiceStore;
 
-},{"microevent-github":96,"node-uuid":99}],317:[function(require,module,exports){
+},{"microevent-github":96,"node-uuid":99}],318:[function(require,module,exports){
 "use strict";
 
 var PLAYER_VERSION = 1;
@@ -43155,7 +43164,7 @@ function scoreTournament(args) {
 
 module.exports = PlayerStore;
 
-},{"../util.js":320,"microevent-github":96}],318:[function(require,module,exports){
+},{"../util.js":321,"microevent-github":96}],319:[function(require,module,exports){
 "use strict";
 
 var microevent = require("microevent-github");
@@ -43188,7 +43197,7 @@ microevent.mixin(RouteStore);
 
 module.exports = RouteStore;
 
-},{"microevent-github":96}],319:[function(require,module,exports){
+},{"microevent-github":96}],320:[function(require,module,exports){
 "use strict";
 
 var microevent = require("microevent-github");
@@ -43196,28 +43205,31 @@ var storageKey = "mba:excluded-products";
 var separator = "|";
 
 function SetStore(args) {
-	var { sets, dispatcher } = args;
+	var { sets, dispatcher, products } = args;
 	var self = this;
 	self.byProduct = {};
 	self.products = {};
 	self.types = {};
 
+	products.forEach(function (product) {
+		self.products[product.pid] = product;
+		product.active = true;
+		product.sets = [];
+	});
+
 	sets.forEach(function (set) {
-		self.products[set.product] = true;
-		var product = self.byProduct[set.product] = self.byProduct[set.product] || [];
+		var product = self.products[set.pid];
 		var type = self.types[set.type] = self.types[set.type] || [];
 
-		product.push(set);
+		product.sets.push(set);
 		type.push(set);
 	});
 
 	var excluded = window.localStorage[storageKey] || "";
 
-	excluded.split(separator).forEach(function (set) {
-		// Probably overkill, but we only need to toggle off things that are already on and this
-		// protects us from corrupted data adding erroneous products
-		if ( self.products[set] ) {
-			self.products[set] = false;
+	excluded.split(separator).forEach(function (pid) {
+		if ( self.products[pid] ) {
+			self.products[pid].active = false;
 		}
 	});
 
@@ -43232,25 +43244,25 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 			return;
 		}
 
-		var { product, state } = payload;
+		var { pid, state } = payload;
 
-		self.products[product] = state;
+		self.products[pid].active = state;
 
-		self.trigger("product-state-change", { product, state });
+		self.trigger("product-state-change", { pid, state });
 		window.localStorage[storageKey] = Object.keys(self.products)
-			.filter( key => !self.products[key] )
+			.filter( key => !self.products[key].active )
 			.join(separator);
 	});
 };
 SetStore.prototype.getAllowed = function (type) {
-	return this.types[type].filter( set => this.products[set.product] );
+	return this.types[type].filter( set => this.products[set.pid].active );
 };
 
 microevent.mixin(SetStore);
 
 module.exports = SetStore;
 
-},{"microevent-github":96}],320:[function(require,module,exports){
+},{"microevent-github":96}],321:[function(require,module,exports){
 "use strict";
 
 // via https://bost.ocks.org/mike/shuffle/ with slight tweak to not mutate original array

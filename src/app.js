@@ -87,7 +87,7 @@ var Router = React.createClass({
 var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
-var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json") });
+var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json"), products: require("./data/products.json") });
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
 	Expansion: new ChoiceStore({ dispatcher, count: 5 }),

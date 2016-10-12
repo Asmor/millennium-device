@@ -11,10 +11,9 @@ var SelectProducts = React.createClass({
 		setStore: React.PropTypes.instanceOf(SetStore),
 	},
 	getInitialState: function () {
-		var self = this;
 		var products = Object.keys(this.props.setStore.products)
-			.sort()
-			.map( function (product) { return { name: product, active: self.props.setStore.products[product] }; } );
+			.map(key => this.props.setStore.products[key])
+			.sort((a, b) => a.Name > b.name ? 1 : -1);
 
 		return { products };
 	},
@@ -29,7 +28,7 @@ var SelectProducts = React.createClass({
 		var products = JSON.parse(JSON.stringify( this.state.products ));
 
 		products.some(function (product) {
-			if ( product.name === args.product ) {
+			if ( product.pid === args.pid ) {
 				product.active = args.state;
 				return true;
 			}
@@ -57,7 +56,7 @@ var SelectProducts = React.createClass({
 					className: classes.join(" "),
 					onClick: () => self.props.dispatcher.dispatch({
 						action: "toggle-product-state",
-						product: product.name,
+						pid: product.pid,
 						state: !product.active,
 					}),
 					key: product.name

@@ -1,0 +1,9 @@
+[
+	{ "pid": "core",  "image": "", "name": "Millennium Blades" },
+	{ "pid": "exp1",  "image": "", "name": "Set Rotation" },
+	{ "pid": "mini1", "image": "", "name": "Mini-Expansion 1: Crossover" },
+	{ "pid": "mini2", "image": "", "name": "Mini-Expansion 2: Sponsors" },
+	{ "pid": "mini3", "image": "", "name": "Mini-Expansion 3: Fusion Chaos" },
+	{ "pid": "mini4", "image": "", "name": "Mini-Expansion 4: Final Bosses" },
+	{ "pid": "mini5", "image": "", "name": "Mini-Expansion 5: Futures" }
+]

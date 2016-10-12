@@ -37,7 +37,7 @@ var SetChooser = React.createClass({
 		// clone state stuff so so we don't mutate it
 		var choiceStore = this.props.choiceStore;
 		var complement = choiceStore.complement(this.props.options)
-			.filter(set => this.props.setStore.products[set.product]);
+			.filter(set => this.props.setStore.products[set.pid].active);
 		var options = [];
 		var size = choiceStore.size();
 		var currentValue;
@@ -57,7 +57,7 @@ var SetChooser = React.createClass({
 		var count = this.props.choiceStore.size();
 		var id = this.props.choiceStore.id();
 		var sets = this.props.options
-			.filter(set => this.props.setStore.products[set.product])
+			.filter(set => this.props.setStore.products[set.pid].active)
 			.map(o => o.name);
 		var selected = shuffle(sets).slice(0, count);
 
