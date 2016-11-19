@@ -1,0 +1,13 @@
+{
+  "name": "Web Application Manifest Sample",
+  "icons": [
+    {
+      "src": "images/md-icon.png",
+      "sizes": "600x600",
+      "type": "image/png",
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}

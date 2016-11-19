@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 # DATE: 2016-11-19
-# VERSION: 20
+# VERSION: 24
 
 CACHE:
 index.html
@@ -23,6 +23,7 @@ images/products/mini2.png
 images/products/mini3.png
 images/products/mini4.png
 images/products/mini5.png
+manifest.json
 3rd-party/css/bootstrap.min.css
 3rd-party/fonts/glyphicons-halflings-regular.woff2
 
