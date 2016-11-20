@@ -5,11 +5,13 @@ var storageKey = "mba:excluded-products";
 var separator = "|";
 
 function SetStore(args) {
-	var { sets, dispatcher, products } = args;
+	var { sets, dispatcher, products, presets } = args;
 	var self = this;
 	self.byProduct = {};
 	self.products = {};
 	self.types = {};
+	self.presets = presets;
+	window.setStore = self;
 
 	products.forEach(function (product) {
 		self.products[product.pid] = product;
@@ -56,6 +58,12 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 };
 SetStore.prototype.getAllowed = function (type) {
 	return this.types[type].filter( set => this.products[set.pid].active );
+};
+SetStore.prototype.getPresets = function () {
+	var self = this;
+	return this.presets.filter(function (preset) {
+		return preset.requires.every(requirement => self.products[requirement] && self.products[requirement].active);
+	});
 };
 
 microevent.mixin(SetStore);

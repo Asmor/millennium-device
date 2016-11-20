@@ -1,0 +1,33 @@
+[
+	{
+		"name": "First Game Setup",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Fists of Steel",
+			"Gno-Mans Land",
+			"Obari As Hell: Strike A Pose",
+			"Rubber Ducky Maid Crusaders R"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards Magica",
+			"Clockwork Empire",
+			"Pandora’s Box Opened"
+		],
+		"master": [
+			"006 Plus One",
+			"Galactic Caboose",
+			"Symphony of Destruction"
+		],
+		"fusion": {
+			"bronze": "Legend of Final Badass",
+			"silver": "Princess’ Blade",
+			"gold": "Elemental Dragon Lords"
+		},
+		"prize": {
+			"bronze": "Elemental Blades",
+			"silver": "Sealed Vaults"
+		}
+	}
+]

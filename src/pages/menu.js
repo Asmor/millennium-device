@@ -21,6 +21,13 @@ var Menu = React.createClass({
 				className: "btn btn-primary btn-block btn-lg menu--button",
 				onClick: () => this.props.dispatcher.dispatch({
 					action: "location-change",
+					location: "presets",
+				}),
+			}, "Presets"),
+			React.createElement("button", {
+				className: "btn btn-primary btn-block btn-lg menu--button",
+				onClick: () => this.props.dispatcher.dispatch({
+					action: "location-change",
 					location: "select-products",
 				}),
 			}, "Select products"),

@@ -1,21 +1,17 @@
 CACHE MANIFEST
 
-# DATE: 2016-11-19
-# VERSION: 24
+# DATE: 2016-11-20
+# VERSION: 31
 
 CACHE:
 index.html
 js/bundle.min.js
 css/style.css
-images/parchment.jpg
+images/fusion.png
 images/mblogo.png
 images/md-icon.png
-images/set-expansion.png
-images/set-premium.png
-images/set-master.png
-images/promo-bronze.png
-images/promo-silver.png
-images/promo-gold.png
+images/parchment.jpg
+images/prize.png
 images/products/core.png
 images/products/exp1.png
 images/products/mini1.png
@@ -23,6 +19,12 @@ images/products/mini2.png
 images/products/mini3.png
 images/products/mini4.png
 images/products/mini5.png
+images/promo-bronze.png
+images/promo-gold.png
+images/promo-silver.png
+images/set-expansion.png
+images/set-master.png
+images/set-premium.png
 manifest.json
 3rd-party/css/bootstrap.min.css
 3rd-party/fonts/glyphicons-halflings-regular.woff2

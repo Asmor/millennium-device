@@ -1,13 +1,14 @@
 {
-  "name": "Web Application Manifest Sample",
+  "short_name": "MD",
+  "name": "Millennium Device",
   "icons": [
     {
       "src": "images/md-icon.png",
       "sizes": "600x600",
-      "type": "image/png",
+      "type": "image/png"
     }
   ],
   "start_url": "index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "orientation": "portrait"
 }

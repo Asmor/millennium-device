@@ -17,6 +17,7 @@ var ChoiceStore = require("./stores/choiceStore.js");
 
 var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
+var Presets = require("./pages/presets.js");
 var Randomizer = require("./pages/randomizer.js");
 var ScoreTracker = require("./pages/scoreTracker.js");
 var SelectProducts = require("./pages/selectProducts.js");
@@ -53,6 +54,9 @@ var Router = React.createClass({
 			case "randomizer":
 				page = React.createElement(Randomizer, { dispatcher, setStore, choiceStores });
 				break;
+			case "presets":
+				page = React.createElement(Presets, { dispatcher, setStore, choiceStores });
+				break;
 			case "select-products":
 				page = React.createElement(SelectProducts, { dispatcher, setStore });
 				break;
@@ -87,7 +91,12 @@ var Router = React.createClass({
 var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
-var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json"), products: require("./data/products.json") });
+var setStore = new SetStore({
+	dispatcher,
+	sets: require("./data/sets.json"),
+	products: require("./data/products.json"),
+	presets: require("./data/presets.json")
+});
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
 	Expansion: new ChoiceStore({ dispatcher, count: 5 }),

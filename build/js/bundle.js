@@ -41525,6 +41525,7 @@ var ChoiceStore = require("./stores/choiceStore.js");
 
 var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
+var Presets = require("./pages/presets.js");
 var Randomizer = require("./pages/randomizer.js");
 var ScoreTracker = require("./pages/scoreTracker.js");
 var SelectProducts = require("./pages/selectProducts.js");
@@ -41561,6 +41562,9 @@ var Router = React.createClass({
 			case "randomizer":
 				page = React.createElement(Randomizer, { dispatcher, setStore, choiceStores });
 				break;
+			case "presets":
+				page = React.createElement(Presets, { dispatcher, setStore, choiceStores });
+				break;
 			case "select-products":
 				page = React.createElement(SelectProducts, { dispatcher, setStore });
 				break;
@@ -41595,7 +41599,12 @@ var Router = React.createClass({
 var dispatcher = new Dispatcher();
 
 var routeStore = new RouteStore(dispatcher);
-var setStore = new SetStore({ dispatcher, sets: require("./data/sets.json"), products: require("./data/products.json") });
+var setStore = new SetStore({
+	dispatcher,
+	sets: require("./data/sets.json"),
+	products: require("./data/products.json"),
+	presets: require("./data/presets.json")
+});
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
 	Expansion: new ChoiceStore({ dispatcher, count: 5 }),
@@ -41619,7 +41628,7 @@ window.addEventListener("load", function () {
 	ReactDOM.render(rootElement, document.getElementById("content"));
 });
 
-},{"./data/products.json":310,"./data/sets.json":311,"./pages/menu.js":312,"./pages/playerSetup.js":313,"./pages/randomizer.js":314,"./pages/scoreTracker.js":315,"./pages/selectProducts.js":316,"./stores/choiceStore.js":317,"./stores/playerStore.js":318,"./stores/routeStore.js":319,"./stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281,"react-dom":115}],306:[function(require,module,exports){
+},{"./data/presets.json":310,"./data/products.json":311,"./data/sets.json":312,"./pages/menu.js":313,"./pages/playerSetup.js":314,"./pages/presets.js":315,"./pages/randomizer.js":316,"./pages/scoreTracker.js":317,"./pages/selectProducts.js":318,"./stores/choiceStore.js":319,"./stores/playerStore.js":320,"./stores/routeStore.js":321,"./stores/setStore.js":322,"flux/lib/Dispatcher":84,"react":281,"react-dom":115}],306:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41701,7 +41710,7 @@ var PlayerControl = React.createClass({
 
 module.exports = PlayerControl;
 
-},{"../components/PlayerDropdown.js":307,"../stores/playerStore.js":318,"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],307:[function(require,module,exports){
+},{"../components/PlayerDropdown.js":307,"../stores/playerStore.js":320,"../stores/setStore.js":322,"flux/lib/Dispatcher":84,"react":281}],307:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41896,7 +41905,7 @@ var SetChooser = React.createClass({
 
 module.exports = SetChooser;
 
-},{"../stores/choiceStore.js":317,"../stores/setStore.js":320,"../util.js":321,"./setDropdown.js":309,"flux/lib/Dispatcher":84,"react":281}],309:[function(require,module,exports){
+},{"../stores/choiceStore.js":319,"../stores/setStore.js":322,"../util.js":323,"./setDropdown.js":309,"flux/lib/Dispatcher":84,"react":281}],309:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -41970,7 +41979,42 @@ var SetDropdown = React.createClass({
 
 module.exports = SetDropdown;
 
-},{"../stores/choiceStore.js":317,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
+},{"../stores/choiceStore.js":319,"flux/lib/Dispatcher":84,"react":281}],310:[function(require,module,exports){
+module.exports=[
+	{
+		"name": "First Game Setup",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Fists of Steel",
+			"Gno-Mans Land",
+			"Obari As Hell: Strike A Pose",
+			"Rubber Ducky Maid Crusaders R"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards Magica",
+			"Clockwork Empire",
+			"Pandora’s Box Opened"
+		],
+		"master": [
+			"006 Plus One",
+			"Galactic Caboose",
+			"Symphony of Destruction"
+		],
+		"fusion": {
+			"bronze": "Legend of Final Badass",
+			"silver": "Princess’ Blade",
+			"gold": "Elemental Dragon Lords"
+		},
+		"prize": {
+			"bronze": "Elemental Blades",
+			"silver": "Sealed Vaults"
+		}
+	}
+]
+
+},{}],311:[function(require,module,exports){
 module.exports=[
 	{ "pid": "core",  "order": 1, "image": "images/products/core.png",  "name": "Millennium Blades" },
 	{ "pid": "exp1",  "order": 2, "image": "images/products/exp1.png",  "name": "Set Rotation" },
@@ -41981,7 +42025,7 @@ module.exports=[
 	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" }
 ]
 
-},{}],311:[function(require,module,exports){
+},{}],312:[function(require,module,exports){
 module.exports= [
 	{ "pid": "core",  "type": "Expansion", "name": "1001 Nights" },
 	{ "pid": "core",  "type": "Expansion", "name": "Anvilicious Arrangements" },
@@ -42102,7 +42146,7 @@ module.exports= [
 	{ "pid": "mini5", "type": "Gold",      "name": "Tomb Trader" }
 ]
 
-},{}],312:[function(require,module,exports){
+},{}],313:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42122,6 +42166,13 @@ var Menu = React.createClass({
 					location: "randomizer",
 				}),
 			}, "Randomizer"),
+			React.createElement("button", {
+				className: "btn btn-primary btn-block btn-lg menu--button",
+				onClick: () => this.props.dispatcher.dispatch({
+					action: "location-change",
+					location: "presets",
+				}),
+			}, "Presets"),
 			React.createElement("button", {
 				className: "btn btn-primary btn-block btn-lg menu--button",
 				onClick: () => this.props.dispatcher.dispatch({
@@ -42154,7 +42205,7 @@ var Menu = React.createClass({
 
 module.exports = Menu;
 
-},{"flux/lib/Dispatcher":84,"react":281}],313:[function(require,module,exports){
+},{"flux/lib/Dispatcher":84,"react":281}],314:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42332,7 +42383,119 @@ var PlayerSetup = React.createClass({
 
 module.exports = PlayerSetup;
 
-},{"../components/PlayerControl.js":306,"../stores/playerStore.js":318,"../stores/setStore.js":320,"../util.js":321,"flux/lib/Dispatcher":84,"react":281}],314:[function(require,module,exports){
+},{"../components/PlayerControl.js":306,"../stores/playerStore.js":320,"../stores/setStore.js":322,"../util.js":323,"flux/lib/Dispatcher":84,"react":281}],315:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Dispatcher = require("flux/lib/Dispatcher");
+var SetStore = require("../stores/setStore.js");
+
+var SelectProducts = React.createClass({
+	displayName: "select-products",
+	propTypes: {
+		dispatcher: React.PropTypes.instanceOf(Dispatcher),
+		setStore: React.PropTypes.instanceOf(SetStore),
+	},
+	getInitialState: function () {
+		var presets = this.props.setStore.getPresets();
+
+		return { presets };
+	},
+	componentDidMount: function () {
+		this.props.setStore.bind("product-state-change", this.blockStateChanged);
+	},
+	componentWillUnmount: function () {
+		this.props.setStore.unbind("product-state-change", this.blockStateChanged);
+	},
+	blockStateChanged: function () {
+		// Clone state
+		var presets = this.props.setStore.getPresets();
+
+		this.setState({ presets });
+	},
+	render: function () {
+		var self = this;
+
+		var presetElements = self.state.presets.map(function (preset, index) {
+			return React.createElement("ul", { className: "presets--list", key: index },
+				// Name
+				React.createElement("li", { className: "presets--preset-name" }, preset.name),
+
+				// Expansion list
+				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__expansion" }, "Expansion"),
+				React.createElement("ul", { className: "presets--set-list presets--set-list__expansion" },
+					preset.expansion.map(function (expansion, index) {
+						return React.createElement("li", { className: "presets--set presets--set__expansion", key: index }, expansion);
+					})
+				),
+
+				// Premium list
+				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__premium" }, "Premium"),
+				React.createElement("ul", { className: "presets--set-list presets--set-list__premium" },
+					preset.premium.map(function (premium, index) {
+						return React.createElement("li", { className: "presets--set presets--set__premium", key: index }, premium);
+					})
+				),
+
+				// Master list
+				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__master" }, "Master"),
+				React.createElement("ul", { className: "presets--set-list presets--set-list__master" },
+					preset.master.map(function (master, index) {
+						return React.createElement("li", { className: "presets--set presets--set__master", key: index }, master);
+					}
+				)),
+
+				// Fusion list
+				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__fusion" }, "Fusion"),
+				React.createElement("ul", { className: "presets--set-list presets--set-list__fusion" },
+					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__bronze" }, "Bronze: " + preset.fusion.bronze),
+					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__silver" }, "Silver: " + preset.fusion.silver),
+					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__gold" }, "Gold: " + preset.fusion.gold)
+				),
+
+				// Prize list
+				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__prize" }, "Prize Support"),
+				React.createElement("ul", { className: "presets--set-list presets--set-list__prize" },
+					React.createElement("li", { className: "presets--set presets--set__prize presets--set__bronze" }, "Bronze: " + preset.prize.bronze),
+					React.createElement("li", { className: "presets--set presets--set__prize presets--set__silver" }, "Silver: " + preset.prize.silver)
+				)
+			);
+		});
+
+		return React.createElement("div", { className: "presets" }, presetElements);
+
+		// TODO: CP Below
+		var buttons = self.state.products.map(function (product) {
+			var classes = [ "select-products--button" ];
+
+			if ( product.active ) {
+				classes.push("select-products--button__active");
+			} else {
+				classes.push("select-products--button__inactive");
+			}
+
+			return React.createElement(
+				"button",
+				{
+					className: classes.join(" "),
+					onClick: () => self.props.dispatcher.dispatch({
+						action: "toggle-product-state",
+						pid: product.pid,
+						state: !product.active,
+					}),
+					key: product.name
+				},
+				React.createElement("img", { src: product.image })
+			);
+		});
+
+		return React.createElement("div", { className: "select-products" }, buttons );
+	},
+});
+
+module.exports = SelectProducts;
+
+},{"../stores/setStore.js":322,"flux/lib/Dispatcher":84,"react":281}],316:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42394,7 +42557,7 @@ var Randomizer = React.createClass({
 
 module.exports = Randomizer;
 
-},{"../components/setChooser.js":308,"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],315:[function(require,module,exports){
+},{"../components/setChooser.js":308,"../stores/setStore.js":322,"flux/lib/Dispatcher":84,"react":281}],317:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42722,7 +42885,7 @@ var ScoreTracker = React.createClass({
 
 module.exports = ScoreTracker;
 
-},{"../components/PlayerControl.js":306,"../stores/playerStore.js":318,"flux/lib/Dispatcher":84,"react":281}],316:[function(require,module,exports){
+},{"../components/PlayerControl.js":306,"../stores/playerStore.js":320,"flux/lib/Dispatcher":84,"react":281}],318:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42793,7 +42956,7 @@ var SelectProducts = React.createClass({
 
 module.exports = SelectProducts;
 
-},{"../stores/setStore.js":320,"flux/lib/Dispatcher":84,"react":281}],317:[function(require,module,exports){
+},{"../stores/setStore.js":322,"flux/lib/Dispatcher":84,"react":281}],319:[function(require,module,exports){
 "use strict";
 
 var uuid = require("node-uuid");
@@ -42850,7 +43013,7 @@ microevent.mixin(ChoiceStore);
 
 module.exports = ChoiceStore;
 
-},{"microevent-github":96,"node-uuid":99}],318:[function(require,module,exports){
+},{"microevent-github":96,"node-uuid":99}],320:[function(require,module,exports){
 "use strict";
 
 var PLAYER_VERSION = 1;
@@ -43160,7 +43323,7 @@ function scoreTournament(args) {
 
 module.exports = PlayerStore;
 
-},{"../util.js":321,"microevent-github":96}],319:[function(require,module,exports){
+},{"../util.js":323,"microevent-github":96}],321:[function(require,module,exports){
 "use strict";
 
 var microevent = require("microevent-github");
@@ -43193,7 +43356,7 @@ microevent.mixin(RouteStore);
 
 module.exports = RouteStore;
 
-},{"microevent-github":96}],320:[function(require,module,exports){
+},{"microevent-github":96}],322:[function(require,module,exports){
 "use strict";
 
 var microevent = require("microevent-github");
@@ -43201,11 +43364,13 @@ var storageKey = "mba:excluded-products";
 var separator = "|";
 
 function SetStore(args) {
-	var { sets, dispatcher, products } = args;
+	var { sets, dispatcher, products, presets } = args;
 	var self = this;
 	self.byProduct = {};
 	self.products = {};
 	self.types = {};
+	self.presets = presets;
+	window.setStore = self;
 
 	products.forEach(function (product) {
 		self.products[product.pid] = product;
@@ -43253,12 +43418,18 @@ SetStore.prototype.registerDispatcher = function (dispatcher) {
 SetStore.prototype.getAllowed = function (type) {
 	return this.types[type].filter( set => this.products[set.pid].active );
 };
+SetStore.prototype.getPresets = function () {
+	var self = this;
+	return this.presets.filter(function (preset) {
+		return preset.requires.every(requirement => self.products[requirement] && self.products[requirement].active);
+	});
+};
 
 microevent.mixin(SetStore);
 
 module.exports = SetStore;
 
-},{"microevent-github":96}],321:[function(require,module,exports){
+},{"microevent-github":96}],323:[function(require,module,exports){
 "use strict";
 
 // via https://bost.ocks.org/mike/shuffle/ with slight tweak to not mutate original array

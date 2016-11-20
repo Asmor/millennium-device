@@ -1,0 +1,123 @@
+.presets {
+	margin: auto;
+	max-width: 100%;
+	width: 510px;
+	padding: 20px;
+
+	.presets--preset-name {
+		font-weight: bold;
+		font-size: 1.5rem;
+		text-align: center;
+	}
+
+	.presets--set-list-header {
+		position: relative;
+		padding-left: 50px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		font-weight: bold;
+
+		&::before {
+			content: "";
+
+			position: absolute;
+			top: -5px;
+			bottom: -5px;
+			left: 20px;
+			width: calc(100% - 50px);
+			z-index: -1;
+
+			box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
+			border-radius: 5px;
+		}
+
+		&::after {
+			display: block;
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			bottom: -10px;
+			left: 0;
+			content: "";
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		&.presets--set-list-header__expansion {
+			&::before {
+				@include linear-gradient(#618D69, #A0AF96);
+			}
+			&::after {
+				background-image: url("../images/set-expansion.png");
+			}
+		}
+		&.presets--set-list-header__premium {
+			&::before {
+				@include linear-gradient(#90A2AC, #C0D1E4);
+			}
+			&::after {
+				background-image: url("../images/set-premium.png");
+			}
+		}
+		&.presets--set-list-header__master {
+			&::before {
+				@include linear-gradient(#DCC2A9, #E8D3C6);
+			}
+			&::after {
+				background-image: url("../images/set-master.png");
+			}
+		}
+		&.presets--set-list-header__bronze {
+			&::before {
+				@include linear-gradient(#C3AA79, #DFDAC9);
+			}
+			&::after {
+				background-image: url("../images/promo-bronze.png");
+			}
+		}
+		&.presets--set-list-header__silver {
+			&::before {
+				@include linear-gradient(#8A8588, #C4C4B8);
+			}
+			&::after {
+				background-image: url("../images/promo-silver.png");
+			}
+		}
+		&.presets--set-list-header__gold {
+			&::before {
+				@include linear-gradient(#8D9143, #DCD47A);
+			}
+			&::after {
+				background-image: url("../images/promo-gold.png");
+			}
+		}
+		&.presets--set-list-header__fusion {
+			&::before {
+				@include linear-gradient(#00b7ea, #009ec3);
+			}
+			&::after {
+				background-image: url("../images/fusion.png");
+			}
+		}
+		&.presets--set-list-header__prize {
+			&::before {
+				@include linear-gradient(#fefcea, #f1da36);
+			}
+			&::after {
+				background-image: url("../images/prize.png");
+			}
+		}
+	}
+
+	.presets--list {
+		list-style-type: none;
+		&:not(:last-child) {
+			margin-bottom: 50px;
+		}
+	}
+
+	.presets--set-list {
+		list-style-type: disc;
+		margin-left: 50px
+	}
+}
