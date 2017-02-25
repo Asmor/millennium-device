@@ -29,19 +29,30 @@ function ChoiceStore(args) {
 		});
 	};
 
+	self.allowedActions = {
+		"choice": function ({ index, value }) {
+			choices[index] = value;
+		},
+		"change-choice-store-size": function ({ value }) {
+			count = value;
+			choices.length = value;
+		},
+	};
+
 	self.registerDispatcher = function (dispatcher) {
 		dispatcher.register(function (payload) {
-			if ( payload.action !== "choice" ) {
+			if ( payload.id !== id ) {
 				return;
 			}
 
-			var { index, value } = payload;
-
-			if ( payload.id === id ) {
-				choices[payload.index] = payload.value;
-
-				self.trigger("update", { index, value });
+			var action = self.allowedActions[payload.action];
+			if ( !action ) {
+				return;
 			}
+
+			action(payload);
+
+			self.trigger("update");
 		});
 	};
 
