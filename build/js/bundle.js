@@ -41887,15 +41887,20 @@ var SetChooser = React.createClass({
 		}
 
 		return React.createElement("div", { className: "set-chooser" },
-			React.createElement("h3", { className: headerClass, key: header }, header,
-				React.createElement(
-					"button",
-					{
-						className: "btn btn-default set-chooser--shuffle-button",
-						onClick: this.randomize,
-					},
-					React.createElement("span", { className: "glyphicon glyphicon-random" }),
-					" all " + header
+			React.createElement("div", { className: "set-chooser--header-wrapper" }, 
+				React.createElement("h3", { className: headerClass, key: header },
+					header
+				),
+				React.createElement("div", { className: "set-chooser--header-buttons" },
+					React.createElement(
+						"button",
+						{
+							className: "btn btn-default set-chooser--shuffle-button",
+							onClick: this.randomize,
+						},
+						React.createElement("span", { className: "glyphicon glyphicon-random" }),
+						" all " + header
+					)
 				)
 			),
 			dropdowns
@@ -42988,19 +42993,30 @@ function ChoiceStore(args) {
 		});
 	};
 
+	self.allowedActions = {
+		"choice": function ({ index, value }) {
+			choices[index] = value;
+		},
+		"change-choice-store-size": function ({ value }) {
+			count = value;
+			choices.length = value;
+		},
+	};
+
 	self.registerDispatcher = function (dispatcher) {
 		dispatcher.register(function (payload) {
-			if ( payload.action !== "choice" ) {
+			if ( payload.id !== id ) {
 				return;
 			}
 
-			var { index, value } = payload;
-
-			if ( payload.id === id ) {
-				choices[payload.index] = payload.value;
-
-				self.trigger("update", { index, value });
+			var action = self.allowedActions[payload.action];
+			if ( !action ) {
+				return;
 			}
+
+			action(payload);
+
+			self.trigger("update");
 		});
 	};
 

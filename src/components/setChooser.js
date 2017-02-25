@@ -103,15 +103,20 @@ var SetChooser = React.createClass({
 		}
 
 		return React.createElement("div", { className: "set-chooser" },
-			React.createElement("h3", { className: headerClass, key: header }, header,
-				React.createElement(
-					"button",
-					{
-						className: "btn btn-default set-chooser--shuffle-button",
-						onClick: this.randomize,
-					},
-					React.createElement("span", { className: "glyphicon glyphicon-random" }),
-					" all " + header
+			React.createElement("div", { className: "set-chooser--header-wrapper" }, 
+				React.createElement("h3", { className: headerClass, key: header },
+					header
+				),
+				React.createElement("div", { className: "set-chooser--header-buttons" },
+					React.createElement(
+						"button",
+						{
+							className: "btn btn-default set-chooser--shuffle-button",
+							onClick: this.randomize,
+						},
+						React.createElement("span", { className: "glyphicon glyphicon-random" }),
+						" all " + header
+					)
 				)
 			),
 			dropdowns

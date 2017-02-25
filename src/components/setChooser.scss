@@ -10,11 +10,18 @@
 		}
 	}
 
-	.set-chooser--shuffle-button {
-		float: right;
+	.set-chooser--header-buttons {
+		margin-left: auto;
+		margin-top: 20px;
+	}
+
+	.set-chooser--header-wrapper {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.set-chooser--header {
+		margin-top: 20px;
 		position: relative;
 		padding-left: 50px;
 
@@ -25,7 +32,7 @@
 			top: -5px;
 			bottom: -5px;
 			left: 20px;
-			width: 200px;
+			right: 0;
 			z-index: -1;
 
 			box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 -3px 3px rgba(0,0,0,0.1);
