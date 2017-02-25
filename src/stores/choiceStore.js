@@ -34,8 +34,23 @@ function ChoiceStore(args) {
 			choices[index] = value;
 		},
 		"change-choice-store-size": function ({ value }) {
+			if ( value < 1 ) {
+				value = 1;
+			}
+
+			if ( value > 20 ) {
+				value = 20;
+			}
+			console.log("Bad times");
+			console.log(value);
 			count = value;
 			choices.length = value;
+		},
+		"adjust-choice-store-size": function ({ amount }) {
+			console.log("Woooeee");
+			var value = count + amount;
+			console.log(arguments, value);
+			self.allowedActions["change-choice-store-size"]({ value });
 		},
 	};
 

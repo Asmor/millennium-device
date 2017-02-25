@@ -30,6 +30,10 @@ var SetChooser = React.createClass({
 		this.props.choiceStore.unbind("update", this.choicesChanged);
 		this.props.setStore.unbind("product-state-change", this.choicesChanged);
 	},
+	adjustCount: function (amount) {
+		var id = this.props.choiceStore.id();
+		this.props.dispatcher.dispatch({ action: "adjust-choice-store-size", id, amount });
+	},
 	choicesChanged: function () {
 		this.setState({ options: this.generateOptions() });
 	},
@@ -107,15 +111,30 @@ var SetChooser = React.createClass({
 				React.createElement("h3", { className: headerClass, key: header },
 					header
 				),
-				React.createElement("div", { className: "set-chooser--header-buttons" },
+				React.createElement("div", { className: "set-chooser--header-buttons btn-group" },
+					React.createElement(
+						"button",
+						{
+							className: "btn btn-default set-chooser--increment-button",
+							onClick: this.adjustCount.bind(this, 1),
+						},
+						React.createElement("span", { className: "glyphicon glyphicon-plus" })
+					),
+					React.createElement(
+						"button",
+						{
+							className: "btn btn-default set-chooser--decrement-button",
+							onClick: this.adjustCount.bind(this, -1),
+						},
+						React.createElement("span", { className: "glyphicon glyphicon-minus" })
+					),
 					React.createElement(
 						"button",
 						{
 							className: "btn btn-default set-chooser--shuffle-button",
 							onClick: this.randomize,
 						},
-						React.createElement("span", { className: "glyphicon glyphicon-random" }),
-						" all " + header
+						React.createElement("span", { className: "glyphicon glyphicon-random" })
 					)
 				)
 			),
