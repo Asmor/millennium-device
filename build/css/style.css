@@ -41,6 +41,13 @@ body {
     font-weight: bold;
     font-size: 1.5rem;
     text-align: center; }
+  .presets .presets--player-count {
+    margin-top: 5px;
+    text-align: center; }
+  .presets .presets--description {
+    font-style: italic;
+    margin-bottom: 30px;
+    text-align: center; }
   .presets .presets--set-list-header {
     position: relative;
     padding-left: 50px;

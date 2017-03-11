@@ -42007,6 +42007,8 @@ module.exports = SetDropdown;
 module.exports=[
 	{
 		"name": "First Game Setup",
+		"recommendedPlayers": "2-5",
+		"description": "Recommended setup for your first game",
 		"requires": ["core"],
 		"expansion": [
 			"1001 Nights",
@@ -42035,6 +42037,265 @@ module.exports=[
 			"bronze": "Elemental Blades",
 			"silver": "Sealed Vaults"
 		}
+	},
+	{
+		"name": "Black and White",
+		"recommendedPlayers": "2",
+		"description": "Blackout vs Score Focus",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Anvilicious Arrangements",
+			"Black Flags, Black Waters",
+			"Gno-Man’s Land",
+			"Super Plumber Bros."
+		],
+		"premium": [
+			"Cards From The Crypt",
+			"Mouse Card",
+			"The Legend of Tanananah",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Hell to Pay",
+			"Symphony of Destruction"
+		]
+	},
+	{
+		"name": "Fight to the Finish",
+		"recommendedPlayers": "3",
+		"description": "Clash focus, limited removal",
+		"requires": ["core"],
+		"expansion": [
+			"Black Flags, Black Waters",
+			"Fists of Steel",
+			"Obari as Hell",
+			"Rubber Ducky Maid Crusaders",
+			"Samurai Mowdown"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards Magica",
+			"Pandora’s Box Opened",
+			"Underlords of Metropolitam"
+		],
+		"master": [
+			"006 Plus One",
+			"Galactic Caboose",
+			"M.N.M."
+		]
+	},
+	{
+		"name": "God Hands",
+		"recommendedPlayers": "4",
+		"description": "Hand/variety focus",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Black Flags, Black Waters",
+			"Obari As Hell",
+			"Samurai Mowdown",
+			"Sunset Striders"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards from the Crypt",
+			"Clockwork Kingdom",
+			"Legend of Tanananah"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Symphony of Destruction"
+		]
+	},
+	{
+		"name": "Last Card Standing",
+		"recommendedPlayers": "5",
+		"description": "Action focus, maximum chaos",
+		"requires": ["core"],
+		"expansion": [
+			"Anvilicious Arrangements",
+			"Fists of Steel",
+			"Lightning Bug",
+			"Samurai Mowdown",
+			"Sunset Striders"
+		],
+		"premium": [
+			"Cards from the Crypt",
+			"Cards Magica",
+			"Underlords of Metropolitam",
+			"Xeno X-Over"
+		],
+		"master": [
+			"006 Plus One",
+			"M.N.M.",
+			"Vex: Cards of Hate"
+		]
+	},
+	{
+		"name": "Tribal Onslaught",
+		"recommendedPlayers": "2",
+		"description": "Action/type tribal focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Anvilicious Arrangements",
+			"FAST",
+			"Lightning Bug",
+			"Rubber Ducky Maid Crusaders",
+			"Thousand-Pixel Cabinet",
+			"Uuurgh!"
+		],
+		"premium": [
+			"AD 2400",
+			"Deus Rex Machina",
+			"Mouse Card",
+			"Pandora’s Box Opened",
+			"Underlords of Metropolitam"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Ultimate Kaiju Throwdown",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "Scalpers' Standoff",
+		"recommendedPlayers": "3",
+		"description": "Economy focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"1001 Nights",
+			"Black Flags, Black Waters",
+			"FAST",
+			"Samurai Mowdown",
+			"Saved By the 90’s",
+			"Super Plumber Bros."
+		],
+		"premium": [
+			"Cards Magica",
+			"Developmental Issues",
+			"Game of Rings",
+			"Shonen Leap",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Millennium Masters",
+			"Penny Dreadful",
+			"Vex: Cards of Hate"
+		]
+	},
+	{
+		"name": "Combo Summer",
+		"recommendedPlayers": "4",
+		"description": "Combo focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Lightning Bug",
+			"Obari as Hell",
+			"Quantum Jump",
+			"Samurai Mowdown",
+			"Super Plumber Bros.",
+			"Uuurgh!"
+		],
+		"premium": [
+			"Cards Magica",
+			"Game of Rings",
+			"Mouse Card",
+			"Pandora’s Box Opened",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Hell to Pay",
+			"Millennium Masters",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "Controlled Demolition",
+		"recommendedPlayers": "5",
+		"description": "Blackout vs Counterblackout",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Fists of Steel",
+			"Gno-Man’s Land",
+			"Quantum Jump",
+			"Saved by the 90’s",
+			"Super Plumber Bros.",
+			"Thousand-Pixel Cabinet"
+		],
+		"premium": [
+			"Cards from the Crypt",
+			"Deus Rex Machina",
+			"Game of Rings",
+			"Mouse Card",
+			"Xeno X-Over"
+		],
+		"master": [
+			"M.N.M.",
+			"Penny Dreadful",
+			"Symphony of Destruction",
+			"Ultimate Kaiju Throwdown"
+		]
+	},
+	{
+		"name": "Duelists United",
+		"recommendedPlayers": "1-5",
+		"description": "Co-op",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Black Flags, Black Waters",
+			"Fists of Steel",
+			"Quantum Jump",
+			"Rubber Ducky Maid Crusaders",
+			"Thousand-Pixel Cabinet",
+			"Uuurgh!"
+		],
+		"premium": [
+			"Cards Magica",
+			"Clockwork Empire",
+			"Deus Rex Machina",
+			"Developmental Issues",
+			"Legend of Tanananah",
+			"Xeno X-Over"
+		],
+		"master": [
+			"006 Plus One",
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "I Love Card Games",
+		"recommendedPlayers": "2-5",
+		"description": "Special Setup",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Lightning Bug",
+			"Obari as Hell",
+			"Rubber Ducky Maid Crusaders",
+			"Saved by the 90's",
+			"Super Plumber Bros.",
+			"Thousand-Pixel Cabinet"
+		],
+		"premium": [
+			"Developmental Issues",
+			"Game of Rings",
+			"Shonen Leap",
+			"Underlords of Metropolitam",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Hell to Pay",
+			"Ultimate Kaiju Throwdown",
+			"VEX: Cards of Hate"
+		]
 	}
 ]
 
@@ -42190,13 +42451,13 @@ var Menu = React.createClass({
 					location: "randomizer",
 				}),
 			}, "Randomizer"),
-			// React.createElement("button", {
-			// 	className: "btn btn-primary btn-block btn-lg menu--button",
-			// 	onClick: () => this.props.dispatcher.dispatch({
-			// 		action: "location-change",
-			// 		location: "presets",
-			// 	}),
-			// }, "Presets"),
+			React.createElement("button", {
+				className: "btn btn-primary btn-block btn-lg menu--button",
+				onClick: () => this.props.dispatcher.dispatch({
+					action: "location-change",
+					location: "presets",
+				}),
+			}, "Presets"),
 			React.createElement("button", {
 				className: "btn btn-primary btn-block btn-lg menu--button",
 				onClick: () => this.props.dispatcher.dispatch({
@@ -42441,49 +42702,65 @@ var SelectProducts = React.createClass({
 		var self = this;
 
 		var presetElements = self.state.presets.map(function (preset, index) {
-			return React.createElement("ul", { className: "presets--list", key: index },
+			var listContents = [
 				// Name
-				React.createElement("li", { className: "presets--preset-name" }, preset.name),
+				React.createElement("li", { key: "name", className: "presets--preset-name" }, preset.name),
+
+				// Player count
+				React.createElement("li", { key: "player-count", className: "presets--player-count" }, "Recommended players: ", preset.recommendedPlayers),
+
+				// Description
+				React.createElement("li", { key: "description", className: "presets--description" }, preset.description),
 
 				// Expansion list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__expansion" }, "Expansion"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__expansion" },
+				React.createElement("li", { key: "expansion-header", className: "presets--set-list-header presets--set-list-header__expansion" }, "Expansion"),
+				React.createElement("ul", { key: "expansion-list", className: "presets--set-list presets--set-list__expansion" },
 					preset.expansion.map(function (expansion, index) {
 						return React.createElement("li", { className: "presets--set presets--set__expansion", key: index }, expansion);
 					})
 				),
 
 				// Premium list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__premium" }, "Premium"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__premium" },
+				React.createElement("li", { key: "premium-header", className: "presets--set-list-header presets--set-list-header__premium" }, "Premium"),
+				React.createElement("ul", { key: "premium-list", className: "presets--set-list presets--set-list__premium" },
 					preset.premium.map(function (premium, index) {
 						return React.createElement("li", { className: "presets--set presets--set__premium", key: index }, premium);
 					})
 				),
 
 				// Master list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__master" }, "Master"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__master" },
+				React.createElement("li", { key: "master-header", className: "presets--set-list-header presets--set-list-header__master" }, "Master"),
+				React.createElement("ul", { key: "master-list", className: "presets--set-list presets--set-list__master" },
 					preset.master.map(function (master, index) {
 						return React.createElement("li", { className: "presets--set presets--set__master", key: index }, master);
 					}
 				)),
+			];
 
-				// Fusion list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__fusion" }, "Fusion"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__fusion" },
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__bronze" }, "Bronze: " + preset.fusion.bronze),
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__silver" }, "Silver: " + preset.fusion.silver),
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__gold" }, "Gold: " + preset.fusion.gold)
-				),
+			// Fusion list
+			if (preset.fusion) {
+				listContents.push(
+					React.createElement("li", { key: "fusion-header", className: "presets--set-list-header presets--set-list-header__fusion" }, "Fusion"),
+					React.createElement("ul", { key: "fusion-list", className: "presets--set-list presets--set-list__fusion" },
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__bronze" }, "Bronze: " + preset.fusion.bronze),
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__silver" }, "Silver: " + preset.fusion.silver),
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__gold" }, "Gold: " + preset.fusion.gold)
+					)
+				);
+			}
 
-				// Prize list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__prize" }, "Prize Support"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__prize" },
-					React.createElement("li", { className: "presets--set presets--set__prize presets--set__bronze" }, "Bronze: " + preset.prize.bronze),
-					React.createElement("li", { className: "presets--set presets--set__prize presets--set__silver" }, "Silver: " + preset.prize.silver)
-				)
-			);
+			if ( preset.prize ) {
+				listContents.push(
+					// Prize list
+					React.createElement("li", { key: "prize-header", className: "presets--set-list-header presets--set-list-header__prize" }, "Prize Support"),
+					React.createElement("ul", { key: "prize-list", className: "presets--set-list presets--set-list__prize" },
+						React.createElement("li", { className: "presets--set presets--set__prize presets--set__bronze" }, "Bronze: " + preset.prize.bronze),
+						React.createElement("li", { className: "presets--set presets--set__prize presets--set__silver" }, "Silver: " + preset.prize.silver)
+					)
+				);
+			}
+
+			return React.createElement("ul", { className: "presets--list", key: index }, listContents);
 		});
 
 		return React.createElement("div", { className: "presets" }, presetElements);

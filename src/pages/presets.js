@@ -31,49 +31,65 @@ var SelectProducts = React.createClass({
 		var self = this;
 
 		var presetElements = self.state.presets.map(function (preset, index) {
-			return React.createElement("ul", { className: "presets--list", key: index },
+			var listContents = [
 				// Name
-				React.createElement("li", { className: "presets--preset-name" }, preset.name),
+				React.createElement("li", { key: "name", className: "presets--preset-name" }, preset.name),
+
+				// Player count
+				React.createElement("li", { key: "player-count", className: "presets--player-count" }, "Recommended players: ", preset.recommendedPlayers),
+
+				// Description
+				React.createElement("li", { key: "description", className: "presets--description" }, preset.description),
 
 				// Expansion list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__expansion" }, "Expansion"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__expansion" },
+				React.createElement("li", { key: "expansion-header", className: "presets--set-list-header presets--set-list-header__expansion" }, "Expansion"),
+				React.createElement("ul", { key: "expansion-list", className: "presets--set-list presets--set-list__expansion" },
 					preset.expansion.map(function (expansion, index) {
 						return React.createElement("li", { className: "presets--set presets--set__expansion", key: index }, expansion);
 					})
 				),
 
 				// Premium list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__premium" }, "Premium"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__premium" },
+				React.createElement("li", { key: "premium-header", className: "presets--set-list-header presets--set-list-header__premium" }, "Premium"),
+				React.createElement("ul", { key: "premium-list", className: "presets--set-list presets--set-list__premium" },
 					preset.premium.map(function (premium, index) {
 						return React.createElement("li", { className: "presets--set presets--set__premium", key: index }, premium);
 					})
 				),
 
 				// Master list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__master" }, "Master"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__master" },
+				React.createElement("li", { key: "master-header", className: "presets--set-list-header presets--set-list-header__master" }, "Master"),
+				React.createElement("ul", { key: "master-list", className: "presets--set-list presets--set-list__master" },
 					preset.master.map(function (master, index) {
 						return React.createElement("li", { className: "presets--set presets--set__master", key: index }, master);
 					}
 				)),
+			];
 
-				// Fusion list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__fusion" }, "Fusion"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__fusion" },
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__bronze" }, "Bronze: " + preset.fusion.bronze),
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__silver" }, "Silver: " + preset.fusion.silver),
-					React.createElement("li", { className: "presets--set presets--set__fusion presets--set__gold" }, "Gold: " + preset.fusion.gold)
-				),
+			// Fusion list
+			if (preset.fusion) {
+				listContents.push(
+					React.createElement("li", { key: "fusion-header", className: "presets--set-list-header presets--set-list-header__fusion" }, "Fusion"),
+					React.createElement("ul", { key: "fusion-list", className: "presets--set-list presets--set-list__fusion" },
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__bronze" }, "Bronze: " + preset.fusion.bronze),
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__silver" }, "Silver: " + preset.fusion.silver),
+						React.createElement("li", { className: "presets--set presets--set__fusion presets--set__gold" }, "Gold: " + preset.fusion.gold)
+					)
+				);
+			}
 
-				// Prize list
-				React.createElement("li", { className: "presets--set-list-header presets--set-list-header__prize" }, "Prize Support"),
-				React.createElement("ul", { className: "presets--set-list presets--set-list__prize" },
-					React.createElement("li", { className: "presets--set presets--set__prize presets--set__bronze" }, "Bronze: " + preset.prize.bronze),
-					React.createElement("li", { className: "presets--set presets--set__prize presets--set__silver" }, "Silver: " + preset.prize.silver)
-				)
-			);
+			if ( preset.prize ) {
+				listContents.push(
+					// Prize list
+					React.createElement("li", { key: "prize-header", className: "presets--set-list-header presets--set-list-header__prize" }, "Prize Support"),
+					React.createElement("ul", { key: "prize-list", className: "presets--set-list presets--set-list__prize" },
+						React.createElement("li", { className: "presets--set presets--set__prize presets--set__bronze" }, "Bronze: " + preset.prize.bronze),
+						React.createElement("li", { className: "presets--set presets--set__prize presets--set__silver" }, "Silver: " + preset.prize.silver)
+					)
+				);
+			}
+
+			return React.createElement("ul", { className: "presets--list", key: index }, listContents);
 		});
 
 		return React.createElement("div", { className: "presets" }, presetElements);

@@ -1,6 +1,8 @@
 [
 	{
 		"name": "First Game Setup",
+		"recommendedPlayers": "2-5",
+		"description": "Recommended setup for your first game",
 		"requires": ["core"],
 		"expansion": [
 			"1001 Nights",
@@ -29,5 +31,264 @@
 			"bronze": "Elemental Blades",
 			"silver": "Sealed Vaults"
 		}
+	},
+	{
+		"name": "Black and White",
+		"recommendedPlayers": "2",
+		"description": "Blackout vs Score Focus",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Anvilicious Arrangements",
+			"Black Flags, Black Waters",
+			"Gno-Man’s Land",
+			"Super Plumber Bros."
+		],
+		"premium": [
+			"Cards From The Crypt",
+			"Mouse Card",
+			"The Legend of Tanananah",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Hell to Pay",
+			"Symphony of Destruction"
+		]
+	},
+	{
+		"name": "Fight to the Finish",
+		"recommendedPlayers": "3",
+		"description": "Clash focus, limited removal",
+		"requires": ["core"],
+		"expansion": [
+			"Black Flags, Black Waters",
+			"Fists of Steel",
+			"Obari as Hell",
+			"Rubber Ducky Maid Crusaders",
+			"Samurai Mowdown"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards Magica",
+			"Pandora’s Box Opened",
+			"Underlords of Metropolitam"
+		],
+		"master": [
+			"006 Plus One",
+			"Galactic Caboose",
+			"M.N.M."
+		]
+	},
+	{
+		"name": "God Hands",
+		"recommendedPlayers": "4",
+		"description": "Hand/variety focus",
+		"requires": ["core"],
+		"expansion": [
+			"1001 Nights",
+			"Black Flags, Black Waters",
+			"Obari As Hell",
+			"Samurai Mowdown",
+			"Sunset Striders"
+		],
+		"premium": [
+			"AD 2400",
+			"Cards from the Crypt",
+			"Clockwork Kingdom",
+			"Legend of Tanananah"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Symphony of Destruction"
+		]
+	},
+	{
+		"name": "Last Card Standing",
+		"recommendedPlayers": "5",
+		"description": "Action focus, maximum chaos",
+		"requires": ["core"],
+		"expansion": [
+			"Anvilicious Arrangements",
+			"Fists of Steel",
+			"Lightning Bug",
+			"Samurai Mowdown",
+			"Sunset Striders"
+		],
+		"premium": [
+			"Cards from the Crypt",
+			"Cards Magica",
+			"Underlords of Metropolitam",
+			"Xeno X-Over"
+		],
+		"master": [
+			"006 Plus One",
+			"M.N.M.",
+			"Vex: Cards of Hate"
+		]
+	},
+	{
+		"name": "Tribal Onslaught",
+		"recommendedPlayers": "2",
+		"description": "Action/type tribal focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Anvilicious Arrangements",
+			"FAST",
+			"Lightning Bug",
+			"Rubber Ducky Maid Crusaders",
+			"Thousand-Pixel Cabinet",
+			"Uuurgh!"
+		],
+		"premium": [
+			"AD 2400",
+			"Deus Rex Machina",
+			"Mouse Card",
+			"Pandora’s Box Opened",
+			"Underlords of Metropolitam"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Ultimate Kaiju Throwdown",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "Scalpers' Standoff",
+		"recommendedPlayers": "3",
+		"description": "Economy focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"1001 Nights",
+			"Black Flags, Black Waters",
+			"FAST",
+			"Samurai Mowdown",
+			"Saved By the 90’s",
+			"Super Plumber Bros."
+		],
+		"premium": [
+			"Cards Magica",
+			"Developmental Issues",
+			"Game of Rings",
+			"Shonen Leap",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Millennium Masters",
+			"Penny Dreadful",
+			"Vex: Cards of Hate"
+		]
+	},
+	{
+		"name": "Combo Summer",
+		"recommendedPlayers": "4",
+		"description": "Combo focus",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Lightning Bug",
+			"Obari as Hell",
+			"Quantum Jump",
+			"Samurai Mowdown",
+			"Super Plumber Bros.",
+			"Uuurgh!"
+		],
+		"premium": [
+			"Cards Magica",
+			"Game of Rings",
+			"Mouse Card",
+			"Pandora’s Box Opened",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Galactic Caboose",
+			"Hell to Pay",
+			"Millennium Masters",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "Controlled Demolition",
+		"recommendedPlayers": "5",
+		"description": "Blackout vs Counterblackout",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Fists of Steel",
+			"Gno-Man’s Land",
+			"Quantum Jump",
+			"Saved by the 90’s",
+			"Super Plumber Bros.",
+			"Thousand-Pixel Cabinet"
+		],
+		"premium": [
+			"Cards from the Crypt",
+			"Deus Rex Machina",
+			"Game of Rings",
+			"Mouse Card",
+			"Xeno X-Over"
+		],
+		"master": [
+			"M.N.M.",
+			"Penny Dreadful",
+			"Symphony of Destruction",
+			"Ultimate Kaiju Throwdown"
+		]
+	},
+	{
+		"name": "Duelists United",
+		"recommendedPlayers": "1-5",
+		"description": "Co-op",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Black Flags, Black Waters",
+			"Fists of Steel",
+			"Quantum Jump",
+			"Rubber Ducky Maid Crusaders",
+			"Thousand-Pixel Cabinet",
+			"Uuurgh!"
+		],
+		"premium": [
+			"Cards Magica",
+			"Clockwork Empire",
+			"Deus Rex Machina",
+			"Developmental Issues",
+			"Legend of Tanananah",
+			"Xeno X-Over"
+		],
+		"master": [
+			"006 Plus One",
+			"Fantasy Finale",
+			"Millennium Masters",
+			"Ultimate Steel Cook"
+		]
+	},
+	{
+		"name": "I Love Card Games",
+		"recommendedPlayers": "2-5",
+		"description": "Special Setup",
+		"requires": ["core", "exp1"],
+		"expansion": [
+			"Lightning Bug",
+			"Obari as Hell",
+			"Rubber Ducky Maid Crusaders",
+			"Saved by the 90's",
+			"Super Plumber Bros.",
+			"Thousand-Pixel Cabinet"
+		],
+		"premium": [
+			"Developmental Issues",
+			"Game of Rings",
+			"Shonen Leap",
+			"Underlords of Metropolitam",
+			"Xeno X-Over"
+		],
+		"master": [
+			"Fantasy Finale",
+			"Hell to Pay",
+			"Ultimate Kaiju Throwdown",
+			"VEX: Cards of Hate"
+		]
 	}
 ]
