@@ -5,5 +5,6 @@
 	{ "pid": "mini2", "order": 4, "image": "images/products/mini2.png", "name": "Mini-Expansion 2: Sponsors" },
 	{ "pid": "mini3", "order": 5, "image": "images/products/mini3.png", "name": "Mini-Expansion 3: Fusion Chaos" },
 	{ "pid": "mini4", "order": 6, "image": "images/products/mini4.png", "name": "Mini-Expansion 4: Final Bosses" },
-	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" }
+	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" },
+	{ "pid": "mini6", "order": 7, "image": "images/products/mini6.png", "name": "Mini-Expansion 6: Professionals" }
 ]

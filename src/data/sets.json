@@ -115,5 +115,9 @@
 	{ "pid": "mini5", "type": "Silver",    "name": "Seventh Cross: Villains" },
 	{ "pid": "mini5", "type": "Gold",      "name": "BattleCON: Trials of Indines" },
 	{ "pid": "mini5", "type": "Gold",      "name": "Sellswords Olympus" },
-	{ "pid": "mini5", "type": "Gold",      "name": "Tomb Trader" }
+	{ "pid": "mini5", "type": "Gold",      "name": "Tomb Trader" },
+	{ "pid": "mini6", "type": "Character", "name": "Greline" },
+	{ "pid": "mini6", "type": "Character", "name": "Protor von Granprie" },
+	{ "pid": "mini6", "type": "Expansion", "name": "Mystic: The Reckoning" },
+	{ "pid": "mini6", "type": "Master",    "name": "The Sports Set: Nerdy Stuff for Normies" }
 ]
