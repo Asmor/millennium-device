@@ -41508,11 +41508,6 @@ exports.createContext = Script.createContext = function (context) {
 },{"indexof":92}],305:[function(require,module,exports){
 "use strict";
 
-// If we get an update, refresh the browser
-window.applicationCache.addEventListener("updateready", function () {
-	window.location.reload();
-}, false);
-
 var Dispatcher = require("flux/lib/Dispatcher");
 
 var React = require("react");
