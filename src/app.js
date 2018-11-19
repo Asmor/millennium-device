@@ -1,10 +1,5 @@
 "use strict";
 
-// If we get an update, refresh the browser
-window.applicationCache.addEventListener("updateready", function () {
-	window.location.reload();
-}, false);
-
 var Dispatcher = require("flux/lib/Dispatcher");
 
 var React = require("react");
