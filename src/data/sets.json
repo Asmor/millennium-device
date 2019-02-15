@@ -120,6 +120,6 @@
 	{ "pid": "mini6", "type": "Character", "name": "Protor von Granprie" },
 	{ "pid": "mini6", "type": "Expansion", "name": "Mystic: The Reckoning" },
 	{ "pid": "mini6", "type": "Master",    "name": "The Sports Set: Nerdy Stuff for Normies" },
-	{ "pid": "mini7", "type": "Premium",    "name": "Kartes Des Jahres" },
+	{ "pid": "mini7", "type": "Premium",   "name": "Kartes Des Jahres" },
 	{ "pid": "mini7", "type": "Master",    "name": "Bro'Kin's Best" }
 ]
