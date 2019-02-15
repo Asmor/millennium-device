@@ -44923,8 +44923,8 @@ module.exports=[
 	{ "pid": "mini3", "order": 5, "image": "images/products/mini3.png", "name": "Mini-Expansion 3: Fusion Chaos" },
 	{ "pid": "mini4", "order": 6, "image": "images/products/mini4.png", "name": "Mini-Expansion 4: Final Bosses" },
 	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" },
-	{ "pid": "mini6", "order": 7, "image": "images/products/mini6.png", "name": "Mini-Expansion 6: Professionals" },
-	{ "pid": "mini7", "order": 7, "image": "images/products/mini7.png", "name": "Mini-Expansion 7: BoardGameGeek" }
+	{ "pid": "mini6", "order": 8, "image": "images/products/mini6.png", "name": "Mini-Expansion 6: Professionals" },
+	{ "pid": "mini7", "order": 9, "image": "images/products/mini7.png", "name": "Mini-Expansion 7: BoardGameGeek" }
 ]
 
 },{}],360:[function(require,module,exports){
@@ -45050,7 +45050,7 @@ module.exports= [
 	{ "pid": "mini6", "type": "Character", "name": "Protor von Granprie" },
 	{ "pid": "mini6", "type": "Expansion", "name": "Mystic: The Reckoning" },
 	{ "pid": "mini6", "type": "Master",    "name": "The Sports Set: Nerdy Stuff for Normies" },
-	{ "pid": "mini7", "type": "Premium",    "name": "Kartes Des Jahres" },
+	{ "pid": "mini7", "type": "Premium",   "name": "Kartes Des Jahres" },
 	{ "pid": "mini7", "type": "Master",    "name": "Bro'Kin's Best" }
 ]
 
