@@ -27,6 +27,6 @@ fs.readFile(source, "utf-8", function (err, data) {
 		.replace(/DATE: .*/, "DATE: " + date)
 	;
 
-	fs.writeFile(source, updatedFile, "utf-8");
-	fs.writeFile(output, updatedFile, "utf-8");
+	fs.writeFileSync(source, updatedFile, "utf-8");
+	fs.writeFileSync(output, updatedFile, "utf-8");
 });
