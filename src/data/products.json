@@ -7,5 +7,11 @@
 	{ "pid": "mini4", "order": 6, "image": "images/products/mini4.png", "name": "Mini-Expansion 4: Final Bosses" },
 	{ "pid": "mini5", "order": 7, "image": "images/products/mini5.png", "name": "Mini-Expansion 5: Futures" },
 	{ "pid": "mini6", "order": 8, "image": "images/products/mini6.png", "name": "Mini-Expansion 6: Professionals" },
-	{ "pid": "mini7", "order": 9, "image": "images/products/mini7.png", "name": "Mini-Expansion 7: BoardGameGeek" }
+	{ "pid": "mini7", "order": 9, "image": "images/products/mini7.png", "name": "Mini-Expansion 7: BoardGameGeek" },
+	{ "pid": "exp2",  "order": 10,"image": "images/products/exp2.png", "name": "Collusion"},
+	{ "pid": "mini8", "order": 11,"image": "images/products/mini8.png", "name": "Crossovers 2"},
+	{ "pid": "mini9", "order": 12,"image": "images/products/mini9.png", "name": "Crossovers 3"},
+	{ "pid": "mini10","order": 13,"image": "images/products/mini10.png", "name": "More Sets"},
+	{ "pid": "mini11","order": 14,"image": "images/products/mini11.png", "name": "Finaler Bosses"},
+	{ "pid": "mini12","order": 15,"image": "images/products/mini12.png", "name": "Extra Characters"}
 ]

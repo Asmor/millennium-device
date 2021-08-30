@@ -94,9 +94,9 @@ var setStore = new SetStore({
 });
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
-	Expansion: new ChoiceStore({ dispatcher, count: 5 }),
-	Premium: new ChoiceStore({ dispatcher, count: 4 }),
-	Master: new ChoiceStore({ dispatcher, count: 3 }),
+	Expansion: new ChoiceStore({ dispatcher, count: 6 }),
+	Premium: new ChoiceStore({ dispatcher, count: 5 }),
+	Master: new ChoiceStore({ dispatcher, count: 4 }),
 	Bronze: new ChoiceStore({ dispatcher, count: 2 }),
 	Silver: new ChoiceStore({ dispatcher, count: 2 }),
 	Gold: new ChoiceStore({ dispatcher, count: 1 }),
